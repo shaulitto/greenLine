@@ -8,6 +8,6 @@ router.get("/", (req, res) => {
   res.send("This is home");
 });
 
-router.use("/", testerRoutes);
+router.use("/api/test", testerRoutes);
 
 module.exports = router;
