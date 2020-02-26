@@ -9,10 +9,10 @@ const userSchema = new Schema(
       unique: true
     },
     password: String,
-    _upvotes: [
+    favorites: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Post"
+        ref: "Journey"
       }
     ]
   },
