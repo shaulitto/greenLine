@@ -2,13 +2,13 @@
 
 const router = require("express").Router();
 const usersRoutes = require("./users");
-const postsRoutes = require("./posts");
 const testerRoutes = require("./tester");
 
 router.get("/", (req, res) => {
   res.send("This is home");
 });
 
+router.use("/api/auth", usersRoutes);
 router.use("/api", testerRoutes);
 
 module.exports = router;
