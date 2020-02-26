@@ -13,7 +13,6 @@ const when = moment
   .second(0)
   .day(1 + 7)
   .toDate();
-
 router.get("/test", (req, res) => {
   prices("8000096", "8011160", when)
     .then(routes => {

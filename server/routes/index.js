@@ -9,6 +9,6 @@ router.get("/", (req, res) => {
   res.send("This is home");
 });
 
-router.use("/api", testerRoutes);
+router.use("/api/test", testerRoutes);
 
 module.exports = router;
