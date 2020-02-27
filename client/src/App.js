@@ -4,6 +4,7 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import { Route } from "react-router-dom";
+import SearchForm from "./components/SearchForm";
 
 class App extends React.Component {
   state = {
@@ -33,6 +34,7 @@ class App extends React.Component {
             <Login history={props.history} setUser={this.setUser} />
           )}
         />
+        <SearchForm />
       </div>
     );
   }
