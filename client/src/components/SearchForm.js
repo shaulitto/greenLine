@@ -48,7 +48,7 @@ export class SearchForm extends Component {
           .includes(this.state[direction].toLowerCase());
       });
 
-      if (direction == "to") {
+      if (direction === "to") {
         this.setState({
           resultTo: filtered
         });
@@ -72,7 +72,7 @@ export class SearchForm extends Component {
     );
   };
 
-  updateText = text => {
+  updateFrom = text => {
     this.setState({
       from: text,
       resultFrom: []
@@ -94,6 +94,9 @@ export class SearchForm extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
+
+          <label htmlFor="From">From</label>
+
           <Autocomplete
             name="from"
             id="from"
@@ -124,14 +127,14 @@ export class SearchForm extends Component {
             onChange={this.handleChange}
           />
           <button type="submit">Submit Date!</button>
-        </form>
 
-        <select>
-          <option value="E">Adults</option>
-          <option value="K">Children</option>
-          <option value="B">Baby</option>
-        </select>
-        <button onClick={this.submit}>Search</button>
+          <select>
+            <option value="E">Adults</option>
+            <option value="K">Children</option>
+            <option value="B">Baby</option>
+          </select>
+          <button onClick={this.submit}>Search</button>
+        </form>
       </div>
     );
   }
