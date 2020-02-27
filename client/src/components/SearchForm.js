@@ -7,7 +7,6 @@ export class SearchForm extends Component {
     date: new Date(),
     from: "",
     to: "",
-    
     class: "",
     travellers: "",
     resultTo: [],
@@ -31,12 +30,11 @@ export class SearchForm extends Component {
     // let date = this.state.date.slice(0, 16);
     console.log("searchdate:", this.state.date.slice(0, 16));
 
-    axios
-      .post("/api/price", { date: this.state.date.slice(0, 16) })
-      .then(res => {
-        console.log("RESPONSE:", res);
-      });
- 
+    // axios
+    //   .post("/api/price", { date: this.state.date.slice(0, 16) })
+    //   .then(res => {
+    //     console.log("RESPONSE:", res);
+    //   });
   };
 
   getStations = direction => {
@@ -90,44 +88,28 @@ export class SearchForm extends Component {
   };
 
   render() {
-    console.log(this.state.date);
     return (
       <div>
-<<<<<<< HEAD
-        <form onSubmit={this.handleSubmit}>
-          {/* <label htmlFor="From">From</label>
-          <input name="from" id="from" value="" onChange="" />
-=======
-        <form>
-          <label htmlFor="From">From</label>
-          <Autocomplete
-            name="from"
-            id="from"
-            handleInputChange={this.handleInputChange}
-            updateText={this.updateText}
-            results={this.state.resultFrom}
-            value={this.state.from}
-          />
->>>>>>> d9546df1b91163e7f2eee9c08e8d49c49eead426
-          <button>switch</button>
-          <label htmlFor="To">To</label>
+        <Autocomplete
+          name="from"
+          id="from"
+          handleInputChange={this.handleInputChange}
+          updateText={this.updateText}
+          results={this.state.resultFrom}
+          value={this.state.from}
+        />
+        <button>switch</button>
+        <label htmlFor="To">To</label>
 
-          <Autocomplete
-            name="to"
-            id="to"
-            handleInputChange={this.handleInputChange}
-            updateText={this.updateTo}
-            results={this.state.resultTo}
-            value={this.state.to}
-          />
-          <label htmlFor="Date">Date </label>
-<<<<<<< HEAD
-          <select name="select-date">
-            <option value="Day">
-              Day <input type="date" />
-            </option>
-            <option value="Month">Month</option>
-          </select> */}
+        <Autocomplete
+          name="to"
+          id="to"
+          handleInputChange={this.handleInputChange}
+          updateText={this.updateTo}
+          results={this.state.resultTo}
+          value={this.state.to}
+        />
+        <form onSubmit={this.handleSubmit}>
           <label htmlFor="Date">Date </label>
           <input
             type="datetime-local"
@@ -137,24 +119,15 @@ export class SearchForm extends Component {
             value={this.state.date}
             onChange={this.handleChange}
           />
-          {/* <input
-            id="content"
-            name="content"
-            value={this.state.content}
-            onChange={this.handleChange}
-          /> */}
-
-          <button type="submit">Submit, Menna!</button>
-=======
-          <input type="datetime-local" />
-          <select>
-            <option value="E">Adults</option>
-            <option value="K">Children</option>
-            <option value="B">Baby</option>
-          </select>
-          <button onClick={this.submit}>Search</button>
->>>>>>> d9546df1b91163e7f2eee9c08e8d49c49eead426
+          <button type="submit">Submit Date!</button>
         </form>
+
+        <select>
+          <option value="E">Adults</option>
+          <option value="K">Children</option>
+          <option value="B">Baby</option>
+        </select>
+        <button onClick={this.submit}>Search</button>
       </div>
     );
   }
