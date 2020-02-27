@@ -34,7 +34,6 @@ export class SearchForm extends Component {
       //   .post("/api/price", { date: this.state.date.slice(0, 16) })
       //   +"?from="+this.state.from+"?to="+this.state.
       .get("/api/price?date=" + this.state.date.slice(0, 16))
-
       .then(res => {
         console.log("RESPONSE:", res);
       });
