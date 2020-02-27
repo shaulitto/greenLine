@@ -30,11 +30,14 @@ export class SearchForm extends Component {
     // let date = this.state.date.slice(0, 16);
     console.log("searchdate:", this.state.date.slice(0, 16));
 
-    // axios
-    //   .post("/api/price", { date: this.state.date.slice(0, 16) })
-    //   .then(res => {
-    //     console.log("RESPONSE:", res);
-    //   });
+    axios
+      //   .post("/api/price", { date: this.state.date.slice(0, 16) })
+      //   +"?from="+this.state.from+"?to="+this.state.
+      .get("/api/price?date=" + this.state.date.slice(0, 16))
+
+      .then(res => {
+        console.log("RESPONSE:", res);
+      });
   };
 
   getStations = direction => {
@@ -90,26 +93,27 @@ export class SearchForm extends Component {
   render() {
     return (
       <div>
-        <Autocomplete
-          name="from"
-          id="from"
-          handleInputChange={this.handleInputChange}
-          updateText={this.updateText}
-          results={this.state.resultFrom}
-          value={this.state.from}
-        />
-        <button>switch</button>
-        <label htmlFor="To">To</label>
-
-        <Autocomplete
-          name="to"
-          id="to"
-          handleInputChange={this.handleInputChange}
-          updateText={this.updateTo}
-          results={this.state.resultTo}
-          value={this.state.to}
-        />
         <form onSubmit={this.handleSubmit}>
+          <Autocomplete
+            name="from"
+            id="from"
+            handleInputChange={this.handleInputChange}
+            updateText={this.updateText}
+            results={this.state.resultFrom}
+            value={this.state.from}
+          />
+          <button>switch</button>
+          <label htmlFor="To">To</label>
+
+          <Autocomplete
+            name="to"
+            id="to"
+            handleInputChange={this.handleInputChange}
+            updateText={this.updateTo}
+            results={this.state.resultTo}
+            value={this.state.to}
+          />
+
           <label htmlFor="Date">Date </label>
           <input
             type="datetime-local"
