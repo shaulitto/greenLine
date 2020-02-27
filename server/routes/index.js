@@ -2,13 +2,13 @@
 
 const router = require("express").Router();
 const usersRoutes = require("./users");
-const testerRoutes = require("./tester");
+const priceRoutes = require("./price");
 
 router.get("/", (req, res) => {
   res.send("This is home");
 });
 
 router.use("/api/auth", usersRoutes);
-router.use("/api", testerRoutes);
+router.use("/api", priceRoutes);
 
 module.exports = router;
