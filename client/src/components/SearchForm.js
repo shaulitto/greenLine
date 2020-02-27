@@ -4,13 +4,37 @@ import Autocomplete from "./Autocomplete";
 
 export class SearchForm extends Component {
   state = {
+    date: new Date(),
     from: "",
     to: "",
-    when: "",
     class: "",
     travellers: "",
     resultTo: [],
     resultFrom: []
+  };
+
+  handleChange = e => {
+    console.log(e.target);
+
+    const date = e.target.value;
+    const stringDate = new Date(date).toISOString().slice(0, -1);
+    this.setState({
+      date: stringDate
+    });
+    // console.log(this.state.date);
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    // date: this.state.date
+    // let date = this.state.date.slice(0, 16);
+    console.log("searchdate:", this.state.date.slice(0, 16));
+
+    // axios
+    //   .post("/api/price", { date: this.state.date.slice(0, 16) })
+    //   .then(res => {
+    //     console.log("RESPONSE:", res);
+    //   });
   };
 
   getStations = direction => {
@@ -66,36 +90,44 @@ export class SearchForm extends Component {
   render() {
     return (
       <div>
-        <form>
-          <label htmlFor="From">From</label>
-          <Autocomplete
-            name="from"
-            id="from"
-            handleInputChange={this.handleInputChange}
-            updateText={this.updateText}
-            results={this.state.resultFrom}
-            value={this.state.from}
-          />
-          <button>switch</button>
-          <label htmlFor="To">To</label>
+        <Autocomplete
+          name="from"
+          id="from"
+          handleInputChange={this.handleInputChange}
+          updateText={this.updateText}
+          results={this.state.resultFrom}
+          value={this.state.from}
+        />
+        <button>switch</button>
+        <label htmlFor="To">To</label>
 
-          <Autocomplete
-            name="to"
-            id="to"
-            handleInputChange={this.handleInputChange}
-            updateText={this.updateTo}
-            results={this.state.resultTo}
-            value={this.state.to}
-          />
+        <Autocomplete
+          name="to"
+          id="to"
+          handleInputChange={this.handleInputChange}
+          updateText={this.updateTo}
+          results={this.state.resultTo}
+          value={this.state.to}
+        />
+        <form onSubmit={this.handleSubmit}>
           <label htmlFor="Date">Date </label>
-          <input type="datetime-local" />
-          <select>
-            <option value="E">Adults</option>
-            <option value="K">Children</option>
-            <option value="B">Baby</option>
-          </select>
-          <button onClick={this.submit}>Search</button>
+          <input
+            type="datetime-local"
+            // type="date"
+            id="date"
+            name="date"
+            value={this.state.date}
+            onChange={this.handleChange}
+          />
+          <button type="submit">Submit Date!</button>
         </form>
+
+        <select>
+          <option value="E">Adults</option>
+          <option value="K">Children</option>
+          <option value="B">Baby</option>
+        </select>
+        <button onClick={this.submit}>Search</button>
       </div>
     );
   }
