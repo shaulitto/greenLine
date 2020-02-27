@@ -45,7 +45,7 @@ export class SearchForm extends Component {
           .includes(this.state[direction].toLowerCase());
       });
 
-      if (direction == "to") {
+      if (direction === "to") {
         this.setState({
           resultTo: filtered
         });
@@ -69,7 +69,7 @@ export class SearchForm extends Component {
     );
   };
 
-  updateText = text => {
+  updateFrom = text => {
     this.setState({
       from: text,
       resultFrom: []
@@ -90,26 +90,31 @@ export class SearchForm extends Component {
   render() {
     return (
       <div>
-        <Autocomplete
-          name="from"
-          id="from"
-          handleInputChange={this.handleInputChange}
-          updateText={this.updateText}
-          results={this.state.resultFrom}
-          value={this.state.from}
-        />
-        <button>switch</button>
-        <label htmlFor="To">To</label>
-
-        <Autocomplete
-          name="to"
-          id="to"
-          handleInputChange={this.handleInputChange}
-          updateText={this.updateTo}
-          results={this.state.resultTo}
-          value={this.state.to}
-        />
+<<<<<<< HEAD
         <form onSubmit={this.handleSubmit}>
+=======
+        <form>
+          <label htmlFor="From">From</label>
+>>>>>>> 13a2ea5108d04a25e1dd440fe9af6cfa085077e9
+          <Autocomplete
+            name="from"
+            id="from"
+            handleInputChange={this.handleInputChange}
+            updateText={this.updateText}
+            results={this.state.resultFrom}
+            value={this.state.from}
+          />
+          <button>switch</button>
+          <label htmlFor="To">To</label>
+
+          <Autocomplete
+            name="to"
+            id="to"
+            handleInputChange={this.handleInputChange}
+            updateText={this.updateTo}
+            results={this.state.resultTo}
+            value={this.state.to}
+          />
           <label htmlFor="Date">Date </label>
           <input
             type="datetime-local"
@@ -120,14 +125,14 @@ export class SearchForm extends Component {
             onChange={this.handleChange}
           />
           <button type="submit">Submit Date!</button>
-        </form>
 
-        <select>
-          <option value="E">Adults</option>
-          <option value="K">Children</option>
-          <option value="B">Baby</option>
-        </select>
-        <button onClick={this.submit}>Search</button>
+          <select>
+            <option value="E">Adults</option>
+            <option value="K">Children</option>
+            <option value="B">Baby</option>
+          </select>
+          <button onClick={this.submit}>Search</button>
+        </form>
       </div>
     );
   }
