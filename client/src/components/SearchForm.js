@@ -21,7 +21,7 @@ export class SearchForm extends Component {
           .includes(this.state[direction].toLowerCase());
       });
 
-      if (direction == "to") {
+      if (direction === "to") {
         this.setState({
           resultTo: filtered
         });
@@ -45,7 +45,7 @@ export class SearchForm extends Component {
     );
   };
 
-  updateText = text => {
+  updateFrom = text => {
     this.setState({
       from: text,
       resultFrom: []
@@ -72,7 +72,7 @@ export class SearchForm extends Component {
             name="from"
             id="from"
             handleInputChange={this.handleInputChange}
-            updateText={this.updateText}
+            updateText={this.updateFrom}
             results={this.state.resultFrom}
             value={this.state.from}
           />
