@@ -26,7 +26,6 @@ class App extends React.Component {
           render={props => (
             <Signup history={props.history} setUser={this.setUser} />
           )}
-          // component={Signup}
         />
         <Route
           path="/login"

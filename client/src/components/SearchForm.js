@@ -110,6 +110,7 @@ export class SearchForm extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
+          <label htmlFor="From">From</label>
           <Autocomplete
             name="from"
             id="from"
