@@ -5,7 +5,7 @@ const Autocomplete = props => {
     <li
       key={r.id}
       onClick={e => {
-        props.updateText(e.target.innerText);
+        props.updateText(e.target.innerText, r.id);
       }}
     >
       {r.name}
