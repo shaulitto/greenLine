@@ -4,6 +4,7 @@ const router = require("express").Router();
 const usersRoutes = require("./users");
 const priceRoutes = require("./price");
 const stations = require("./stations");
+const cities = require("./cities");
 router.get("/", (req, res) => {
   res.send("This is home");
 });
@@ -11,6 +12,6 @@ router.get("/", (req, res) => {
 router.use("/api/auth", usersRoutes);
 router.use("/api", priceRoutes);
 // router.use("/api", testerRoutes);
-router.use("/", stations);
+router.use("/", cities);
 
 module.exports = router;
