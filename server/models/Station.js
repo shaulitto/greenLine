@@ -5,10 +5,15 @@ const stationSchema = new Schema({
   type: String,
   id: String,
   name: String,
+  category: Number,
+  weight: Number,
   location: {
     type: Object,
     latitude: Number,
     longitude: Number
+  },
+  address: {
+    city: String
   },
   hasParking: Boolean,
   hasLocalPublicTransport: Boolean,
