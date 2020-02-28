@@ -62,16 +62,6 @@ export class SearchForm extends Component {
     axios
       .post("/cities", { to: this.state.to, from: this.state.from })
       .then(response => {
-        // console.log(response);
-        // this.setState({
-        //   resultFrom: response.data
-        // });
-
-        //   let filtered = response.data.filter(el => {
-        //     return el.name
-        //       .toLowerCase()
-        //       .includes(this.state[direction].toLowerCase());
-        //   });
         if (directions === "to") {
           this.setState({
             resultTo: response.data.resultTo
@@ -97,8 +87,6 @@ export class SearchForm extends Component {
   };
 
   updateText = (text, id) => {
-    console.log(text);
-    console.log(id);
     this.setState({
       from: text,
       fromId: id,
@@ -107,8 +95,6 @@ export class SearchForm extends Component {
   };
 
   updateTo = (text, id) => {
-    console.log(text);
-    console.log(id);
     this.setState({
       to: text,
       toId: id,
@@ -128,7 +114,6 @@ export class SearchForm extends Component {
           <Autocomplete
             name="from"
             id="from"
-            // handleInputChange={this.handleInputChange}
             updateText={this.updateText}
             results={this.state.resultFrom}
             value={this.state.from}
@@ -140,7 +125,6 @@ export class SearchForm extends Component {
           <Autocomplete
             name="to"
             id={this.state.toId}
-            // handleInputChange={this.handleInputChange}
             updateText={this.updateTo}
             results={this.state.resultTo}
             value={this.state.to}
@@ -150,7 +134,6 @@ export class SearchForm extends Component {
           <label htmlFor="Date">Date </label>
           <input
             type="datetime-local"
-            // type="date"
             id="date"
             name="date"
             value={this.state.date}
