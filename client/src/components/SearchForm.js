@@ -32,12 +32,22 @@ export class SearchForm extends Component {
     // date: this.state.date
     // let date = this.state.date.slice(0, 16);
     console.log("searchdate:", this.state.date.slice(0, 16));
-    console.log(this.state.toId, this.state.fromId);
-    // axios
-    //   .post("/api/price", { date: this.state.date.slice(0, 16) })
-    //   .then(res => {
-    //     console.log("RESPONSE:", res);
-    //   });
+    console.log("TO AND FROM", this.state.fromId, this.state.toId);
+
+    axios
+      //   .post("/api/price", { date: this.state.date.slice(0, 16) })
+
+      .get(
+        "/api/price?date=" +
+          this.state.date.slice(0, 16) +
+          "&fromId=" +
+          this.state.fromId +
+          "&toId=" +
+          this.state.toId
+      )
+      .then(res => {
+        console.log("RESPONSE:", res);
+      });
   };
 
   getStations = direction => {
@@ -73,6 +83,8 @@ export class SearchForm extends Component {
   };
 
   updateText = (text, id) => {
+    console.log(text);
+    console.log(id);
     this.setState({
       from: text,
       fromId: id,
@@ -98,6 +110,7 @@ export class SearchForm extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
+          <label htmlFor="From">From</label>
           <Autocomplete
             name="from"
             id="from"
@@ -117,6 +130,7 @@ export class SearchForm extends Component {
             results={this.state.resultTo}
             value={this.state.to}
           />
+
           <label htmlFor="Date">Date </label>
           <input
             type="datetime-local"
