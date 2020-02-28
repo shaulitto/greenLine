@@ -1,26 +1,17 @@
 import React, { Component } from "react";
 import ResultList from "./ResultList";
-import SelectDay from "./SelectDay";
 
 export default class Results extends Component {
   state = {
-    posts: []
-  };
-
-  getData = () => {
-    // console.log("getData()");
-    // ?from=&to=&select-date=Day
-    axios.get("/api/").then(response => {
-      this.setState({
-        posts: response.data
-      });
-    });
+    results: this.props.tripResults
   };
   render() {
+    //console.log(this.props.tripResults);
     return (
       <div>
-        <SelectDay />
-        <ResultList />
+        {this.state.results.map(details => {
+          return <ResultList details={details} />;
+        })}
       </div>
     );
   }

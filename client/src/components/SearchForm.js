@@ -29,14 +29,10 @@ export class SearchForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    // date: this.state.date
-    // let date = this.state.date.slice(0, 16);
-    console.log("searchdate:", this.state.date.slice(0, 16));
-    console.log("TO AND FROM", this.state.fromId, this.state.toId);
+    // console.log("searchdate:", this.state.date.slice(0, 16));
+    // console.log("TO AND FROM", this.state.fromId, this.state.toId);
 
     axios
-      //   .post("/api/price", { date: this.state.date.slice(0, 16) })
-
       .get(
         "/api/price?date=" +
           this.state.date.slice(0, 16) +
@@ -46,7 +42,9 @@ export class SearchForm extends Component {
           this.state.toId
       )
       .then(res => {
-        console.log("RESPONSE:", res);
+        console.log("RESPONSE:", res.data);
+        this.props.setTripResults(res.data);
+        this.props.history.push("/results");
       });
   };
 
@@ -146,7 +144,9 @@ export class SearchForm extends Component {
             <option value="K">Children</option>
             <option value="B">Baby</option>
           </select>
+          {/* <Link to="/results"> */}
           <button type="submit">Search</button>
+          {/* </Link> */}
           {/* <button onClick={this.submit}>Search</button> */}
         </form>
       </div>
