@@ -5,10 +5,12 @@ import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import { Route } from "react-router-dom";
 import SearchForm from "./components/SearchForm";
+import Results from "./components/Results";
 
 class App extends React.Component {
   state = {
-    user: this.props.user
+    user: this.props.user,
+    tripResults: []
   };
 
   setUser = userObj => {
@@ -17,23 +19,51 @@ class App extends React.Component {
     });
   };
 
+  setTripResults = arrayOfResults => {
+    this.setState({ tripResults: arrayOfResults });
+  };
+
   render() {
+    console.log(this.state.tripResults);
     return (
       <div className="App">
-        <Navbar setUser={this.setUser} user={this.state.user} />
+        <header className="App-header">
+          <Navbar setUser={this.setUser} user={this.state.user} />
+
+          <div>
+            <Route
+              path="/signup"
+              render={props => (
+                <Signup history={props.history} setUser={this.setUser} />
+              )}
+            />
+          </div>
+
+          <Route
+            path="/login"
+            render={props => (
+              <Login history={props.history} setUser={this.setUser} />
+            )}
+          />
+        </header>
         <Route
-          path="/signup"
+          exact
+          path="/"
           render={props => (
-            <Signup history={props.history} setUser={this.setUser} />
+            <SearchForm setTripResults={this.setTripResults} {...props} />
           )}
         />
         <Route
-          path="/login"
+          exact
+          path="/results"
           render={props => (
-            <Login history={props.history} setUser={this.setUser} />
+            <Results
+              {...props}
+              isLoggedIn={Boolean(this.state.user)}
+              tripResults={this.state.tripResults}
+            />
           )}
         />
-        <SearchForm />
       </div>
     );
   }
