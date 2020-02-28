@@ -7,10 +7,13 @@ export class SearchForm extends Component {
     date: new Date(),
     from: "",
     to: "",
+    toId: "",
+    fromId: "",
     class: "",
-    travellers: "",
+    travelers: "",
     resultTo: [],
-    resultFrom: []
+    resultFrom: [],
+    id: ""
   };
 
   handleChange = e => {
@@ -29,11 +32,19 @@ export class SearchForm extends Component {
     // date: this.state.date
     // let date = this.state.date.slice(0, 16);
     console.log("searchdate:", this.state.date.slice(0, 16));
+    console.log("TO AND FROM", this.state.fromId, this.state.toId);
 
     axios
       //   .post("/api/price", { date: this.state.date.slice(0, 16) })
-      //   +"?from="+this.state.from+"?to="+this.state.
-      .get("/api/price?date=" + this.state.date.slice(0, 16))
+
+      .get(
+        "/api/price?date=" +
+          this.state.date.slice(0, 16) +
+          "&fromId=" +
+          this.state.fromId +
+          "&toId=" +
+          this.state.toId
+      )
       .then(res => {
         console.log("RESPONSE:", res);
       });
@@ -47,7 +58,7 @@ export class SearchForm extends Component {
           .includes(this.state[direction].toLowerCase());
       });
 
-      if (direction == "to") {
+      if (direction === "to") {
         this.setState({
           resultTo: filtered
         });
@@ -71,16 +82,22 @@ export class SearchForm extends Component {
     );
   };
 
-  updateText = text => {
+  updateText = (text, id) => {
+    console.log(text);
+    console.log(id);
     this.setState({
       from: text,
+      fromId: id,
       resultFrom: []
     });
   };
 
-  updateTo = text => {
+  updateTo = (text, id) => {
+    console.log(text);
+    console.log(id);
     this.setState({
       to: text,
+      toId: id,
       resultTo: []
     });
   };
@@ -101,12 +118,12 @@ export class SearchForm extends Component {
             results={this.state.resultFrom}
             value={this.state.from}
           />
-          <button>switch</button>
+          {/* <button >switch</button> */}
           <label htmlFor="To">To</label>
 
           <Autocomplete
             name="to"
-            id="to"
+            id={this.state.toId}
             handleInputChange={this.handleInputChange}
             updateText={this.updateTo}
             results={this.state.resultTo}
@@ -122,15 +139,15 @@ export class SearchForm extends Component {
             value={this.state.date}
             onChange={this.handleChange}
           />
-          <button type="submit">Submit Date!</button>
-        </form>
 
-        <select>
-          <option value="E">Adults</option>
-          <option value="K">Children</option>
-          <option value="B">Baby</option>
-        </select>
-        <button onClick={this.submit}>Search</button>
+          <select>
+            <option value="E">Adults</option>
+            <option value="K">Children</option>
+            <option value="B">Baby</option>
+          </select>
+          <button type="submit">Search</button>
+          {/* <button onClick={this.submit}>Search</button> */}
+        </form>
       </div>
     );
   }

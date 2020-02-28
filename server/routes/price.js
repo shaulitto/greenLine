@@ -17,12 +17,15 @@ const tz = "Europe/Berlin";
 
 router.get("/price", (req, res) => {
   const date = req.query.date;
+  const from = req.query.fromId;
+  const to = req.query.toId;
+  console.log(from, to);
   // const date = new Date("2020-03-07T10:30");
   console.log("before :", date);
 
   // form for date and time input instead of when=moment => "2020-02-27T11:51:00.000Z"
 
-  prices("8000096", "8011160", date)
+  prices(from, to, date)
     .then(routes => {
       console.log("WHEN:", date);
       res.json(routes);
