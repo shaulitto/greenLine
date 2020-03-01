@@ -24,7 +24,7 @@ export default class Login extends Component {
       })
       .then(response => {
         this.props.history.push("/");
-        console.log(response);
+        // console.log(response);
         this.props.setUser(response.data);
       })
       .catch(err => {
@@ -56,7 +56,7 @@ export default class Login extends Component {
             onChange={this.handleChange}
           />
 
-          <button type="submit">Sign in</button>
+          <button type="submit">Log in</button>
         </form>
         {this.state.message && <p>{this.state.message}</p>}
       </>
