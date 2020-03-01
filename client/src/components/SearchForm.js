@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Autocomplete from "./Autocomplete";
-import { debounce } from "lodash";
 
 export class SearchForm extends Component {
   state = {
