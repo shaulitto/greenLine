@@ -6,6 +6,7 @@ import { debounce } from "lodash";
 export class SearchForm extends Component {
   state = {
     date: new Date(),
+
     from: "",
     to: "",
     toId: "",
@@ -16,15 +17,6 @@ export class SearchForm extends Component {
     resultFrom: [],
     id: ""
   };
-
-  // debounceEvent(...args) {
-  //   console.log(...args);
-  //   this.debouncedEvent = debounce(...args);
-  //   return e => {
-  //     e.persist();
-  //     return this.debouncedEvent(e);
-  //   };
-  // }
 
   handleChange = e => {
     console.log(e.target);
@@ -39,6 +31,7 @@ export class SearchForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    console.log("look here", event);
     // console.log("searchdate:", this.state.date.slice(0, 16));
     // console.log("TO AND FROM", this.state.fromId, this.state.toId);
 
