@@ -37,13 +37,3 @@ router.get("/price", (req, res) => {
 });
 
 module.exports = router;
-
-// const axios = require('axios');
-// const myPromises = []
-// for (let i = 0; i < 5; i++) {
-//   for (let j = 0; j < 10; j++) {       myPromises.push(axios.get('http://fakeapi.com/'+i+'/'+j))
-//   }
-// }
-// Promise.all(myPromises).then(results => {
-//   console.log(results)
-// })
