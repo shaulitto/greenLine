@@ -171,6 +171,7 @@ export class SearchForm extends Component {
           {/* </Link> */}
           {/* <button onClick={this.submit}>Search</button> */}
         </form>
+
         {this.props.isLoggedIn ? (
           <button onClick={this.handleClickSave}>
             Save this Trip to your List
@@ -179,18 +180,15 @@ export class SearchForm extends Component {
           <Link to="/Login">Login to save</Link>
 
         )}
+
         {this.state.resultListRender ? (
-          <Results
+            <Results
             isLogged
             In={this.props.isLoggedIn}
             setTripResults={this.state.resultData}
-          />
-        ) : (
-          <div></div>
-        
-      </div>
-    );
-  }
-}
+            />
+            ) : (<div></div>)}
+    </div>
+    )}
 
 export default SearchForm;
