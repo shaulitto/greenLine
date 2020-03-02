@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Autocomplete from "./Autocomplete";
+// import { debounce } from "lodash";
 import Results from "./Results";
 import { Link } from "react-router-dom";
 
@@ -19,7 +20,8 @@ export class SearchForm extends Component {
     id: "",
     savedJourney: {},
     resultListRender: false,
-    resultData: []
+    resultData: [],
+    firstClass: []
   };
 
   handleChange = e => {
@@ -30,32 +32,36 @@ export class SearchForm extends Component {
     this.setState({
       date: stringDate
     });
-    // console.log(this.state.date);
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    // console.log("look here", event);
-    // console.log("searchdate:", this.state.date.slice(0, 16));
-    // console.log("TO AND FROM", this.state.from, this.state.to);
-    axios
-      .get(
-        "/api/price?date=" +
-          this.state.date.slice(0, 16) +
-          "&fromId=" +
-          this.state.fromId +
-          "&toId=" +
-          this.state.toId
-      )
-      .then(res => {
-        // console.log("RESPONSE:", res.data);
-        // this.props.setTripResults(res.data);
-        // this.props.history.push("/results");
-        this.setState({
-          resultData: res.data,
-          resultListRender: true
-        });
+
+    let newFromId = this.state.fromId;
+    if (!newFromId) newFromId = this.state.from;
+
+    let newToId = this.state.toId;
+    if (!newToId) newToId = this.state.to;
+
+    const getPrices = axios.get(
+      "/api/price?date=" +
+        this.state.date.slice(0, 16) +
+        "&fromId=" +
+        newFromId +
+        "&toId=" +
+        newToId
+    );
+    console.log(getPrices);
+
+    const firstPrice = axios.get("/api/firstPrice");
+
+    Promise.all([getPrices, firstPrice]).then(([allRes, firstClass]) => {
+      this.setState({
+        resultData: allRes.data,
+        resultListRender: true,
+        firstClass: firstClass.data
       });
+    });
   };
 
   getStations = directions => {
@@ -165,11 +171,7 @@ export class SearchForm extends Component {
             <option value="K">Children</option>
             <option value="B">Baby</option>
           </select>
-
-          {/* <Link to="/results"> */}
           <button type="submit">Search</button>
-          {/* </Link> */}
-          {/* <button onClick={this.submit}>Search</button> */}
         </form>
         {this.props.isLoggedIn ? (
           <button onClick={this.handleClickSave}>
@@ -182,7 +184,8 @@ export class SearchForm extends Component {
         {this.state.resultListRender ? (
           <Results
             isLoggedIn={this.props.isLoggedIn}
-            setTripResults={this.state.resultData}
+            resultData={this.state.resultData}
+            firstClass={this.state.firstClass}
           />
         ) : (
           <div></div>
