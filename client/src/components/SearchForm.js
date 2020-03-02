@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import Autocomplete from "./Autocomplete";
 import Results from "./Results";
+import { Link } from "react-router-dom";
+
 
 export class SearchForm extends Component {
   state = {
@@ -60,7 +62,10 @@ export class SearchForm extends Component {
     console.log("DIRECTIONS", directions);
 
     axios
-      .post("/cities", { to: this.state.to, from: this.state.from })
+      .post("/cities", {
+        to: this.state.to,
+        from: this.state.from
+      })
       .then(response => {
         if (directions === "to") {
           let newDataTo = response.data.resultTo;
@@ -106,6 +111,21 @@ export class SearchForm extends Component {
     });
   };
 
+
+
+  handleClickSave = event => {
+    axios.post("/journeys", {
+      to: this.state.to,
+      toId: this.state.toId,
+      from: this.state.from,
+      fromId: this.state.fromId,
+      date: this.state.date.slice(0, 16)
+    });
+    // .then(response => {
+    //   this.setState({ journey: response.data });
+    // });
+  };
+
   render() {
     return (
       <div>
@@ -145,11 +165,20 @@ export class SearchForm extends Component {
             <option value="K">Children</option>
             <option value="B">Baby</option>
           </select>
+
           {/* <Link to="/results"> */}
           <button type="submit">Search</button>
           {/* </Link> */}
           {/* <button onClick={this.submit}>Search</button> */}
         </form>
+        {this.props.isLoggedIn ? (
+          <button onClick={this.handleClickSave}>
+            Save this Trip to your List
+          </button>
+        ) : (
+          <Link to="/Login">Login to save</Link>
+
+        )}
         {this.state.resultListRender ? (
           <Results
             isLogged
@@ -158,7 +187,7 @@ export class SearchForm extends Component {
           />
         ) : (
           <div></div>
-        )}
+        
       </div>
     );
   }

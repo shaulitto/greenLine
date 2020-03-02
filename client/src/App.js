@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import { Route } from "react-router-dom";
 import SearchForm from "./components/SearchForm";
 import Results from "./components/Results";
+import UserPage from "./components/UserPage";
 
 class App extends React.Component {
   state = {
@@ -43,7 +44,11 @@ class App extends React.Component {
           <Route
             path="/login"
             render={props => (
-              <Login history={props.history} setUser={this.setUser} />
+              <Login
+                history={props.history}
+                setUser={this.setUser}
+                isLoggedIn={Boolean(this.state.user)}
+              />
             )}
           />
         </header>
@@ -53,9 +58,17 @@ class App extends React.Component {
           render={props => (
             <SearchForm
               setTripResults={this.setTripResults}
+
               {...props}
               isLoggedIn={Boolean(this.state.user)}
             />
+          )}
+        />
+        <Route
+          exact
+          path="/journeys"
+          render={props => (
+            <UserPage {...props} isLoggedIn={Boolean(this.state.user)} />
           )}
         />
       </div>
