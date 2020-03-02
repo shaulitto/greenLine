@@ -9,7 +9,7 @@ const userSchema = new Schema(
       unique: true
     },
     password: String,
-    favourites: [
+    favorites: [
       {
         type: Schema.Types.ObjectId,
         ref: "Journey"
