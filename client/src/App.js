@@ -23,6 +23,7 @@ class App extends React.Component {
   setTripResults = arrayOfResults => {
     this.setState({ tripResults: arrayOfResults });
   };
+  // this.props.saveUserInput(res.data)
 
   render() {
     console.log(this.state.tripResults);
@@ -57,19 +58,9 @@ class App extends React.Component {
           render={props => (
             <SearchForm
               setTripResults={this.setTripResults}
+
               {...props}
               isLoggedIn={Boolean(this.state.user)}
-            />
-          )}
-        />
-        <Route
-          exact
-          path="/results"
-          render={props => (
-            <Results
-              {...props}
-              isLoggedIn={Boolean(this.state.user)}
-              tripResults={this.state.tripResults}
             />
           )}
         />
