@@ -48,7 +48,7 @@ export class SearchForm extends Component {
           this.state.toId
       )
       .then(res => {
-        console.log("RESPONSE:", res.data);
+        // console.log("RESPONSE:", res.data);
         // this.props.setTripResults(res.data);
         // this.props.history.push("/results");
         this.setState({
@@ -59,7 +59,7 @@ export class SearchForm extends Component {
   };
 
   getStations = directions => {
-    console.log("DIRECTIONS", directions);
+    // console.log("DIRECTIONS", directions);
 
     axios
       .post("/cities", {
@@ -171,7 +171,6 @@ export class SearchForm extends Component {
           {/* </Link> */}
           {/* <button onClick={this.submit}>Search</button> */}
         </form>
-
         {this.props.isLoggedIn ? (
           <button onClick={this.handleClickSave}>
             Save this Trip to your List
@@ -179,22 +178,11 @@ export class SearchForm extends Component {
         ) : (
           <Link to="/Login">Login to save</Link>
         )}
-<<<<<<< HEAD
-
-=======
         ;
->>>>>>> 8b418a945cc71e03dbfa0a119bfe4226ebdd90aa
         {this.state.resultListRender ? (
-            <Results
-            isLogged
-            In={this.props.isLoggedIn}
+          <Results
+            isLoggedIn={this.props.isLoggedIn}
             setTripResults={this.state.resultData}
-<<<<<<< HEAD
-            />
-            ) : (<div></div>)}
-    </div>
-    )}
-=======
           />
         ) : (
           <div></div>
@@ -203,6 +191,5 @@ export class SearchForm extends Component {
     );
   }
 }
->>>>>>> 8b418a945cc71e03dbfa0a119bfe4226ebdd90aa
 
 export default SearchForm;

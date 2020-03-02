@@ -5,7 +5,6 @@ import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import { Route } from "react-router-dom";
 import SearchForm from "./components/SearchForm";
-import Results from "./components/Results";
 import UserPage from "./components/UserPage";
 
 class App extends React.Component {
@@ -58,7 +57,6 @@ class App extends React.Component {
           render={props => (
             <SearchForm
               setTripResults={this.setTripResults}
-
               {...props}
               isLoggedIn={Boolean(this.state.user)}
             />

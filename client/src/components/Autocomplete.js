@@ -54,10 +54,10 @@ export default class Autocomplete extends Component {
             {cities.map(el => {
               return (
                 <li
-                  key={el.id}
                   onClick={e => {
                     this.props.updateText(e.target.innerText, el.id);
                   }}
+                  key={el.id}
                 >
                   {el}
                 </li>
