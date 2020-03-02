@@ -6,12 +6,12 @@ import Navbar from "./components/Navbar";
 import { Route } from "react-router-dom";
 import SearchForm from "./components/SearchForm";
 import Results from "./components/Results";
+import UserPage from "./components/UserPage";
 
 class App extends React.Component {
   state = {
     user: this.props.user,
-    tripResults: [],
-    firstClass: []
+    tripResults: []
   };
 
   setUser = userObj => {
@@ -24,15 +24,7 @@ class App extends React.Component {
     this.setState({ tripResults: arrayOfResults });
   };
 
-  setFirstClass = getPrice => {
-    this.setState({
-      firstClass: getPrice
-    });
-  };
-
   render() {
-    // console.log("TRIP RESULT", this.state.tripResults);
-    // console.log(this.state.firstClass);
     return (
       <div className="App">
         <header className="App-header">
@@ -50,7 +42,11 @@ class App extends React.Component {
           <Route
             path="/login"
             render={props => (
-              <Login history={props.history} setUser={this.setUser} />
+              <Login
+                history={props.history}
+                setUser={this.setUser}
+                isLoggedIn={Boolean(this.state.user)}
+              />
             )}
           />
         </header>
@@ -58,23 +54,14 @@ class App extends React.Component {
           exact
           path="/"
           render={props => (
-            <SearchForm
-              setTripResults={this.setTripResults}
-              setFirstClass={this.setFirstClass}
-              {...props}
-            />
+            <SearchForm {...props} isLoggedIn={Boolean(this.state.user)} />
           )}
         />
         <Route
           exact
-          path="/results"
+          path="/journeys"
           render={props => (
-            <Results
-              {...props}
-              isLoggedIn={Boolean(this.state.user)}
-              tripResults={this.state.tripResults}
-              firstClass={this.state.firstClass}
-            />
+            <UserPage {...props} isLoggedIn={Boolean(this.state.user)} />
           )}
         />
       </div>

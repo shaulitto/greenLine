@@ -7,7 +7,7 @@ const ResultList = props => {
   const duration = new Date(+arrival - +departure).toLocaleTimeString();
 
   return (
-    <div key={detail.id}>
+    <div>
       <p>
         From: {detail.origin.name} at:
         {new Date(detail.legs[0].departure).toString().slice(0, 21)}, Platform:
@@ -20,25 +20,23 @@ const ResultList = props => {
       </p>
       <p>Duration: {duration.slice(0, 1) + "h" + duration.slice(2, 4) + "m"}</p>
       <p>Changes: {detail.legs.length - 1}</p>
+      <p>
+        First Class:
+        {detail.firstClass}
+      </p>
+      <p>
+        Second Class:
+        {detail.normalPrice}
+      </p>
       <ul>
         {detail.legs.map(el => {
           return (
             <li key={detail.id} style={{ border: "1px solid red" }}>
-              {el.line.name}
+              {el.line.product}
             </li>
           );
         })}
       </ul>
-
-      <p>
-        First Class:
-        {props.price}
-      </p>
-      <p>
-        Second Class:
-        {detail.price.currency}
-        {detail.price.amount}
-      </p>
     </div>
   );
 };

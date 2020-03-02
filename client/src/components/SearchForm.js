@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import axios from "axios";
 import Autocomplete from "./Autocomplete";
 // import { debounce } from "lodash";
+import Results from "./Results";
+import { Link } from "react-router-dom";
 
 export class SearchForm extends Component {
   state = {
     date: new Date(),
+
     from: "",
     to: "",
     toId: "",
@@ -14,17 +17,12 @@ export class SearchForm extends Component {
     travelers: "",
     resultTo: [],
     resultFrom: [],
-    id: ""
+    id: "",
+    savedJourney: {},
+    resultListRender: false,
+    resultData: [],
+    firstClass: []
   };
-
-  // debounceEvent(...args) {
-  //   console.log(...args);
-  //   this.debouncedEvent = debounce(...args);
-  //   return e => {
-  //     e.persist();
-  //     return this.debouncedEvent(e);
-  //   };
-  // }
 
   handleChange = e => {
     console.log(e.target);
@@ -34,67 +32,51 @@ export class SearchForm extends Component {
     this.setState({
       date: stringDate
     });
-    // console.log(this.state.date);
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    // console.log("searchdate:", this.state.date.slice(0, 16));
-    // console.log("TO AND FROM", this.state.fromId, this.state.toId);
-    axios
-      .all([
-        axios.get(
-          "/api/price?date=" +
-            this.state.date.slice(0, 16) +
-            "&fromId=" +
-            this.state.fromId +
-            "&toId=" +
-            this.state.toId
-        ),
-        axios.get("/api/firstPrice")
-      ])
-      .then(
-        axios.spread((allRes, firstClassRes) => {
-          this.props.setTripResults(allRes.data);
-          // this.props.history.push("/results");
-          this.props.setFirstClass(firstClassRes.data);
-          this.props.history.push("/results");
-        })
-      );
+    const getPrices = axios.get(
+      "/api/price?date=" +
+        this.state.date.slice(0, 16) +
+        "&fromId=" +
+        this.state.fromId +
+        "&toId=" +
+        this.state.toId
+    );
+    console.log(getPrices);
 
-    // axios
-    //   .get(
-    //     "/api/price?date=" +
-    //       this.state.date.slice(0, 16) +
-    //       "&fromId=" +
-    //       this.state.fromId +
-    //       "&toId=" +
-    //       this.state.toId
-    //   )
-    //   .then(res => {
-    //     // console.log("RESPONSE:", res.data);
-    //     this.props.setTripResults(res.data);
-    //     this.props.history.push("/results");
-    //     axios.get("/api/firstPrice").then(res => {
-    //       console.log("Response first class", res.data);
-    //       this.props.setFirstClass(res.data);
-    //       this.props.history.push("/results");
-    //     });
-    //     // console.log("History Result:", this.props.history);
-    //   });
+    const firstPrice = axios.get("/api/firstPrice");
+
+    Promise.all([getPrices, firstPrice]).then(([allRes, firstClass]) => {
+      this.setState({
+        resultData: allRes.data,
+        resultListRender: true,
+        firstClass: firstClass.data
+      });
+    });
   };
 
   getStations = directions => {
+    console.log("DIRECTIONS", directions);
+
     axios
-      .post("/cities", { to: this.state.to, from: this.state.from })
+      .post("/cities", {
+        to: this.state.to,
+        from: this.state.from
+      })
       .then(response => {
         if (directions === "to") {
+          let newDataTo = response.data.resultTo;
+          if (this.state.to === "") newDataTo = [];
           this.setState({
-            resultTo: response.data.resultTo
+            resultTo: newDataTo
           });
         } else {
+          let newDataFrom = response.data.resultFrom;
+          if (this.state.from === "") newDataFrom = [];
           this.setState({
-            resultFrom: response.data.resultFrom
+            resultFrom: newDataFrom
           });
         }
       });
@@ -113,8 +95,6 @@ export class SearchForm extends Component {
   };
 
   updateText = (text, id) => {
-    console.log(text);
-    console.log(id);
     this.setState({
       from: text,
       fromId: id,
@@ -123,8 +103,6 @@ export class SearchForm extends Component {
   };
 
   updateTo = (text, id) => {
-    console.log(text);
-    console.log(id);
     this.setState({
       to: text,
       toId: id,
@@ -132,8 +110,19 @@ export class SearchForm extends Component {
     });
   };
 
-  submit = event => {
-    event.preventDefault();
+  handleClickSave = event => {
+    axios
+      .post("/journeys", {
+        to: this.state.to,
+        toId: this.state.toId,
+        from: this.state.from,
+        fromId: this.state.fromId,
+        date: this.state.date.slice(0, 16)
+      })
+      .then(response => {
+        console.log(response.data);
+        this.setState({ savedJourney: response.data });
+      });
   };
 
   render() {
@@ -144,7 +133,6 @@ export class SearchForm extends Component {
           <Autocomplete
             name="from"
             id="from"
-            // handleInputChange={this.handleInputChange}
             updateText={this.updateText}
             results={this.state.resultFrom}
             value={this.state.from}
@@ -156,7 +144,6 @@ export class SearchForm extends Component {
           <Autocomplete
             name="to"
             id={this.state.toId}
-            // handleInputChange={this.handleInputChange}
             updateText={this.updateTo}
             results={this.state.resultTo}
             value={this.state.to}
@@ -166,7 +153,6 @@ export class SearchForm extends Component {
           <label htmlFor="Date">Date </label>
           <input
             type="datetime-local"
-            // type="date"
             id="date"
             name="date"
             value={this.state.date}
@@ -178,11 +164,25 @@ export class SearchForm extends Component {
             <option value="K">Children</option>
             <option value="B">Baby</option>
           </select>
-          {/* <Link to="/results"> */}
           <button type="submit">Search</button>
-          {/* </Link> */}
-          {/* <button onClick={this.submit}>Search</button> */}
         </form>
+        {this.props.isLoggedIn ? (
+          <button onClick={this.handleClickSave}>
+            Save this Trip to your List
+          </button>
+        ) : (
+          <Link to="/Login">Login to save</Link>
+        )}
+        ;
+        {this.state.resultListRender ? (
+          <Results
+            isLoggedIn={this.props.isLoggedIn}
+            resultData={this.state.resultData}
+            firstClass={this.state.firstClass}
+          />
+        ) : (
+          <div></div>
+        )}
       </div>
     );
   }

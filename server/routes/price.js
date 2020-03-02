@@ -3,7 +3,6 @@ const moment = require("moment-timezone");
 const { inspect } = require("util");
 const prices = require("db-prices");
 const router = require("express").Router();
-
 const tz = "Europe/Berlin";
 
 // axios.get("/api/test?date=");

@@ -3,35 +3,26 @@ import ResultList from "./ResultList";
 
 export default class Results extends Component {
   state = {
-    results: this.props.tripResults,
-    firstClass: this.props.firstClass,
-    firstPrice: 0
-  };
-  getResults = el => {
-    // console.log("el in get Results", el);
-    console.log("FirstPrice Before", this.state.firstPrice);
-    this.setState({
-      firstPrice: this.state.firstClass.find(found => {
-        if (found.id === el.id) {
-          console.log("FirstPrice after:", found.price.amount);
-          return this.setState({
-            firstPrice: found.price.amount
-          });
-        }
-      })
-    });
-    // console.log("FOUND", found);
+    results: this.props.resultData,
+    firstClass: this.props.firstClass
   };
   render() {
-    console.log("FIRST CLASS IM RESULTS WORKING", this.state.firstClass);
+    const map = this.state.results.map((journey, i) => {
+      const obj = {};
+      obj.origin = journey.origin.name;
+      obj.destination = journey.destination;
+      obj.normalPrice = journey.price.amount;
+      obj.firstClass = this.state.firstClass[i].price.amount;
+      obj.legs = journey.legs;
+      obj.id = journey.id;
+      return obj;
+    });
+    console.log(map);
     return (
       <div>
-        {this.state.results.map(details => {
-          // console.log("DETAILSSS:", details);
-          this.getResults(details);
-          // console.log("FIRST PRICE", this.state.firstPrice);
-          return <ResultList details={details} price={this.state.firstPrice} />;
-        })}
+        {map.map(el => (
+          <ResultList details={el} key={el.id} />
+        ))}
       </div>
     );
   }

@@ -1,5 +1,3 @@
-// import React from "react";
-
 import React, { Component } from "react";
 
 export default class Autocomplete extends Component {
@@ -30,7 +28,6 @@ export default class Autocomplete extends Component {
       if (!cities.includes(c.address.city)) {
         cities.push(c.address.city);
       }
-      // console.log(cities);
     });
     let options = this.props.results.slice(0, 10).map(r => (
       <li

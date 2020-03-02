@@ -3,16 +3,16 @@ const Schema = mongoose.Schema;
 
 const journeySchema = new Schema({
   origin: {
-    type: String,
+    type: Object,
     id: String,
     name: String
   },
   destination: {
-    type: String,
+    type: Object,
     id: String,
     name: String
   },
-  date: Object
+  date: String
 });
 
 const Journey = mongoose.model("Journey", journeySchema);
