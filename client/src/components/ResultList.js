@@ -79,4 +79,5 @@ export class ResultList extends Component {
     );
   }
 }
+
 export default ResultList;

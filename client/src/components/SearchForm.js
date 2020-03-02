@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 export class SearchForm extends Component {
   state = {
     date: new Date(),
-
     from: "",
     to: "",
     toId: "",
@@ -23,6 +22,15 @@ export class SearchForm extends Component {
     resultData: [],
     firstClass: []
   };
+
+  // debounceEvent(...args) {
+  //   console.log(...args);
+  //   this.debouncedEvent = debounce(...args);
+  //   return e => {
+  //     e.persist();
+  //     return this.debouncedEvent(e);
+  //   };
+  // }
 
   handleChange = e => {
     console.log(e.target);
@@ -68,10 +76,7 @@ export class SearchForm extends Component {
     // console.log("DIRECTIONS", directions);
 
     axios
-      .post("/cities", {
-        to: this.state.to,
-        from: this.state.from
-      })
+      .post("/cities", { to: this.state.to, from: this.state.from })
       .then(response => {
         if (directions === "to") {
           let newDataTo = response.data.resultTo;

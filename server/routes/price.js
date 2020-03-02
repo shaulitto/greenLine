@@ -6,15 +6,6 @@ const router = require("express").Router();
 const tz = "Europe/Berlin";
 const Station = require("../models/Station");
 
-// axios.get("/api/test?date=");
-// const when = moment
-//   .tz(Date.now(), tz)
-//   .hour(10)
-//   .minute(30)
-//   .second(0)
-//   .day(1 + 7)
-//   .toDate();
-
 const sortingAllTrips = allTrips => {
   let newArrayOfAllTrips = [];
 
