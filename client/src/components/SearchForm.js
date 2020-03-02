@@ -35,17 +35,29 @@ export class SearchForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    console.log(
+      "check for city input here",
+      this.state.fromId,
+      this.state.from
+    );
     // console.log("look here", event);
     // console.log("searchdate:", this.state.date.slice(0, 16));
     // console.log("TO AND FROM", this.state.from, this.state.to);
+
+    let newFromId = this.state.fromId;
+    if (!newFromId) newFromId = this.state.from;
+
+    let newToId = this.state.toId;
+    if (!newToId) newToId = this.state.to
+
     axios
       .get(
         "/api/price?date=" +
           this.state.date.slice(0, 16) +
           "&fromId=" +
-          this.state.fromId +
+          newFromId +
           "&toId=" +
-          this.state.toId
+          newToId
       )
       .then(res => {
         console.log("RESPONSE:", res.data);

@@ -13,7 +13,11 @@ const ResultList = props => {
         To: {detail.destination.name} at: {Date(detail.legs.arrival)}
         ,Platform:{detail.legs[0].arrivalPlatform}
       </p>
-      <p>{detail.legs[0].line.name}</p>
+      <p>
+        {detail.legs.map(trains => {
+          return <span>{trains.line.name} </span>;
+        })}
+      </p>
       <p>
         {detail.price.currency}
         {detail.price.amount}
