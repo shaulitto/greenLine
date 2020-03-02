@@ -4,7 +4,6 @@ import Autocomplete from "./Autocomplete";
 import Results from "./Results";
 import { Link } from "react-router-dom";
 
-
 export class SearchForm extends Component {
   state = {
     date: new Date(),
@@ -18,7 +17,7 @@ export class SearchForm extends Component {
     resultTo: [],
     resultFrom: [],
     id: "",
-    savedJourney: {}
+    savedJourney: {},
     resultListRender: false,
     resultData: []
   };
@@ -112,8 +111,6 @@ export class SearchForm extends Component {
     });
   };
 
-
-
   handleClickSave = event => {
     axios
       .post("/journeys", {
@@ -180,8 +177,8 @@ export class SearchForm extends Component {
           </button>
         ) : (
           <Link to="/Login">Login to save</Link>
-
         )}
+        ;
         {this.state.resultListRender ? (
           <Results
             isLogged
@@ -190,7 +187,7 @@ export class SearchForm extends Component {
           />
         ) : (
           <div></div>
-        
+        )}
       </div>
     );
   }
