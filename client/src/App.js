@@ -58,16 +58,6 @@ class App extends React.Component {
             />
           )}
         />
-        <Route
-          exact
-          path="/results"
-          render={props => (
-            <>
-              <SearchForm setTripResults={this.setTripResults} {...props} />
-              <Results {...props} tripResults={this.state.tripResults} />
-            </>
-          )}
-        />
       </div>
     );
   }
