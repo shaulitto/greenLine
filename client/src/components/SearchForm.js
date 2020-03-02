@@ -36,6 +36,7 @@ export class SearchForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+
     let newFromId = this.state.fromId;
     if (!newFromId) newFromId = this.state.from;
 
@@ -64,7 +65,7 @@ export class SearchForm extends Component {
   };
 
   getStations = directions => {
-    console.log("DIRECTIONS", directions);
+    // console.log("DIRECTIONS", directions);
 
     axios
       .post("/cities", {
