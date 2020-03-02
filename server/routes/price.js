@@ -3,7 +3,6 @@ const moment = require("moment-timezone");
 const { inspect } = require("util");
 const prices = require("db-prices");
 const router = require("express").Router();
-
 const tz = "Europe/Berlin";
 
 // axios.get("/api/test?date=");
@@ -24,7 +23,7 @@ router.get("/price", (req, res) => {
 
   // form for date and time input instead of when=moment => "2020-02-27T11:51:00.000Z"
 
-  prices(from, to, date, { class: 1 })
+  prices(from, to, date, { class: 2 })
     .then(routes => {
       console.log("WHEN:", date);
       res.json(routes);

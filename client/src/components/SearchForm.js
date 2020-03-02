@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Autocomplete from "./Autocomplete";
+import Results from "./Results";
 import { Link } from "react-router-dom";
+
 
 export class SearchForm extends Component {
   state = {
@@ -17,6 +19,8 @@ export class SearchForm extends Component {
     resultFrom: [],
     id: "",
     savedJourney: {}
+    resultListRender: false,
+    resultData: []
   };
 
   handleChange = e => {
@@ -32,10 +36,9 @@ export class SearchForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log("look here", event);
+    // console.log("look here", event);
     // console.log("searchdate:", this.state.date.slice(0, 16));
-    // console.log("TO AND FROM", this.state.fromId, this.state.toId);
-
+    // console.log("TO AND FROM", this.state.from, this.state.to);
     axios
       .get(
         "/api/price?date=" +
@@ -47,12 +50,18 @@ export class SearchForm extends Component {
       )
       .then(res => {
         console.log("RESPONSE:", res.data);
-        this.props.setTripResults(res.data);
-        this.props.history.push("/results");
+        // this.props.setTripResults(res.data);
+        // this.props.history.push("/results");
+        this.setState({
+          resultData: res.data,
+          resultListRender: true
+        });
       });
   };
 
   getStations = directions => {
+    console.log("DIRECTIONS", directions);
+
     axios
       .post("/cities", {
         to: this.state.to,
@@ -60,12 +69,16 @@ export class SearchForm extends Component {
       })
       .then(response => {
         if (directions === "to") {
+          let newDataTo = response.data.resultTo;
+          if (this.state.to === "") newDataTo = [];
           this.setState({
-            resultTo: response.data.resultTo
+            resultTo: newDataTo
           });
         } else {
+          let newDataFrom = response.data.resultFrom;
+          if (this.state.from === "") newDataFrom = [];
           this.setState({
-            resultFrom: response.data.resultFrom
+            resultFrom: newDataFrom
           });
         }
       });
@@ -99,9 +112,7 @@ export class SearchForm extends Component {
     });
   };
 
-  submit = event => {
-    event.preventDefault();
-  };
+
 
   handleClickSave = event => {
     axios
@@ -169,7 +180,17 @@ export class SearchForm extends Component {
           </button>
         ) : (
           <Link to="/Login">Login to save</Link>
+
         )}
+        {this.state.resultListRender ? (
+          <Results
+            isLogged
+            In={this.props.isLoggedIn}
+            setTripResults={this.state.resultData}
+          />
+        ) : (
+          <div></div>
+        
       </div>
     );
   }
