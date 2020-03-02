@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Autocomplete from "./Autocomplete";
-import { debounce } from "lodash";
+// import { debounce } from "lodash";
 
 export class SearchForm extends Component {
   state = {
@@ -41,37 +41,53 @@ export class SearchForm extends Component {
     event.preventDefault();
     // console.log("searchdate:", this.state.date.slice(0, 16));
     // console.log("TO AND FROM", this.state.fromId, this.state.toId);
-
     axios
-      .get(
-        "/api/price?date=" +
-          this.state.date.slice(0, 16) +
-          "&fromId=" +
-          this.state.fromId +
-          "&toId=" +
-          this.state.toId
-      )
-      .then(res => {
-        console.log("RESPONSE:", res.data);
-        this.props.setTripResults(res.data);
-        this.props.history.push("/results");
-      });
+      .all([
+        axios.get(
+          "/api/price?date=" +
+            this.state.date.slice(0, 16) +
+            "&fromId=" +
+            this.state.fromId +
+            "&toId=" +
+            this.state.toId
+        ),
+        axios.get("/api/firstPrice")
+      ])
+      .then(
+        axios.spread((allRes, firstClassRes) => {
+          this.props.setTripResults(allRes.data);
+          // this.props.history.push("/results");
+          this.props.setFirstClass(firstClassRes.data);
+          this.props.history.push("/results");
+        })
+      );
+
+    // axios
+    //   .get(
+    //     "/api/price?date=" +
+    //       this.state.date.slice(0, 16) +
+    //       "&fromId=" +
+    //       this.state.fromId +
+    //       "&toId=" +
+    //       this.state.toId
+    //   )
+    //   .then(res => {
+    //     // console.log("RESPONSE:", res.data);
+    //     this.props.setTripResults(res.data);
+    //     this.props.history.push("/results");
+    //     axios.get("/api/firstPrice").then(res => {
+    //       console.log("Response first class", res.data);
+    //       this.props.setFirstClass(res.data);
+    //       this.props.history.push("/results");
+    //     });
+    //     // console.log("History Result:", this.props.history);
+    //   });
   };
 
   getStations = directions => {
     axios
       .post("/cities", { to: this.state.to, from: this.state.from })
       .then(response => {
-        // console.log(response);
-        // this.setState({
-        //   resultFrom: response.data
-        // });
-
-        //   let filtered = response.data.filter(el => {
-        //     return el.name
-        //       .toLowerCase()
-        //       .includes(this.state[direction].toLowerCase());
-        //   });
         if (directions === "to") {
           this.setState({
             resultTo: response.data.resultTo

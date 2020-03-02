@@ -10,7 +10,8 @@ import Results from "./components/Results";
 class App extends React.Component {
   state = {
     user: this.props.user,
-    tripResults: []
+    tripResults: [],
+    firstClass: []
   };
 
   setUser = userObj => {
@@ -23,8 +24,15 @@ class App extends React.Component {
     this.setState({ tripResults: arrayOfResults });
   };
 
+  setFirstClass = getPrice => {
+    this.setState({
+      firstClass: getPrice
+    });
+  };
+
   render() {
-    console.log(this.state.tripResults);
+    // console.log("TRIP RESULT", this.state.tripResults);
+    // console.log(this.state.firstClass);
     return (
       <div className="App">
         <header className="App-header">
@@ -50,7 +58,11 @@ class App extends React.Component {
           exact
           path="/"
           render={props => (
-            <SearchForm setTripResults={this.setTripResults} {...props} />
+            <SearchForm
+              setTripResults={this.setTripResults}
+              setFirstClass={this.setFirstClass}
+              {...props}
+            />
           )}
         />
         <Route
@@ -61,6 +73,7 @@ class App extends React.Component {
               {...props}
               isLoggedIn={Boolean(this.state.user)}
               tripResults={this.state.tripResults}
+              firstClass={this.state.firstClass}
             />
           )}
         />
