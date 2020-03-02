@@ -17,52 +17,67 @@ export class ResultList extends Component {
         });
   };
 
- 
   render() {
     const departure = new Date(this.state.detail.legs[0].departure);
-    const arrival = new Date(this.state.detail.legs[this.state.detail.legs.length - 1].arrival);
+    const arrival = new Date(
+      this.state.detail.legs[this.state.detail.legs.length - 1].arrival
+    );
     const duration = new Date(arrival - departure).toLocaleTimeString();
     return (
       <>
         <div key={this.state.detail.id} onClick={this.handleClick}>
           <p>
             From: {this.state.detail.origin.name} at:
-            {new Date(this.state.detail.legs[0].departure).toString().slice(0, 21)}, Platform:
+            {new Date(this.state.detail.legs[0].departure)
+              .toString()
+              .slice(0, 21)}
+            , Platform:
             {this.state.detail.legs[0].departurePlatform}
           </p>
           <p>
             To: {this.state.detail.destination.name} at:
-        {new Date(this.state.detail.legs[0].arrival).toString().slice(0, 21)}
-              ,Platform:{this.state.detail.legs[0].arrivalPlatform}
+            {new Date(this.state.detail.legs[0].arrival)
+              .toString()
+              .slice(0, 21)}
+            ,Platform:{this.state.detail.legs[0].arrivalPlatform}
           </p>
-                <p>Duration: {duration.slice(0, 2) + "h" + duration.slice(3, 5) + "m"}</p>
-      <p>Changes: {this.state.detail.legs.length - 1}</p>
-      <p>
-        First Class:
-        {this.state.detail.firstClass ? this.state.detail.firstClass : "not available"}
-      </p>
-      <p>
-        Second Class:
-        {this.state.detail.normalPrice}
-      </p>
-      <ul>
-        {this.state.detail.legs.map(el => {
-          return (
-            <li key={this.state.detail.id} style={{ border: "1px solid red" }}>
-              {el.line.product}
-              {el.line.name}
-            </li>
-          );
-        })}
-      </ul>
-       
-        {this.state.showDetail ? (
-          <TripDetail selectedTrip={this.state.detail} />
-        ) : (
-          <div></div>
-        )}
- </div>
+          <p>
+            Duration: {duration.slice(0, 2) + "h" + duration.slice(3, 5) + "m"}
+          </p>
+          <p>Changes: {this.state.detail.legs.length - 1}</p>
+          <p>
+            First Class:
+            {this.state.detail.firstClass
+              ? this.state.detail.firstClass
+              : "not available"}
+          </p>
+          <p>
+            Second Class:
+            {this.state.detail.normalPrice}
+          </p>
+          <ul>
+            {this.state.detail.legs.map(el => {
+              return (
+                <li
+                  key={this.state.detail.id}
+                  style={{ border: "1px solid red" }}
+                >
+                  {el.line.product}
+                  {el.line.name}
+                </li>
+              );
+            })}
+          </ul>
+
+          {this.state.showDetail ? (
+            <TripDetail selectedTrip={this.state.detail} />
+          ) : (
+            <div></div>
+          )}
+        </div>
       </>
     );
   }
 }
+
+export default ResultList;
