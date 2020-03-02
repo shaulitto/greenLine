@@ -36,13 +36,18 @@ export class SearchForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    let newFromId = this.state.fromId;
+    if (!newFromId) newFromId = this.state.from;
+
+    let newToId = this.state.toId;
+    if (!newToId) newToId = this.state.to
     const getPrices = axios.get(
-      "/api/price?date=" +
-        this.state.date.slice(0, 16) +
-        "&fromId=" +
-        this.state.fromId +
-        "&toId=" +
-        this.state.toId
+       "/api/price?date=" +
+          this.state.date.slice(0, 16) +
+          "&fromId=" +
+          newFromId +
+          "&toId=" +
+          newToId
     );
     console.log(getPrices);
 
