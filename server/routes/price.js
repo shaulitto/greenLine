@@ -15,15 +15,16 @@ const Station = require("../models/Station");
 //   .day(1 + 7)
 //   .toDate();
 
+const sortingAllTrips = allTrips => {
+  let newArrayOfAllTrips = [];
 
-// const sortingAllTrips = allTrips => {
-//   let newArrayOfAllTrips = [];
-
-//   allTrips.forEach(ele => {
-//     ele.forEach(trip => {
-//       newArrayOfAllTrips.push(trip);
-//     });
-//   });
+  allTrips.forEach(ele => {
+    ele.forEach(trip => {
+      newArrayOfAllTrips.push(trip);
+    });
+  });
+  return newArrayOfAllTrips;
+};
 
 //   newArrayOfAllTrips.sort((a, b) => {
 //     return a.price.amount - b.price.amount;
@@ -69,9 +70,9 @@ router.get("/price", (req, res) => {
         fromArray = fromArray.sort((a, b) => {
           return b.weight - a.weight;
         });
-        fromArray = fromArray.slice(0, 10);
+        fromArray = fromArray.slice(0, 5);
         //console.log(fromArray, "pushing something here");
-        toArray = toArray.slice(0, 10);
+        toArray = toArray.slice(0, 5);
 
         var outputFrom = fromArray.map(el => {
           return el.id;
@@ -95,8 +96,9 @@ router.get("/price", (req, res) => {
       .then(myPromises => {
         Promise.all(myPromises).then(results => {
           console.log("array of array here", results);
-          // let sortedByPrice = sortingAllTrips(results);
-          res.json(results);
+
+          let sorted = sortingAllTrips(results);
+          res.json(sorted);
         });
       });
   } else if (!parseInt(from) > 0 || !parseInt(to) > 0) {
@@ -121,8 +123,8 @@ router.get("/price", (req, res) => {
         fromArray = fromArray.sort((a, b) => {
           return b.weight - a.weight;
         });
-        fromArray = fromArray.slice(0, 10);
-        toArray = toArray.slice(0, 10);
+        fromArray = fromArray.slice(0, 5);
+        toArray = toArray.slice(0, 5);
 
         var outputFrom = fromArray.map(el => {
           return el.id;
@@ -146,13 +148,13 @@ router.get("/price", (req, res) => {
       .then(myPromises => {
         Promise.all(myPromises).then(results => {
           console.log("array of array here", results);
-          // let sortedByPrice = sortingAllTrips(results);
-          res.json(results);
+          let sorted = sortingAllTrips(results);
+          res.json(sorted);
         });
       });
   } else {
     prices(from, to, date).then(routes => {
-      console.log(routes);
+      // console.log(routes);
       // let sortedByPrice = routes.sort((a, b) => {
       //   return a.price.amount - b.price.amount;
       res.json(routes);
@@ -162,16 +164,129 @@ router.get("/price", (req, res) => {
 });
 
 router.get("/firstPrice", (req, res) => {
-  prices(from, to, date, { class: 1 })
-    .then(routes => {
+  if (!parseInt(from) > 0 && !parseInt(to) > 0) {
+    console.log("IT IS A STRING!");
+    var fromArray = [];
+    var toArray = [];
+    Station.find()
+      .then(stations => {
+        stations.forEach(s => {
+          if (s.address.city.includes(from)) {
+            fromArray.push({ id: s.id, weight: s.weight });
+          }
+          if (s.address.city.includes(to)) {
+            toArray.push({ id: s.id, weight: s.weight });
+          }
+        });
+
+        toArray = toArray.sort((a, b) => {
+          return b.weight - a.weight;
+        });
+
+        fromArray = fromArray.sort((a, b) => {
+          return b.weight - a.weight;
+        });
+        fromArray = fromArray.slice(0, 5);
+        //console.log(fromArray, "pushing something here");
+        toArray = toArray.slice(0, 5);
+
+        var outputFrom = fromArray.map(el => {
+          return el.id;
+        });
+        var outputTo = toArray.map(el => {
+          return el.id;
+        });
+
+        return [outputFrom, outputTo];
+      })
+      .then(res => {
+        let myPromises = [];
+        console.log("should be array of IDs", res);
+        for (let i = 0; i < res[0].length; i++) {
+          for (let j = 0; j < res[1].length; j++) {
+            myPromises.push(prices(res[0][i], res[1][j], date, { class: 1 }));
+          }
+        }
+        return myPromises;
+      })
+      .then(myPromises => {
+        Promise.all(myPromises).then(results => {
+          console.log("array of array here", results);
+          let sorted = sortingAllTrips(results);
+          res.json(sorted);
+        });
+      });
+  } else if (!parseInt(from) > 0 || !parseInt(to) > 0) {
+    console.log("IT IS A STRING!");
+    var fromArray = [];
+    var toArray = [];
+    Station.find()
+      .then(stations => {
+        stations.forEach(s => {
+          if (s.address.city.includes(from)) {
+            fromArray.push({ id: s.id, weight: s.weight });
+          }
+          if (s.address.city.includes(to)) {
+            toArray.push({ id: s.id, weight: s.weight });
+          }
+        });
+
+        toArray = toArray.sort((a, b) => {
+          return b.weight - a.weight;
+        });
+
+        fromArray = fromArray.sort((a, b) => {
+          return b.weight - a.weight;
+        });
+        fromArray = fromArray.slice(0, 5);
+        toArray = toArray.slice(0, 5);
+
+        var outputFrom = fromArray.map(el => {
+          return el.id;
+        });
+        var outputTo = toArray.map(el => {
+          return el.id;
+        });
+
+        return [outputFrom, outputTo];
+      })
+      .then(res => {
+        let myPromises = [];
+        console.log("should be array of IDs", res);
+        for (let i = 0; i < res[0].length; i++) {
+          for (let j = 0; j < res[1].length; j++) {
+            myPromises.push(prices(res[0][i], res[1][j], date, { class: 1 }));
+          }
+        }
+        return myPromises;
+      })
+      .then(myPromises => {
+        Promise.all(myPromises).then(results => {
+          console.log("array of array here", results);
+          let sorted = sortingAllTrips(results);
+          res.json(sorted);
+        });
+      });
+  } else {
+    prices(from, to, date, { class: 1 }).then(routes => {
+      // console.log(routes);
+      // let sortedByPrice = routes.sort((a, b) => {
+      //   return a.price.amount - b.price.amount;
       res.json(routes);
-      // inspect(routes, { depth: null });
-    })
-    .catch(err => {
-      console.error(err);
-      process.exit(1);
+      // });
     });
+  }
 });
+//   prices(from, to, date, { class: 1 })
+//     .then(routes => {
+//       res.json(routes);
+//       // inspect(routes, { depth: null });
+//     })
+//     .catch(err => {
+//       console.error(err);
+//       process.exit(1);
+//     });
+// });
 // prices(from, to, date, { class: 2 })
 //   .then(routes => {
 //     console.log("WHEN:", date);

@@ -4,8 +4,7 @@ const ResultList = props => {
   let detail = props.details;
   const departure = new Date(detail.legs[0].departure);
   const arrival = new Date(detail.legs[detail.legs.length - 1].arrival);
-  const duration = new Date(+arrival - +departure).toLocaleTimeString();
-
+  const duration = new Date(arrival - departure).toLocaleTimeString();
   return (
     <div>
       <p>
@@ -19,11 +18,11 @@ const ResultList = props => {
         ,Platform:{detail.legs[0].arrivalPlatform}
       </p>
 
-      <p>Duration: {duration.slice(0, 1) + "h" + duration.slice(2, 4) + "m"}</p>
+      <p>Duration: {duration.slice(0, 2) + "h" + duration.slice(3, 5) + "m"}</p>
       <p>Changes: {detail.legs.length - 1}</p>
       <p>
         First Class:
-        {detail.firstClass}
+        {detail.firstClass ? detail.firstClass : "not available"}
       </p>
       <p>
         Second Class:
@@ -34,6 +33,7 @@ const ResultList = props => {
           return (
             <li key={detail.id} style={{ border: "1px solid red" }}>
               {el.line.product}
+              {el.line.name}
             </li>
           );
         })}
