@@ -15,6 +15,7 @@ const Station = require("../models/Station");
 //   .day(1 + 7)
 //   .toDate();
 
+
 // const sortingAllTrips = allTrips => {
 //   let newArrayOfAllTrips = [];
 
@@ -35,12 +36,14 @@ const Station = require("../models/Station");
 //     if (!onlyUniqueTrips.includes(trip.origin.name || trip.destination.name)
 //   })
 // };
-
+let date;
+let from;
+let to;
 router.get("/price", (req, res) => {
   console.log("check for city here", req.query);
-  const date = req.query.date;
-  const from = req.query.fromId;
-  const to = req.query.toId;
+  date = req.query.date;
+  from = req.query.fromId;
+  to = req.query.toId;
   console.log(from, to);
   console.log("before :", date);
 
@@ -158,4 +161,26 @@ router.get("/price", (req, res) => {
   }
 });
 
+router.get("/firstPrice", (req, res) => {
+  prices(from, to, date, { class: 1 })
+    .then(routes => {
+      res.json(routes);
+      // inspect(routes, { depth: null });
+    })
+    .catch(err => {
+      console.error(err);
+      process.exit(1);
+    });
+});
+// prices(from, to, date, { class: 2 })
+//   .then(routes => {
+//     console.log("WHEN:", date);
+//     res.json(routes);
+//     console.log("Second class:", routes.length);
+//     // console.log(inspect(routes, { depth: null }));
+//   })
+//   .catch(err => {
+//     console.error(err);
+//     process.exit(1);
+//   });
 module.exports = router;
