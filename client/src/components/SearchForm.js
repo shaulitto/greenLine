@@ -18,6 +18,7 @@ export class SearchForm extends Component {
     resultTo: [],
     resultFrom: [],
     id: "",
+    savedJourney: {}
     resultListRender: false,
     resultData: []
   };
@@ -114,16 +115,18 @@ export class SearchForm extends Component {
 
 
   handleClickSave = event => {
-    axios.post("/journeys", {
-      to: this.state.to,
-      toId: this.state.toId,
-      from: this.state.from,
-      fromId: this.state.fromId,
-      date: this.state.date.slice(0, 16)
-    });
-    // .then(response => {
-    //   this.setState({ journey: response.data });
-    // });
+    axios
+      .post("/journeys", {
+        to: this.state.to,
+        toId: this.state.toId,
+        from: this.state.from,
+        fromId: this.state.fromId,
+        date: this.state.date.slice(0, 16)
+      })
+      .then(response => {
+        console.log(response.data);
+        this.setState({ savedJourney: response.data });
+      });
   };
 
   render() {

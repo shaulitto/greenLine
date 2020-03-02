@@ -40,10 +40,10 @@ router.post("/journeys", (req, res) => {
           //   .log(favourites)
           .populate({ path: "favourites" })
           .then(result => {
-            res.json();
+            res.json(journeyDetail);
           });
       } else {
-        res.json();
+        res.json(journeyDetail);
       }
     });
   });
