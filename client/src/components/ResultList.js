@@ -57,7 +57,6 @@ export class ResultList extends Component {
                   key={this.state.detail.id}
                   style={{ border: "1px solid red" }}
                 >
-                  {el.line.product}
                   {el.line.name}
                 </li>
               );
