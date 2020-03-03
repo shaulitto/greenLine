@@ -1,2 +1,0 @@
-require("./serializers");
-require("./localStrategy");
