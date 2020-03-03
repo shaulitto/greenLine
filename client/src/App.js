@@ -5,13 +5,11 @@ import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import { Route } from "react-router-dom";
 import SearchForm from "./components/SearchForm";
-import UserPage from "./components/UserPage";
-import Results from "./components/Results";
 
 class App extends React.Component {
   state = {
-    user: this.props.user,
-    tripResults: []
+    user: this.props.user
+    //tripResult: []
   };
 
   setUser = userObj => {
@@ -20,9 +18,13 @@ class App extends React.Component {
     });
   };
 
-  setTripResults = arrayOfResults => {
-    this.setState({ tripResults: arrayOfResults });
-  };
+  // removeTripResults = () => {
+  //   this.setState({ tripResults: [] });
+  // };
+
+  // removeTripResults = arrayOfResults => {
+  //   this.setState({ tripResults: arrayOfResults });
+  // };
 
   render() {
     return (
@@ -52,6 +54,7 @@ class App extends React.Component {
           render={props => (
             <SearchForm
               setTripResults={this.setTripResults}
+              tripResult={this.state.tripResult}
               {...props}
               isLoggedIn={Boolean(this.state.user)}
             />

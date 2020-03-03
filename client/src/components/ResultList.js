@@ -16,6 +16,7 @@ export class ResultList extends Component {
           showDetail: true
         });
   };
+  // .toString() // .slice(0, 21)}
 
   render() {
     const departure = new Date(this.state.detail.legs[0].departure);
@@ -28,18 +29,14 @@ export class ResultList extends Component {
         <div key={this.state.detail.id} onClick={this.handleClick}>
           <p>
             From: {this.state.detail.origin.name} at:
-            {new Date(this.state.detail.legs[0].departure)
-              .toString()
-              .slice(0, 21)}
-            , Platform:
+            {this.state.detail.legs[0].departure.slice(0, 21)}, Platform:
             {this.state.detail.legs[0].departurePlatform}
           </p>
           <p>
             To: {this.state.detail.destination.name} at:
-            {new Date(this.state.detail.legs[0].arrival)
-              .toString()
-              .slice(0, 21)}
-            ,Platform:{this.state.detail.legs[0].arrivalPlatform}
+            {this.state.detail.legs[0].arrival}
+            ,Platform:
+            {this.state.detail.legs[0].arrivalPlatform}
           </p>
           <p>
             Duration: {duration.slice(0, 2) + "h" + duration.slice(3, 5) + "m"}
