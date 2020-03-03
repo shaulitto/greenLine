@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 export class SearchForm extends Component {
   state = {
-    date: new Date(),
+    date: "",
     from: "",
     to: "",
     toId: "",
@@ -34,11 +34,9 @@ export class SearchForm extends Component {
 
   handleChange = e => {
     console.log(e.target);
-
     const date = e.target.value;
-    const stringDate = new Date(date).toISOString().slice(0, -1);
     this.setState({
-      date: stringDate
+      date: date
     });
   };
 
