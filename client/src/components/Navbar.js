@@ -24,7 +24,7 @@ const Navbar = props => {
   }
   return (
     <nav className="navbar">
-      <Link className="navbar-home" to="/">
+      <Link className="navbar-home" to="/" onClick={props.resetTripResults}>
         Home
       </Link>
       <Link className="navbar-login" to="/login">
