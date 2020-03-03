@@ -19,25 +19,23 @@ export class SearchForm extends Component {
     resultFrom: [],
     id: "",
     savedJourney: {},
-    resultListRender: false,
     resultData: [],
     firstClass: []
   };
 
   handleChange = e => {
-    // new Date(date).toISOString().slice(0, -1);
+    // console.log(e.target);
     const date = e.target.value;
-    console.log("Date", date);
-    //const stringDate = new Date(date).toLocaleDateString();
-    //console.log("String date", stringDate);
     this.setState({
       date: date
     });
   };
 
   handleSubmit = event => {
+    this.setState({
+      resultData: []
+    });
     event.preventDefault();
-
     let newFromId = this.state.fromId;
     if (!newFromId) newFromId = this.state.from;
 
@@ -59,9 +57,10 @@ export class SearchForm extends Component {
     Promise.all([getPrices, firstPrice]).then(([allRes, firstClass]) => {
       this.setState({
         resultData: allRes.data,
-        resultListRender: true,
         firstClass: firstClass.data
       });
+      this.props.resultListSetTrue();
+      console.log("resultsssssssss", this.state.resultData);
     });
   };
 
@@ -187,7 +186,7 @@ export class SearchForm extends Component {
           <Link to="/Login">Login to save</Link>
         )}
         ;
-        {this.state.resultListRender ? (
+        {this.props.resultListRender ? (
           <Results
             isLoggedIn={this.props.isLoggedIn}
             resultData={this.state.resultData}

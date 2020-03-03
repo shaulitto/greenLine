@@ -34,9 +34,8 @@ export class ResultList extends Component {
           </p>
           <p>
             To: {this.state.detail.destination.name} at:
-            {this.state.detail.legs[0].arrival}
-            ,Platform:
-            {this.state.detail.legs[0].arrivalPlatform}
+            {this.state.detail.legs[0].arrival.slice(0, 21)}
+            ,Platform:{this.state.detail.legs[0].arrivalPlatform}
           </p>
           <p>
             Duration: {duration.slice(0, 2) + "h" + duration.slice(3, 5) + "m"}

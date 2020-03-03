@@ -1,9 +1,9 @@
 // const stations = require("./node_modules/db-stations/full.json");
-const moment = require("moment-timezone");
-const { inspect } = require("util");
+//const moment = require("moment-timezone");
+//const { inspect } = require("util");
 const prices = require("db-prices");
 const router = require("express").Router();
-const tz = "Europe/Berlin";
+//const tz = "Europe/Berlin";
 const Station = require("../models/Station");
 
 const sortingAllTrips = allTrips => {

@@ -8,8 +8,9 @@ import SearchForm from "./components/SearchForm";
 
 class App extends React.Component {
   state = {
-    user: this.props.user
-    //tripResult: []
+    user: this.props.user,
+    resultListRender: false
+    //newSearchForm: false
   };
 
   setUser = userObj => {
@@ -18,19 +19,33 @@ class App extends React.Component {
     });
   };
 
-  // removeTripResults = () => {
-  //   this.setState({ tripResults: [] });
+  // setTripResults = arrayOfResults => {
+  //   this.setState({ resultList: arrayOfResults });
   // };
 
-  // removeTripResults = arrayOfResults => {
-  //   this.setState({ tripResults: arrayOfResults });
-  // };
+  resetTripResults = () => {
+    this.setState({
+      resultListRender: false
+      //newSearchForm: true
+    });
+  };
+
+  resultListSetTrue = () => {
+    this.setState({
+      resultListRender: true
+    });
+  };
 
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <Navbar setUser={this.setUser} user={this.state.user} />
+          <Navbar
+            setUser={this.setUser}
+            user={this.state.user}
+            //setTripResults={this.setTripResults}
+            resetTripResults={this.resetTripResults}
+          />
 
           <div>
             <Route
@@ -53,10 +68,11 @@ class App extends React.Component {
           path="/"
           render={props => (
             <SearchForm
-              setTripResults={this.setTripResults}
-              tripResult={this.state.tripResult}
-              {...props}
+              // setTripResults={this.setTripResults}
+              // {...props}
               isLoggedIn={Boolean(this.state.user)}
+              resultListSetTrue={this.resultListSetTrue}
+              resultListRender={this.state.resultListRender}
             />
           )}
         />
