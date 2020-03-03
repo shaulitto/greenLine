@@ -18,19 +18,9 @@ export class SearchForm extends Component {
     resultFrom: [],
     id: "",
     savedJourney: {},
-    resultListRender: false,
     resultData: [],
     firstClass: []
   };
-
-  // debounceEvent(...args) {
-  //   console.log(...args);
-  //   this.debouncedEvent = debounce(...args);
-  //   return e => {
-  //     e.persist();
-  //     return this.debouncedEvent(e);
-  //   };
-  // }
 
   handleChange = e => {
     // console.log(e.target);
@@ -42,7 +32,6 @@ export class SearchForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-
     let newFromId = this.state.fromId;
     if (!newFromId) newFromId = this.state.from;
 
@@ -64,9 +53,9 @@ export class SearchForm extends Component {
     Promise.all([getPrices, firstPrice]).then(([allRes, firstClass]) => {
       this.setState({
         resultData: allRes.data,
-        resultListRender: true,
         firstClass: firstClass.data
       });
+      this.props.resultListSetTrue();
     });
   };
 
@@ -184,7 +173,7 @@ export class SearchForm extends Component {
           <Link to="/Login">Login to save</Link>
         )}
         ;
-        {this.state.resultListRender ? (
+        {this.props.resultListRender ? (
           <Results
             isLoggedIn={this.props.isLoggedIn}
             resultData={this.state.resultData}
