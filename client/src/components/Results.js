@@ -23,6 +23,7 @@ export default class Results extends Component {
       obj.id = journey.id;
       return obj;
     });
+    // const map = [];
     console.log(map);
     return (
       <div>
