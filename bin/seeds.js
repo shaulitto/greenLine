@@ -1,5 +1,5 @@
 let mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/greenLine");
+mongoose.connect(process.env.MONGODB_URI);
 console.log("Connected to DB");
 const stations = require("./full.json.js");
 
