@@ -33,7 +33,7 @@ export class SearchForm extends Component {
   // }
 
   handleChange = e => {
-    console.log(e.target);
+    // console.log(e.target);
     const date = e.target.value;
     this.setState({
       date: date
