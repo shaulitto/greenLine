@@ -11,7 +11,7 @@ class App extends React.Component {
   state = {
     user: this.props.user,
     resultListRender: false,
-    favorites: []
+    favorites: this.props.favorites || []
     //newSearchForm: false
   };
 
@@ -92,6 +92,17 @@ class App extends React.Component {
             />
           )}
         />
+
+        {/* <Route
+          path="/:favoriteId"
+          render={props => (
+            <SearchForm
+              history={props.history}
+              setUser={this.setUser}
+              favorites={props.favorites}
+            />
+          )}
+        /> */}
       </div>
     );
   }

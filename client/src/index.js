@@ -9,7 +9,7 @@ import axios from "axios";
 axios.get("/api/auth/loggedin").then(response => {
   ReactDOM.render(
     <BrowserRouter>
-      <App user={response.data} />
+      <App user={response.data} favorites={response.data.favorites} />
     </BrowserRouter>,
     document.getElementById("root")
   );

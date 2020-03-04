@@ -33,6 +33,7 @@ let from;
 let to;
 router.get("/price", (req, res) => {
   date = req.query.date;
+  console.log("date format", date);
   from = req.query.fromId;
   to = req.query.toId;
 

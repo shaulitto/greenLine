@@ -39,6 +39,9 @@ export default class TripDetail extends Component {
             </>
           );
         })}
+        <a href="https://www.bahn.com/en/view/index.shtml">
+          <button>Book Now</button>
+        </a>
       </div>
     );
   }

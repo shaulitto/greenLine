@@ -39,12 +39,29 @@ export class SearchForm extends Component {
       resultData: []
     });
     event.preventDefault();
+
     let newFromId = this.state.fromId;
     if (!newFromId) newFromId = this.state.from;
 
     let newToId = this.state.toId;
+    let date;
     if (!newToId) newToId = this.state.to;
+    // for(let i=0;i<3;i++){
+    //   switch (i) {
+    //     case 0: date=this.state.date.slice(8,10);
+    //     case value2:
+    //       //Statements executed when the
+    //       //result of expression matches value2
 
+    //     case valueN:
+    //       //Statements executed when the
+    //       //result of expression matches valueN
+
+    //     default:
+    //       //Statements executed when none of
+    //       //the values match the value of the expression
+
+    //   }
     const getPrices = axios.get(
       "/api/price?date=" +
         this.state.date.slice(0, 16) +
@@ -53,8 +70,7 @@ export class SearchForm extends Component {
         "&toId=" +
         newToId
     );
-
-    // console.log(getPrices);
+    console.log("date format", this.state.date.slice(0, 16));
 
     const firstPrice = axios.get("/api/firstPrice");
     this.setState(
@@ -76,6 +92,7 @@ export class SearchForm extends Component {
         });
       }
     );
+    //}
   };
 
   getStations = directions => {
@@ -136,15 +153,12 @@ export class SearchForm extends Component {
         date: this.state.date.slice(0, 16)
       })
       .then(response => {
-        // var joined = this.state.savedJourney.concat(response.data);
-        // this.setState({ savedJourney: joined });
         this.setState({
           savedJourney: response.data
         });
         this.props.setFavorites(this.state.savedJourney);
+        console.log("journey detail in searchform:", this.state.savedJourney);
       });
-
-    console.log("journey detail in searchform:", this.state.savedJourney);
   };
   reverseDestinations = () => {
     this.setState({
@@ -156,6 +170,7 @@ export class SearchForm extends Component {
   };
 
   render() {
+    //console.log("HI", this.props.location.state);
     return (
       <div>
         <label htmlFor="From">From</label>
@@ -185,11 +200,6 @@ export class SearchForm extends Component {
           value={this.state.date}
           onChange={this.handleChange}
         />
-        <select>
-          <option value="E">Adults</option>
-          <option value="K">Children</option>
-          <option value="B">Baby</option>
-        </select>
         <button type="submit" onClick={this.handleSubmit}>
           Search
         </button>
