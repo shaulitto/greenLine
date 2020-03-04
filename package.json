@@ -27,8 +27,9 @@
     "passport-local": "^1.0.0",
     "uuid": "^7.0.1"
   },
+
   "nodemonConfig": {
     "ignore": [
       "client/*"
-    ]
-}
+    ]}
+    }
