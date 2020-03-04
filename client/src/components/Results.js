@@ -15,10 +15,8 @@ export default class Results extends Component {
       obj.firstClass = this.state.firstClass[i]?.price.amount;
       obj.legs = journey.legs;
       obj.id = journey.id;
-      console.log("object", obj);
       return obj;
     });
-    // console.log(map);
     return (
       <div>
         {map.map(el => (

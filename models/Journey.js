@@ -12,6 +12,16 @@ const journeySchema = new Schema({
     id: String,
     name: String
   },
+  destinationId: {
+    type: String,
+    id: String,
+    name: String
+  },
+  originId: {
+    type: String,
+    id: String,
+    name: String
+  },
   date: Object
 });
 

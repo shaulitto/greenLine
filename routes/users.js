@@ -52,6 +52,7 @@ router.post("/login", (req, res, next) => {
       // no user found with username or password didn't match
       return res.status(400).json({ message: info.message });
     }
+    req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000;
     // passport req.login
     req.login(user, err => {
       if (err) {
@@ -68,8 +69,8 @@ router.delete("/logout", (req, res) => {
   res.json({ message: "Successful logout" });
 });
 
-// router.get("/loggedin", (req, res) => {
-//   res.json(req.user);
-// });
+router.get("/loggedin", (req, res) => {
+  res.json(req.user);
+});
 
 module.exports = router;

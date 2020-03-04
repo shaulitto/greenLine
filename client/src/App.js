@@ -5,11 +5,13 @@ import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import { Route } from "react-router-dom";
 import SearchForm from "./components/SearchForm";
+import UserPage from "./components/UserPage";
 
 class App extends React.Component {
   state = {
     user: this.props.user,
-    resultListRender: false
+    resultListRender: false,
+    favorites: []
     //newSearchForm: false
   };
 
@@ -34,6 +36,13 @@ class App extends React.Component {
     this.setState({
       resultListRender: true
     });
+  };
+
+  setFavorites = fave => {
+    this.setState({
+      favorites: [...this.state.favorites, fave]
+    });
+    console.log("favorites in App working", this.state.favorites);
   };
 
   render() {
@@ -62,6 +71,16 @@ class App extends React.Component {
               <Login history={props.history} setUser={this.setUser} />
             )}
           />
+          <Route
+            path="/user"
+            render={props => (
+              <UserPage
+                history={props.history}
+                setUser={this.setUser}
+                favorites={this.state.favorites}
+              />
+            )}
+          />
         </header>
         <Route
           exact
@@ -69,10 +88,11 @@ class App extends React.Component {
           render={props => (
             <SearchForm
               // setTripResults={this.setTripResults}
-              // {...props}
+              {...props}
               isLoggedIn={Boolean(this.state.user)}
               resultListSetTrue={this.resultListSetTrue}
               resultListRender={this.state.resultListRender}
+              setFavorites={this.setFavorites}
             />
           )}
         />

@@ -18,7 +18,6 @@ export default class Autocomplete extends Component {
     setTimeout(() => {
       if (this.state.loading) {
         this.setState({ showLoader: false });
-        // console.log(this.state.showLoader);
       }
     }, 4000);
   }

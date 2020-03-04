@@ -28,7 +28,11 @@ export class ResultList extends Component {
       <>
         <div key={this.state.detail.id} onClick={this.handleClick}>
           <p>
-            From: {this.state.detail.origin.name} at:
+            From:
+            {this.state.detail.origin.name
+              ? this.state.detail.origin.name
+              : "There are no results"}
+            at:
             {this.state.detail.legs[0].departure.slice(0, 21)}, Platform:
             {this.state.detail.legs[0].departurePlatform}
           </p>

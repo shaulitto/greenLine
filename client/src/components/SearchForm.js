@@ -4,7 +4,6 @@ import Autocomplete from "./Autocomplete";
 // import { debounce } from "lodash";
 import Results from "./Results";
 import { Link } from "react-router-dom";
-import Navbar from "./Navbar";
 
 export class SearchForm extends Component {
   state = {
@@ -18,18 +17,23 @@ export class SearchForm extends Component {
     resultTo: [],
     resultFrom: [],
     id: "",
-    savedJourney: {},
+    savedJourney: [],
     resultData: [],
     firstClass: []
   };
 
   handleChange = e => {
-    // console.log(e.target);
     const date = e.target.value;
     this.setState({
       date: date
     });
   };
+  // searchFavorites=e=>{
+  //   this.setState({
+  //     toId:e.originId,
+  //     toId:this.props.
+  //   })
+  // }
 
   handleSubmit = event => {
     this.setState({
@@ -50,7 +54,6 @@ export class SearchForm extends Component {
         "&toId=" +
         newToId
     );
-    console.log(getPrices);
 
     const firstPrice = axios.get("/api/firstPrice");
 
@@ -60,13 +63,10 @@ export class SearchForm extends Component {
         firstClass: firstClass.data
       });
       this.props.resultListSetTrue();
-      console.log("resultsssssssss", this.state.resultData);
     });
   };
 
   getStations = directions => {
-    // console.log("DIRECTIONS", directions);
-
     axios
       .post("/cities", { to: this.state.to, from: this.state.from })
       .then(response => {
@@ -116,7 +116,7 @@ export class SearchForm extends Component {
 
   handleClickSave = event => {
     axios
-      .post("/journeys", {
+      .post("/api/journeys", {
         to: this.state.to,
         toId: this.state.toId,
         from: this.state.from,
@@ -124,9 +124,15 @@ export class SearchForm extends Component {
         date: this.state.date.slice(0, 16)
       })
       .then(response => {
-        console.log(response.data);
-        this.setState({ savedJourney: response.data });
+        // var joined = this.state.savedJourney.concat(response.data);
+        // this.setState({ savedJourney: joined });
+        this.setState({
+          savedJourney: response.data
+        });
+        this.props.setFavorites(this.state.savedJourney);
       });
+
+    console.log("journey detail in searchform:", this.state.savedJourney);
   };
   reverseDestinations = () => {
     this.setState({
@@ -140,7 +146,6 @@ export class SearchForm extends Component {
   render() {
     return (
       <div>
-        {/* <form onSubmit={this.handleSubmit}> */}
         <label htmlFor="From">From</label>
         <Autocomplete
           name="from"
@@ -150,7 +155,6 @@ export class SearchForm extends Component {
           value={this.state.from}
           onChange={this.handleInputChange}
         />
-        {/* <button >switch</button> */}
         <label htmlFor="To">To</label>
         <button onClick={this.reverseDestinations}>-></button>
         <Autocomplete
@@ -177,7 +181,6 @@ export class SearchForm extends Component {
         <button type="submit" onClick={this.handleSubmit}>
           Search
         </button>
-        {/* </form> */}
         {this.props.isLoggedIn ? (
           <button onClick={this.handleClickSave}>
             Save this Trip to your List
