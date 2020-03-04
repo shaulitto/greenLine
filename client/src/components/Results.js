@@ -35,10 +35,20 @@ export default class Results extends Component {
     });
   };
 
+  sortByTime = () => {
+    const timed = [...this.state.results].sort((a, b) => {
+      return a.legs[0].departure.localeCompare(b.legs[0].departure);
+    });
+    this.setState({
+      results: timed
+    });
+  };
+
   render() {
     return (
       <div>
         <button onClick={this.sortByPrice}>Sort by Price</button>
+        <button onClick={this.sortByTime}>Sort by Time</button>
         {this.state.results.map(el => (
           <ResultList details={el} key={el.id} />
         ))}
