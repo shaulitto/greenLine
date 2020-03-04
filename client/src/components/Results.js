@@ -6,6 +6,7 @@ export default class Results extends Component {
     results: this.props.resultData,
     firstClass: this.props.firstClass
   };
+
   render() {
     const map = this.state.results.map((journey, i) => {
       const obj = {};
@@ -19,6 +20,7 @@ export default class Results extends Component {
       return obj;
     });
     // console.log(map);
+
     return (
       <div>
         {map.map(el => (
