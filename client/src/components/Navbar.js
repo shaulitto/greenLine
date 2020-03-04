@@ -19,7 +19,7 @@ const Navbar = props => {
           src="/GreenLineLogo.png"
           alt="Logo"
         />
-        <Link to="/"  onClick={props.resetTripResults}>
+        <Link to="/" onClick={props.resetTripResults}>
           <img
             className="HomeIcon Icon"
             src="/home.svg"
@@ -46,7 +46,6 @@ const Navbar = props => {
           />
           <p>Logout</p>
         </Link>
-        <Link to="/user">User Page</Link>
       </nav>
     );
   }

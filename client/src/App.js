@@ -51,6 +51,14 @@ class App extends React.Component {
           //setTripResults={this.setTripResults}
           resetTripResults={this.resetTripResults}
         />
+        <div>
+          <Route
+            path="/login"
+            render={props => (
+              <Login history={props.history} setUser={this.setUser} />
+            )}
+          />
+        </div>
 
         <div>
           <Route
@@ -60,18 +68,18 @@ class App extends React.Component {
             )}
           />
         </div>
-        
-          <Route
-            path="/user"
-            render={props => (
-              <UserPage
-                history={props.history}
-                setUser={this.setUser}
-                favorites={this.state.favorites}
-              />
-            )}
-          />
-<div className="HomeImage"></div>
+
+        <Route
+          path="/user"
+          render={props => (
+            <UserPage
+              history={props.history}
+              setUser={this.setUser}
+              favorites={this.state.favorites}
+            />
+          )}
+        />
+        <div className="HomeImage"></div>
         <Route
           exact
           path="/"

@@ -10,6 +10,12 @@
   ##Screen = 1281px to higher resolution desktops
 */
 
+@import url("https://fonts.googleapis.com/css?family=Raleway&display=swap");
+
+* {
+  font-family: "Raleway", sans-serif;
+}
+
 @media (min-width: 1281px) {
   /* //CSS here */
   body {
@@ -139,7 +145,7 @@
   border-radius: 4px;
   border-style: none;
   margin: 0.3em;
-  padding: 1em;
+  padding: 0.3em;
 }
 
 .inputDate {
@@ -169,14 +175,31 @@
 
 .AutocompleteList {
   list-style-type: none;
-  margin: 0;
+  text-align: center;
+  margin: 0 6em;
   background-color: #effffb;
-  width: 70%;
   padding: 0 2em;
+  border-radius: 4px;
 }
 
 .AutocompleteItem {
   float: center;
+}
+
+.Filter {
+  background-color: #272727;
+}
+
+.Filter img {
+  padding: 0.2em;
+}
+
+.Filter button {
+  background-color: #effffb;
+  border-radius: 4px;
+  border-style: none;
+  padding: 0.3em;
+  margin: 0.2em;
 }
 
 /* 
