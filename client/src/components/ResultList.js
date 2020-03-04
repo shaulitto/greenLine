@@ -40,7 +40,7 @@ export class ResultList extends Component {
             at:
             {this.state.detail.legs[0].arrival.slice(11, 16)}
             To: {this.state.detail.destination.name}
-            Platform:{this.state.detail.legs[0].arrivalPlatform}
+            Platform: {this.state.detail.legs[0].arrivalPlatform}
           </p>
           <p>
             Duration: {duration.slice(0, 2) + "h" + duration.slice(3, 5) + "m"}
@@ -55,7 +55,7 @@ export class ResultList extends Component {
           </p>
           <p>
             Second Class:
-            {this.state.detail.normalPrice} €
+            {this.state.detail.normalPrice}0 €
           </p>
           <ul>
             {this.state.detail.legs.map((el, i) => {
