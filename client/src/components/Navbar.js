@@ -12,14 +12,39 @@ const Navbar = props => {
 
   if (props.user) {
     return (
-      <nav>
-        <p>
-          <Link className="navbar-home" to="/" onClick={props.resetTripResults}>
-            Home
-          </Link>
-        </p>
-        <Link onClick={logout} className="navbar-login" to="/">
-          Logout
+      <nav className="navbar">
+        <img
+          className="Logo"
+          height="128px"
+          src="/GreenLineLogo.png"
+          alt="Logo"
+        />
+        <Link to="/"  onClick={props.resetTripResults}>
+          <img
+            className="HomeIcon Icon"
+            src="/home.svg"
+            alt="Home"
+            height="32px"
+          />
+          <p>Home</p>
+        </Link>
+        <Link to="/user">
+          <img
+            className="HomeIcon Icon"
+            src="/user.svg"
+            alt="User"
+            height="32px"
+          />
+          <p>User</p>
+        </Link>
+        <Link onClick={logout} to="/">
+          <img
+            className="LogoutIcon Icon"
+            src="/logout.svg"
+            alt="Logout"
+            height="32px"
+          />
+          <p>Logout</p>
         </Link>
         <Link to="/user">User Page</Link>
       </nav>
@@ -27,14 +52,39 @@ const Navbar = props => {
   }
   return (
     <nav className="navbar">
+      <img
+        className="Logo"
+        height="128px"
+        src="/GreenLineLogo.png"
+        alt="Logo"
+      />
+
       <Link className="navbar-home" to="/" onClick={props.resetTripResults}>
-        Home
+        <img
+          className="HomeIcon Icon"
+          src="/home.svg"
+          alt="Home"
+          height="32px"
+        />
+        <p>Home</p>
       </Link>
       <Link className="navbar-login" to="/login">
-        Login
+        <img
+          className="LoginIcon Icon"
+          src="/login.svg"
+          alt="Login"
+          height="32px"
+        />
+        <p>Login</p>
       </Link>
       <Link className="navbar-login" to="/signup">
-        Signup
+        <img
+          className="SignupIcon Icon"
+          src="/signup.svg"
+          alt="Signup"
+          height="32px"
+        />
+        <p>Signup</p>
       </Link>
     </nav>
   );
