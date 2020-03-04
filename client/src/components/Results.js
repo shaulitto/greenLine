@@ -6,14 +6,10 @@ export default class Results extends Component {
     results: this.props.resultData,
     firstClass: this.props.firstClass
   };
+
   render() {
     // console.log("here are the result before mapping", this.state.results);
-    // console.log(
-    //   "here are the result before mapping for the first class",
-    //   this.state.firstClass
-    // );
-
-    const map = this.state.results.map((journey, i) => {
+    const map = this.props.resultData.map((journey, i) => {
       const obj = {};
       obj.origin = journey.origin;
       obj.destination = journey.destination;
@@ -24,6 +20,7 @@ export default class Results extends Component {
       return obj;
     });
     // console.log(map);
+
     return (
       <div>
         {map.map(el => (

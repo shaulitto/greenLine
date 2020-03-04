@@ -27,14 +27,16 @@ export class ResultList extends Component {
       <>
         <div key={this.state.detail.id} onClick={this.handleClick}>
           <p>
-            From: {this.state.detail.origin.name} at:
-            {this.state.detail.legs[0].departure.slice(0, 21)}, Platform:
+            at:
+            {this.state.detail.legs[0].departure.slice(11, 16)}
+            From: {this.state.detail.origin.name} Platform:
             {this.state.detail.legs[0].departurePlatform}
           </p>
           <p>
-            To: {this.state.detail.destination.name} at:
-            {this.state.detail.legs[0].arrival.slice(0, 21)}
-            ,Platform:{this.state.detail.legs[0].arrivalPlatform}
+            at:
+            {this.state.detail.legs[0].arrival.slice(11, 16)}
+            To: {this.state.detail.destination.name}
+            Platform:{this.state.detail.legs[0].arrivalPlatform}
           </p>
           <p>
             Duration: {duration.slice(0, 2) + "h" + duration.slice(3, 5) + "m"}
@@ -51,12 +53,9 @@ export class ResultList extends Component {
             {this.state.detail.normalPrice}
           </p>
           <ul>
-            {this.state.detail.legs.map(el => {
+            {this.state.detail.legs.map((el, i) => {
               return (
-                <li
-                  key={this.state.detail.id}
-                  style={{ border: "1px solid red" }}
-                >
+                <li key={i} style={{ border: "1px solid red" }}>
                   {el.line.product}
                   {el.line.name}
                 </li>
@@ -74,8 +73,5 @@ export class ResultList extends Component {
     );
   }
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> 5a86c3ac6fa4ebe9f8dece56cb78186052bba9da
 export default ResultList;
