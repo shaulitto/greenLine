@@ -49,8 +49,8 @@ export class SearchForm extends Component {
     let newFromId = state.fromId;
     if (!newFromId) newFromId = state.from;
 
+
     let newToId = state.toId;
-    let date;
     if (!newToId) newToId = state.to;
     // for(let i=0;i<3;i++){
     //   switch (i) {
