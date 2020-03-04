@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ResultList from "./ResultList";
+import ShowDays from "./ShowDays";
 
 export default class Results extends Component {
   state = {
@@ -17,6 +18,7 @@ export default class Results extends Component {
       obj.id = journey.id;
       return obj;
     });
+
     const sorted = [...mapped].sort((a, b) => {
       return a.legs[0].departure.localeCompare(b.legs[0].departure);
     });
@@ -69,6 +71,7 @@ export default class Results extends Component {
   render() {
     return (
       <div>
+        <ShowDays />
         <button onClick={this.sortByPrice}>Sort by Price</button>
         <button onClick={this.sortByTime}>Sort by Time</button>
         {this.state.results.map(el => (

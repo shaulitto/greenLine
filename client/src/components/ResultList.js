@@ -28,6 +28,8 @@ export class ResultList extends Component {
       <>
         <div key={this.props.detail.id} onClick={this.handleClick}>
           <p>
+
+
             at:
             {this.props.detail.legs[0].departure.slice(11, 16)}
             From: {this.props.detail.origin.name} Platform:

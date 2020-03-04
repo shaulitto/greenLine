@@ -14,11 +14,14 @@ const Navbar = props => {
     return (
       <nav>
         <p>
-          <Link to="/">Home</Link>
+          <Link className="navbar-home" to="/" onClick={props.resetTripResults}>
+            Home
+          </Link>
         </p>
-        <Link onClick={logout} to="/">
+        <Link onClick={logout} className="navbar-login" to="/">
           Logout
         </Link>
+        <Link to="/user">User Page</Link>
       </nav>
     );
   }
