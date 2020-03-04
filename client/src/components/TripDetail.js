@@ -10,7 +10,7 @@ export default class TripDetail extends Component {
   convert = (str1, str2) => {
     let departure = new Date(str1);
     let arrival = new Date(str2);
-    return new Date(+arrival - +departure).toLocaleTimeString().slice(0, 5);
+    return new Date(+arrival - +departure).toLocaleTimeString().slice(0, 4);
   };
 
   render() {
@@ -21,57 +21,21 @@ export default class TripDetail extends Component {
         {this.state.trip.legs.map((leg, index) => {
           return (
             <>
-              <div>
-                <div className="legContainer">
-                  <div className="legdetail">
-                    <span className="times">
-                      {this.onlyHour(leg.departure)} &nbsp;
-                    </span>
-                    <span className="stationName">
-                      {leg.origin.name} &nbsp;
-                    </span>{" "}
-                    <span className="PlatformName">
-                      Platfrom: {leg.departurePlatform}
-                    </span>
-                    <br />
-                  </div>
-                  <div className="InfoContainer">
-                    <p className="Duration">
-                      <img height="16px" src="/time.svg" alt="duration" />
-                      {this.convert(leg.departure, leg.arrival)}
-                    </p>
-                    |
-                    <p className="trainproduct">
-                      <img height="16px" src="/train.svg" alt="train" />
-                      {leg.line.name}
-                    </p>
-                  </div>
-                  <div className="legdetail">
-                    <span className="times">
-                      {this.onlyHour(leg.arrival)} &nbsp;
-                    </span>
-                    <span className="stationName">
-                      {leg.destination.name} &nbsp;
-                    </span>{" "}
-                    <span className="PatformName">
-                      Platfrom: {leg.arrivalPlatform}
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="TransferContainer">
-                {this.state.trip.legs[index + 1] && (
-                  <img height="32px" src="/transfer.svg" alt="transfer" />
-                )}
-                <p className="Transfertime">
-                  {this.state.trip.legs[index + 1] &&
-                    `Transfer:
+              <p>
+                {this.onlyHour(leg.departure)} {leg.origin.name} Platfrom:
+                {leg.departurePlatform}
+                =>
+                {this.onlyHour(leg.arrival)} {leg.destination.name} Platfrom:
+                {leg.arrivalPlatform}
+                Duration: {this.convert(leg.departure, leg.arrival)} |train:
+                {leg.line.name}|
+                {this.state.trip.legs[index + 1] &&
+                  `Transfer Time:
                   ${this.convert(
                     leg.arrival,
                     this.state.trip.legs[index + 1].departure
                   )}`}
-                </p>
-              </div>
+              </p>
             </>
           );
         })}
