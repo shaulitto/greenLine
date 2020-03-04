@@ -49,7 +49,6 @@ export class SearchForm extends Component {
     let newFromId = state.fromId;
     if (!newFromId) newFromId = state.from;
 
-
     let newToId = state.toId;
     if (!newToId) newToId = state.to;
     // for(let i=0;i<3;i++){
@@ -207,7 +206,7 @@ export class SearchForm extends Component {
           <label htmlFor="To"></label>
           <br />
           <button className="ReverseButton" onClick={this.reverseDestinations}>
-            <img height="32px" src="/swap-vertical.svg" alt="switch" />
+            <img height="16px" src="/swap-vertical.svg" alt="switch" />
           </button>
           <br />
           <Autocomplete
@@ -246,7 +245,7 @@ export class SearchForm extends Component {
           {/* </form> */}
           {this.props.isLoggedIn ? (
             <button onClick={this.handleClickSave}>
-              Save this Trip to your List
+              <img height="32px" src="/fav.svg" alt="Favourite" />
             </button>
           ) : (
             <Link id="favlink" to="/Login">
@@ -254,6 +253,7 @@ export class SearchForm extends Component {
             </Link>
           )}
         </div>
+        <div></div>
         {this.props.resultListRender ? (
           <Results
             isLoggedIn={this.props.isLoggedIn}
