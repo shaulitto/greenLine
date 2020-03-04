@@ -46,17 +46,16 @@ export class ResultList extends Component {
             Duration: {duration.slice(0, 2) + "h" + duration.slice(3, 5) + "m"}
           </p>
           <p>Changes: {this.props.detail.legs.length - 1}</p>
+ <p>
+            2nd Class:
+            {this.props.detail.normalPrice}0 €
+          </p>
           <p>
-            First Class:
+            1st Class:
             {this.props.detail.firstClass
               ? this.props.detail.firstClass
               : "not available"}
             0 €
-          </p>
-          <p>
-            Second Class:
-            {this.props.detail.normalPrice}0 €
-
           </p>
           <ul>
             {this.props.detail.legs.map((el, i) => {
