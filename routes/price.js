@@ -7,6 +7,7 @@ const Station = require("../models/Station");
 
 const sortingAllTrips = allTrips => {
   const allTripsInOne = allTrips.flat();
+  console.log(allTripsInOne.length);
   const uniques = [
     ...new Set(
       allTripsInOne.map(el => JSON.stringify(el.legs.map(ele => ele.line.id)))
@@ -23,6 +24,7 @@ const sortingAllTrips = allTrips => {
       return [...acc, val];
     } else return acc;
   }, []);
+  console.log(reducedArray.length);
   return reducedArray;
 };
 

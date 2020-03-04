@@ -3,11 +3,12 @@ import ResultList from "./ResultList";
 
 export default class Results extends Component {
   state = {
-    results: this.props.resultData,
+    results: [],
     firstClass: this.props.firstClass
   };
-  render() {
-    const map = this.state.results.map((journey, i) => {
+
+  componentDidMount() {
+    const mapped = this.props.resultData.map((journey, i) => {
       const obj = {};
       obj.origin = journey.origin;
       obj.destination = journey.destination;
@@ -17,9 +18,39 @@ export default class Results extends Component {
       obj.id = journey.id;
       return obj;
     });
+
+    const sorted = [...mapped].sort((a, b) => {
+      return a.legs[0].departure.localeCompare(b.legs[0].departure);
+    });
+    this.setState({
+      results: sorted
+    });
+  }
+
+  sortByPrice = () => {
+    const priced = [...this.state.results].sort((a, b) => {
+      return a.normalPrice - b.normalPrice;
+    });
+    this.setState({
+      results: priced
+    });
+  };
+
+  sortByTime = () => {
+    const timed = [...this.state.results].sort((a, b) => {
+      return a.legs[0].departure.localeCompare(b.legs[0].departure);
+    });
+    this.setState({
+      results: timed
+    });
+  };
+
+  render() {
     return (
       <div>
-        {map.map(el => (
+        <button onClick={this.sortByPrice}>Sort by Price</button>
+        <button onClick={this.sortByTime}>Sort by Time</button>
+        {this.state.results.map(el => (
           <ResultList details={el} key={el.id} />
         ))}
       </div>

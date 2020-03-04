@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Autocomplete from "./Autocomplete";
-// import { debounce } from "lodash";
 import Results from "./Results";
 import { Link } from "react-router-dom";
 
@@ -55,15 +54,28 @@ export class SearchForm extends Component {
         newToId
     );
 
-    const firstPrice = axios.get("/api/firstPrice");
+    // console.log(getPrices);
 
-    Promise.all([getPrices, firstPrice]).then(([allRes, firstClass]) => {
-      this.setState({
-        resultData: allRes.data,
-        firstClass: firstClass.data
-      });
-      this.props.resultListSetTrue();
-    });
+    const firstPrice = axios.get("/api/firstPrice");
+    this.setState(
+      {
+        resultData: []
+      },
+      () => {
+        Promise.all([getPrices, firstPrice]).then(([allRes, firstClass]) => {
+          console.log(allRes.data.length);
+          this.setState(
+            {
+              resultData: allRes.data,
+              firstClass: firstClass.data
+            },
+            () => {
+              this.props.resultListSetTrue();
+            }
+          );
+        });
+      }
+    );
   };
 
   getStations = directions => {
@@ -188,7 +200,7 @@ export class SearchForm extends Component {
         ) : (
           <Link to="/Login">Login to save</Link>
         )}
-        ;
+
         {this.props.resultListRender ? (
           <Results
             isLoggedIn={this.props.isLoggedIn}
