@@ -21,7 +21,7 @@ router.post("/journeys", (req, res) => {
   Journey.findOne(
     { "origin.id": originId } && { "destination.id": destinationId }
   ).then(journeyDetail => {
-    console.log("deatil here: " + journeyDetail);
+    // console.log("deatil here: " + journeyDetail);
     User.findById(req.user._id).then(user => {
       if (
         !user.favourites.includes(

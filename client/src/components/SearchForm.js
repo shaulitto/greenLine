@@ -137,6 +137,7 @@ export class SearchForm extends Component {
         this.setState({ savedJourney: response.data });
       });
   };
+
   reverseDestinations = () => {
     this.setState({
       to: this.state.from,
@@ -147,6 +148,8 @@ export class SearchForm extends Component {
   };
 
   render() {
+    console.log("beginning of render");
+    console.log(this.state.resultData);
     return (
       <div>
         {/* <form onSubmit={this.handleSubmit}> */}
