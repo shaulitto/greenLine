@@ -5,12 +5,14 @@ import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import { Route } from "react-router-dom";
 import SearchForm from "./components/SearchForm";
+import UserPage from "./components/UserPage";
 
 class App extends React.Component {
   state = {
     user: this.props.user,
     resultListRender: false,
-    newSearchForm: false
+    favorites: this.props.favorites || []
+    //newSearchForm: false
   };
 
   setUser = userObj => {
@@ -19,14 +21,10 @@ class App extends React.Component {
     });
   };
 
-  // setTripResults = arrayOfResults => {
-  //   this.setState({ resultList: arrayOfResults });
-  // };
-
   resetTripResults = () => {
     this.setState({
-      resultListRender: false,
-      newSearchForm: true
+      resultListRender: false
+      //newSearchForm: true
     });
   };
 
@@ -36,46 +34,69 @@ class App extends React.Component {
     });
   };
 
+  setFavorites = fave => {
+    this.setState({
+      favorites: [...this.state.favorites, fave]
+    });
+    console.log("favorites in App working", this.state.favorites);
+  };
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <Navbar
-            setUser={this.setUser}
-            user={this.state.user}
-            //setTripResults={this.setTripResults}
-            resetTripResults={this.resetTripResults}
-          />
+        {/* <header className="App-header"> */}
+        <Navbar
+          setUser={this.setUser}
+          user={this.state.user}
+          //setTripResults={this.setTripResults}
+          resetTripResults={this.resetTripResults}
+        />
 
-          <div>
-            <Route
-              path="/signup"
-              render={props => (
-                <Signup history={props.history} setUser={this.setUser} />
-              )}
-            />
-          </div>
-
+        <div>
           <Route
-            path="/login"
+            path="/signup"
             render={props => (
-              <Login history={props.history} setUser={this.setUser} />
+              <Signup history={props.history} setUser={this.setUser} />
             )}
           />
-        </header>
+        </div>
+        
+          <Route
+            path="/user"
+            render={props => (
+              <UserPage
+                history={props.history}
+                setUser={this.setUser}
+                favorites={this.state.favorites}
+              />
+            )}
+          />
+<div className="HomeImage"></div>
         <Route
           exact
           path="/"
           render={props => (
             <SearchForm
               // setTripResults={this.setTripResults}
-              // {...props}
+              {...props}
               isLoggedIn={Boolean(this.state.user)}
               resultListSetTrue={this.resultListSetTrue}
               resultListRender={this.state.resultListRender}
+              setFavorites={this.setFavorites}
             />
           )}
         />
+
+        {/* <Route
+          path="/:favoriteId"
+          render={props => (
+            <SearchForm
+              history={props.history}
+              setUser={this.setUser}
+              favorites={props.favorites}
+            />
+          )}
+        /> */}
       </div>
     );
   }

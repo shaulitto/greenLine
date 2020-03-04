@@ -16,7 +16,6 @@ export default class TripDetail extends Component {
   render() {
     //Date(this.state.detail.legs.departure)
     //new Date(+arrival - +departure).toLocaleTimeString();
-    console.log(this.state.trip);
     return (
       <div>
         {this.state.trip.legs.map((leg, index) => {
@@ -40,6 +39,9 @@ export default class TripDetail extends Component {
             </>
           );
         })}
+        <a href="https://www.bahn.com/en/view/index.shtml">
+          <button>Book Now</button>
+        </a>
       </div>
     );
   }

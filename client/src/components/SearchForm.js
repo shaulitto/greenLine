@@ -1,13 +1,18 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Autocomplete from "./Autocomplete";
-// import { debounce } from "lodash";
 import Results from "./Results";
 import { Link } from "react-router-dom";
 
+Date.prototype.toDateInputValue = function() {
+  var local = new Date(this);
+  local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+  return local.toJSON().slice(0, 16);
+};
+console.log(new Date());
 export class SearchForm extends Component {
   state = {
-    date: "",
+    date: new Date().toDateInputValue(),
     from: "",
     to: "",
     toId: "",
@@ -17,51 +22,98 @@ export class SearchForm extends Component {
     resultTo: [],
     resultFrom: [],
     id: "",
-    savedJourney: {},
+    savedJourney: [],
     resultData: [],
     firstClass: []
   };
 
   handleChange = e => {
-    // console.log(e.target);
     const date = e.target.value;
+    // console.log(date);
     this.setState({
       date: date
     });
   };
+  // searchFavorites=e=>{
+  //   this.setState({
+  //     toId:e.originId,
+  //     toId:this.props.
+  //   })
+  // }
 
-  handleSubmit = event => {
-    event.preventDefault();
-    let newFromId = this.state.fromId;
-    if (!newFromId) newFromId = this.state.from;
+  searchPrice = state => {
+    this.setState({
+      resultData: []
+    });
 
-    let newToId = this.state.toId;
-    if (!newToId) newToId = this.state.to;
+    let newFromId = state.fromId;
+    if (!newFromId) newFromId = state.from;
 
+
+    let newToId = state.toId;
+    if (!newToId) newToId = state.to;
+    // for(let i=0;i<3;i++){
+    //   switch (i) {
+    //     case 0: date=state.date.slice(8,10);
+    //     case value2:
+    //       //Statements executed when the
+    //       //result of expression matches value2
+
+    //     case valueN:
+    //       //Statements executed when the
+    //       //result of expression matches valueN
+
+    //     default:
+    //       //Statements executed when none of
+    //       //the values match the value of the expression
+
+    //   }
     const getPrices = axios.get(
       "/api/price?date=" +
-        this.state.date.slice(0, 16) +
+        state.date.slice(0, 16) +
         "&fromId=" +
         newFromId +
         "&toId=" +
         newToId
     );
-    console.log(getPrices);
+    console.log("date format", state.date.slice(0, 16));
 
     const firstPrice = axios.get("/api/firstPrice");
-
-    Promise.all([getPrices, firstPrice]).then(([allRes, firstClass]) => {
-      this.setState({
-        resultData: allRes.data,
-        firstClass: firstClass.data
-      });
-      this.props.resultListSetTrue();
-    });
+    this.setState(
+      {
+        resultData: []
+      },
+      () => {
+        Promise.all([getPrices, firstPrice]).then(([allRes, firstClass]) => {
+          console.log(allRes.data.length);
+          this.setState(
+            {
+              resultData: allRes.data,
+              firstClass: firstClass.data
+            },
+            () => {
+              this.props.resultListSetTrue();
+            }
+          );
+        });
+      }
+    );
+    //}
   };
 
-  getStations = directions => {
-    // console.log("DIRECTIONS", directions);
+  handleSubmit = event => {
+    event.preventDefault();
+    this.searchPrice(this.state);
+  };
 
+  componentDidMount() {
+    if (this.props.location.state) {
+      this.searchPrice(this.props.location.state);
+      window.history.pushState(null, "");
+    }
+  }
+
+  getStations = directions => {
     axios
       .post("/cities", { to: this.state.to, from: this.state.from })
       .then(response => {
@@ -111,7 +163,7 @@ export class SearchForm extends Component {
 
   handleClickSave = event => {
     axios
-      .post("/journeys", {
+      .post("/api/journeys", {
         to: this.state.to,
         toId: this.state.toId,
         from: this.state.from,
@@ -119,17 +171,32 @@ export class SearchForm extends Component {
         date: this.state.date.slice(0, 16)
       })
       .then(response => {
-        console.log(response.data);
-        this.setState({ savedJourney: response.data });
+        this.setState({
+          savedJourney: response.data
+        });
+        this.props.setFavorites(this.state.savedJourney);
+        console.log("journey detail in searchform:", this.state.savedJourney);
       });
   };
 
+  reverseDestinations = () => {
+    this.setState({
+      to: this.state.from,
+      from: this.state.to,
+      toId: this.state.fromId,
+      fromId: this.state.toId
+    });
+  };
+
   render() {
+    //console.log("HI", this.props.location.state);
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="From">From</label>
+        <div className="Searchform">
+          {/* <form onSubmit={this.handleSubmit}> */}
+          <label htmlFor="From"></label>
           <Autocomplete
+            placeholder="From:"
             name="from"
             id="from"
             updateText={this.updateText}
@@ -137,10 +204,14 @@ export class SearchForm extends Component {
             value={this.state.from}
             onChange={this.handleInputChange}
           />
-          {/* <button >switch</button> */}
-          <label htmlFor="To">To</label>
-
+          <label htmlFor="To"></label>
+          <br />
+          <button className="ReverseButton" onClick={this.reverseDestinations}>
+            <img height="32px" src="/swap-vertical.svg" alt="switch" />
+          </button>
+          <br />
           <Autocomplete
+            placeholder="To:"
             name="to"
             id={this.state.toId}
             updateText={this.updateTo}
@@ -148,31 +219,41 @@ export class SearchForm extends Component {
             value={this.state.to}
             onChange={this.handleInputChange}
           />
-
-          <label htmlFor="Date">Date </label>
+          <label htmlFor="Date"></label>
           <input
+            className="inputDate"
             type="datetime-local"
             id="date"
             name="date"
             value={this.state.date}
+            // defaultValue={this.state.date}
             onChange={this.handleChange}
           />
-
-          <select>
+          <br />
+          {/* <select>
             <option value="E">Adults</option>
             <option value="K">Children</option>
             <option value="B">Baby</option>
-          </select>
-          <button type="submit">Search</button>
-        </form>
-        {this.props.isLoggedIn ? (
-          <button onClick={this.handleClickSave}>
-            Save this Trip to your List
+          </select> */}
+          <button
+            className="SubmitButton"
+            type="submit"
+            onClick={this.handleSubmit}
+          >
+            Find Prices
           </button>
-        ) : (
-          <Link to="/Login">Login to save</Link>
-        )}
-        ;
+          <br />
+          {/* </form> */}
+          {this.props.isLoggedIn ? (
+            <button onClick={this.handleClickSave}>
+              Save this Trip to your List
+            </button>
+          ) : (
+            <Link id="favlink" to="/Login">
+              Login to save this trip
+            </Link>
+          )}
+        </div>
         {this.props.resultListRender ? (
           <Results
             isLoggedIn={this.props.isLoggedIn}

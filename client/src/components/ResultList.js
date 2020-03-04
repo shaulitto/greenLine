@@ -3,7 +3,6 @@ import TripDetail from "./TripDetail";
 
 export class ResultList extends Component {
   state = {
-    detail: this.props.details,
     showDetail: false
   };
 
@@ -16,56 +15,60 @@ export class ResultList extends Component {
           showDetail: true
         });
   };
+  // .toString() // .slice(0, 21)}
 
   render() {
-    const departure = new Date(this.state.detail.legs[0].departure);
+    // console.log(this.state.detail);
+    const departure = new Date(this.props.detail.legs[0].departure);
     const arrival = new Date(
-      this.state.detail.legs[this.state.detail.legs.length - 1].arrival
+      this.props.detail.legs[this.props.detail.legs.length - 1].arrival
     );
     const duration = new Date(arrival - departure).toLocaleTimeString();
     return (
       <>
-        <div key={this.state.detail.id} onClick={this.handleClick}>
+        <div key={this.props.detail.id} onClick={this.handleClick}>
           <p>
-            From: {this.state.detail.origin.name} at:
-            {this.state.detail.legs[0].departure.slice(0, 21)}, Platform:
-            {this.state.detail.legs[0].departurePlatform}
+
+
+            at:
+            {this.props.detail.legs[0].departure.slice(11, 16)}
+            From: {this.props.detail.origin.name} Platform:
+            {this.props.detail.legs[0].departurePlatform}
           </p>
           <p>
-            To: {this.state.detail.destination.name} at:
-            {this.state.detail.legs[0].arrival.slice(0, 21)}
-            ,Platform:{this.state.detail.legs[0].arrivalPlatform}
+            at:
+            {this.props.detail.legs[0].arrival.slice(11, 16)}
+            To: {this.props.detail.destination.name}
+            Platform:{this.props.detail.legs[0].arrivalPlatform}
+
           </p>
           <p>
             Duration: {duration.slice(0, 2) + "h" + duration.slice(3, 5) + "m"}
           </p>
-          <p>Changes: {this.state.detail.legs.length - 1}</p>
-          <p>
-            First Class:
-            {this.state.detail.firstClass
-              ? this.state.detail.firstClass
-              : "not available"}
+          <p>Changes: {this.props.detail.legs.length - 1}</p>
+ <p>
+            2nd Class:
+            {this.props.detail.normalPrice}0 €
           </p>
           <p>
-            Second Class:
-            {this.state.detail.normalPrice}
+            1st Class:
+            {this.props.detail.firstClass
+              ? this.props.detail.firstClass
+              : "not available"}
+            0 €
           </p>
           <ul>
-            {this.state.detail.legs.map(el => {
+            {this.props.detail.legs.map((el, i) => {
               return (
-                <li
-                  key={this.state.detail.id}
-                  style={{ border: "1px solid red" }}
-                >
+                <li key={i} style={{ border: "1px solid red" }}>
                   {el.line.product}
-                  {el.line.name}
                 </li>
               );
             })}
           </ul>
 
           {this.state.showDetail ? (
-            <TripDetail selectedTrip={this.state.detail} />
+            <TripDetail selectedTrip={this.props.detail} />
           ) : (
             <div></div>
           )}
