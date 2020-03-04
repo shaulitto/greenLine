@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Autocomplete from "./Autocomplete";
-// import { debounce } from "lodash";
 import Results from "./Results";
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
@@ -50,7 +49,7 @@ export class SearchForm extends Component {
         "&toId=" +
         newToId
     );
-    console.log(getPrices);
+    // console.log(getPrices);
 
     const firstPrice = axios.get("/api/firstPrice");
 
@@ -60,7 +59,7 @@ export class SearchForm extends Component {
         firstClass: firstClass.data
       });
       this.props.resultListSetTrue();
-      console.log("resultsssssssss", this.state.resultData);
+      // console.log("resultsssssssss", this.state.resultData);
     });
   };
 
