@@ -15,6 +15,7 @@ router.post("/journeys", (req, res) => {
     destination,
     date
   };
+
   console.log("journeyinfo", journeyInfo);
   //   Journey.create(journeyInfo);
   //   // console.log(journeyInfo);
@@ -42,6 +43,7 @@ router.post("/journeys", (req, res) => {
   //   });
   // });
   Journey.create(journeyInfo).then(journeyDetailInfo => {
+
     User.findById(req.user._id).then(user => {
       console.log(user);
       if (!user.favorites.includes(journeyDetailInfo._id)) {

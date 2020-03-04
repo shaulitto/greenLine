@@ -160,6 +160,7 @@ export class SearchForm extends Component {
         console.log("journey detail in searchform:", this.state.savedJourney);
       });
   };
+
   reverseDestinations = () => {
     this.setState({
       to: this.state.from,
@@ -170,7 +171,6 @@ export class SearchForm extends Component {
   };
 
   render() {
-    //console.log("HI", this.props.location.state);
     return (
       <div>
         <label htmlFor="From">From</label>

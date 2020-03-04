@@ -1,13 +1,11 @@
-const moment = require("moment-timezone");
-const { inspect } = require("util");
 const prices = require("db-prices");
 const router = require("express").Router();
-//const tz = "Europe/Berlin";
 const Station = require("../models/Station");
+const uuid = require("uuid").v4;
 
 const sortingAllTrips = allTrips => {
   const allTripsInOne = allTrips.flat();
-  console.log(allTripsInOne.length);
+  // console.log(allTripsInOne.length);
   const uniques = [
     ...new Set(
       allTripsInOne.map(el => JSON.stringify(el.legs.map(ele => ele.line.id)))
@@ -24,19 +22,18 @@ const sortingAllTrips = allTrips => {
       return [...acc, val];
     } else return acc;
   }, []);
-  console.log(reducedArray.length);
   return reducedArray;
 };
 
-let date;
+let date; // why
 let from;
 let to;
+
 router.get("/price", (req, res) => {
   date = req.query.date;
   console.log("date format", date);
   from = req.query.fromId;
   to = req.query.toId;
-
   if (!parseInt(from) > 0 && !parseInt(to) > 0) {
     var fromArray = [];
     var toArray = [];
@@ -82,12 +79,26 @@ router.get("/price", (req, res) => {
       .then(myPromises => {
         Promise.all(myPromises).then(results => {
           let sorted = sortingAllTrips(results);
-          res.json(sorted);
+          res.json(
+            sorted.map(el => {
+              el.id = uuid();
+              return el;
+            })
+          );
         });
       });
   } else if (!parseInt(from) > 0 || !parseInt(to) > 0) {
+    console.log("cities", parseInt(from), to);
+    console.log("types", typeof from, typeof to);
     var fromArray = [];
     var toArray = [];
+    if (isNaN(from) === false) {
+      fromArray.push({ id: from });
+    }
+    if (isNaN(to) === false) {
+      toArray.push({ id: to });
+    }
+
     Station.find()
       .then(stations => {
         stations.forEach(s => {
@@ -115,7 +126,7 @@ router.get("/price", (req, res) => {
         var outputTo = toArray.map(el => {
           return el.id;
         });
-
+        console.log("arraz of ids here", fromArray, toArray);
         return [outputFrom, outputTo];
       })
       .then(res => {
@@ -130,7 +141,12 @@ router.get("/price", (req, res) => {
       .then(myPromises => {
         Promise.all(myPromises).then(results => {
           let sorted = sortingAllTrips(results);
-          res.json(sorted);
+          res.json(
+            sorted.map(el => {
+              el.id = uuid();
+              return el;
+            })
+          );
         });
       });
   } else {
@@ -186,12 +202,23 @@ router.get("/firstPrice", (req, res) => {
       .then(myPromises => {
         Promise.all(myPromises).then(results => {
           let sorted = sortingAllTrips(results);
-          res.json(sorted);
+          res.json(
+            sorted.map(el => {
+              el.id = uuid();
+              return el;
+            })
+          );
         });
       });
   } else if (!parseInt(from) > 0 || !parseInt(to) > 0) {
     var fromArray = [];
     var toArray = [];
+    if (isNaN(from) === false) {
+      fromArray.push({ id: from });
+    }
+    if (isNaN(to) === false) {
+      toArray.push({ id: to });
+    }
     Station.find()
       .then(stations => {
         stations.forEach(s => {
@@ -226,7 +253,7 @@ router.get("/firstPrice", (req, res) => {
         let myPromises = [];
         for (let i = 0; i < res[0].length; i++) {
           for (let j = 0; j < res[1].length; j++) {
-            myPromises.push(prices(res[0][i], res[1][j], date, { class: 1 }));
+            myPromises.push(prices(res[0][i], res[1][j], date, { class: 1 })); // where does date come from
           }
         }
         return myPromises;
@@ -234,7 +261,12 @@ router.get("/firstPrice", (req, res) => {
       .then(myPromises => {
         Promise.all(myPromises).then(results => {
           let sorted = sortingAllTrips(results);
-          res.json(sorted);
+          res.json(
+            sorted.map(el => {
+              el.id = uuid();
+              return el;
+            })
+          );
         });
       });
   } else {
