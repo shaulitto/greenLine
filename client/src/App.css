@@ -1,3 +1,85 @@
+/* Colors: whitish: #EFFFFB,
+        green: #50D890
+        greenish: #41A588
+        green-blue: #4299BB
+        blackish: 272727 */
+/* 
+
+
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+
+@import url("https://fonts.googleapis.com/css?family=Raleway&display=swap");
+
+* {
+  font-family: "Raleway", sans-serif;
+}
+
+@media (min-width: 1281px) {
+  /* //CSS here */
+  body {
+    font-size: 18px;
+  }
+}
+
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  /* //CSS here */
+  body {
+    font-size: 18px;
+  }
+}
+
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* //CSS here */
+}
+
+/* 
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  /* //CSS here */
+  body {
+    font-size: 16px;
+  }
+}
+
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+
+@media (min-width: 481px) and (max-width: 767px) {
+  /* //CSS here */
+}
+
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media (min-width: 320px) and (max-width: 480px) {
+  /* //CSS here */
+  .Logo {
+    height: 64px;
+  }
+  body {
+    font-size: 12px;
+  }
+}
+
 .App {
   text-align: center;
 }
@@ -5,12 +87,6 @@
 .App-logo {
   height: 40vmin;
   pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
 }
 
 .App-header {
@@ -29,11 +105,104 @@
   color: #61dafb;
 }
 
-/* .nabar{
-  display:flex;
-  
-} */
+.navbar {
+  display: flex;
+  background-color: #41a588;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.2em;
+}
 
+.navbar a {
+  text-decoration: none;
+  color: #effffb;
+}
+
+.HomeImage {
+  background-image: url(/background.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 25vh;
+}
+
+.Searchform {
+  background-color: #41a588;
+}
+
+.inputText {
+  text-align: center;
+  width: 80%;
+  margin-top: 1em;
+  padding: 1em 2em;
+  border-style: none;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.ReverseButton {
+  background-color: #ffffff;
+  border-radius: 4px;
+  border-style: none;
+  margin: 0.3em;
+  padding: 0.3em;
+}
+
+.inputDate {
+  text-align: center;
+  width: 80%;
+  margin-top: 1em;
+  padding: 1em 2em;
+  border-style: none;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.SubmitButton {
+  background-color: #272727;
+  color: #effffb;
+  border-radius: 4px;
+  margin: 0.3em;
+  padding: 1em;
+  width: 80%;
+  border-style: none;
+}
+
+#favlink {
+  text-decoration: none;
+  color: #effffb;
+}
+
+.AutocompleteList {
+  list-style-type: none;
+  text-align: center;
+  margin: 0 6em;
+  background-color: #effffb;
+  padding: 0 2em;
+  border-radius: 4px;
+}
+
+.AutocompleteItem {
+  float: center;
+}
+
+.Filter {
+  background-color: #272727;
+}
+
+.Filter img {
+  padding: 0.2em;
+}
+
+.Filter button {
+  background-color: #effffb;
+  border-radius: 4px;
+  border-style: none;
+  padding: 0.3em;
+  margin: 0.2em;
+}
+
+/* 
 .navbar-home {
   background-color: rgb(13, 100, 13);
   border-radius: 5px;
@@ -43,7 +212,7 @@
   margin: 15px 20px;
   padding: 7px 20px 33px 15px;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 16px;
 }
 .navbar-login {
   background-color: rgb(13, 100, 13);
@@ -51,8 +220,8 @@
   color: #fff;
   float: left;
   height: 8px;
-  /* margin-left: 400px;
-  margin-top: 15px; */
+  margin-left: 400px;
+  margin-top: 15px;
   display: flex;
   justify-content: center;
   padding: 7px 20px 33px 15px;
@@ -66,17 +235,8 @@
   float: left;
   height: 8px;
   margin-left: 600px;
-  /* margin-top: 15px; */
+  margin-top: 15px;
   padding: 7px 20px 33px 15px;
   text-transform: uppercase;
   font-size: 14px;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+} */
