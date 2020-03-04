@@ -45,15 +45,13 @@ export class ResultList extends Component {
           </p>
           <p>Changes: {this.state.detail.legs.length - 1}</p>
           <p>
-            First Class:
+            {this.state.detail.normalPrice}0 € <br /> 2nd Class
+          </p>
+          <p>
             {this.state.detail.firstClass
               ? this.state.detail.firstClass
               : "not available"}
-            0 €
-          </p>
-          <p>
-            Second Class:
-            {this.state.detail.normalPrice}0 €
+            0 € <br /> 1st Class
           </p>
           <ul>
             {this.state.detail.legs.map((el, i) => {

@@ -35,30 +35,31 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <Navbar
-            setUser={this.setUser}
-            user={this.state.user}
-            //setTripResults={this.setTripResults}
-            resetTripResults={this.resetTripResults}
-          />
+        {/* <header className="App-header"> */}
+        <Navbar
+          setUser={this.setUser}
+          user={this.state.user}
+          //setTripResults={this.setTripResults}
+          resetTripResults={this.resetTripResults}
+        />
 
-          <div>
-            <Route
-              path="/signup"
-              render={props => (
-                <Signup history={props.history} setUser={this.setUser} />
-              )}
-            />
-          </div>
-
+        <div>
           <Route
-            path="/login"
+            path="/signup"
             render={props => (
-              <Login history={props.history} setUser={this.setUser} />
+              <Signup history={props.history} setUser={this.setUser} />
             )}
           />
-        </header>
+        </div>
+
+        <Route
+          path="/login"
+          render={props => (
+            <Login history={props.history} setUser={this.setUser} />
+          )}
+        />
+        {/* </header> */}
+        <div className="HomeImage"></div>
         <Route
           exact
           path="/"
