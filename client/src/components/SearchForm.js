@@ -3,13 +3,14 @@ import axios from "axios";
 import Autocomplete from "./Autocomplete";
 import Results from "./Results";
 import { Link } from "react-router-dom";
+import ShowDays from "./ShowDays";
 
 Date.prototype.toDateInputValue = function() {
   var local = new Date(this);
   local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
   return local.toJSON().slice(0, 16);
 };
-console.log(new Date());
+
 export class SearchForm extends Component {
   state = {
     date: new Date().toDateInputValue(),
@@ -34,12 +35,6 @@ export class SearchForm extends Component {
       date: date
     });
   };
-  // searchFavorites=e=>{
-  //   this.setState({
-  //     toId:e.originId,
-  //     toId:this.props.
-  //   })
-  // }
 
   searchPrice = state => {
     this.setState({
@@ -50,24 +45,29 @@ export class SearchForm extends Component {
     if (!newFromId) newFromId = state.from;
 
     let newToId = state.toId;
-    let date;
+    //let date;
     if (!newToId) newToId = state.to;
-    // for(let i=0;i<3;i++){
+    // date = new Date("2020-03-14T17:07:06");
+    // const copy = new Date(Number(date));
+    // copy.setDate(date.getDate() - 10);
+    // console.log(copy);
+    // for (let i = 0; i < 4; i++) {
     //   switch (i) {
-    //     case 0: date=state.date.slice(8,10);
-    //     case value2:
-    //       //Statements executed when the
-    //       //result of expression matches value2
+    //     case 0:
+    //       date = state.date.slice(8, 10);
+    //     case 1:
+    //     //Statements executed when the
+    //     //result of expression matches value2
 
-    //     case valueN:
-    //       //Statements executed when the
-    //       //result of expression matches valueN
+    //     case 2:
+    //     //Statements executed when the
+    //     //result of expression matches valueN
 
     //     default:
-    //       //Statements executed when none of
-    //       //the values match the value of the expression
-
+    //     //Statements executed when none of
+    //     //the values match the value of the expression
     //   }
+    // }
     const getPrices = axios.get(
       "/api/price?date=" +
         state.date.slice(0, 16) +
@@ -108,6 +108,7 @@ export class SearchForm extends Component {
 
   componentDidMount() {
     if (this.props.location.state) {
+      console.log("coming from user", this.props.location.state);
       this.searchPrice(this.props.location.state);
       window.history.pushState(null, "");
     }
@@ -255,11 +256,14 @@ export class SearchForm extends Component {
           )}
         </div>
         {this.props.resultListRender ? (
-          <Results
-            isLoggedIn={this.props.isLoggedIn}
-            resultData={this.state.resultData}
-            firstClass={this.state.firstClass}
-          />
+          <div>
+            <ShowDays date={this.state.date} />
+            <Results
+              isLoggedIn={this.props.isLoggedIn}
+              resultData={this.state.resultData}
+              firstClass={this.state.firstClass}
+            />
+          </div>
         ) : (
           <div></div>
         )}
