@@ -8,8 +8,7 @@ export default class Results extends Component {
   };
 
   render() {
-    // console.log("here are the result before mapping", this.state.results);
-    const map = this.props.resultData.map((journey, i) => {
+    const map = this.state.results.map((journey, i) => {
       const obj = {};
       obj.origin = journey.origin;
       obj.destination = journey.destination;
@@ -17,6 +16,7 @@ export default class Results extends Component {
       obj.firstClass = this.state.firstClass[i]?.price.amount;
       obj.legs = journey.legs;
       obj.id = journey.id;
+      console.log("object", obj);
       return obj;
     });
     // console.log(map);

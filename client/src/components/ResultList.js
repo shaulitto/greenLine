@@ -16,6 +16,7 @@ export class ResultList extends Component {
           showDetail: true
         });
   };
+  // .toString() // .slice(0, 21)}
 
   render() {
     const departure = new Date(this.state.detail.legs[0].departure);

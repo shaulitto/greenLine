@@ -9,8 +9,8 @@ import SearchForm from "./components/SearchForm";
 class App extends React.Component {
   state = {
     user: this.props.user,
-    resultListRender: false,
-    newSearchForm: false
+    resultListRender: false
+    //newSearchForm: false
   };
 
   setUser = userObj => {
@@ -21,8 +21,8 @@ class App extends React.Component {
 
   resetTripResults = () => {
     this.setState({
-      resultListRender: false,
-      newSearchForm: true
+      resultListRender: false
+      //newSearchForm: true
     });
   };
 

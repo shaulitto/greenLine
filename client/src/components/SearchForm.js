@@ -3,6 +3,7 @@ import axios from "axios";
 import Autocomplete from "./Autocomplete";
 import Results from "./Results";
 import { Link } from "react-router-dom";
+import Navbar from "./Navbar";
 
 export class SearchForm extends Component {
   state = {
@@ -30,6 +31,9 @@ export class SearchForm extends Component {
   };
 
   handleSubmit = event => {
+    this.setState({
+      resultData: []
+    });
     event.preventDefault();
     let newFromId = this.state.fromId;
     if (!newFromId) newFromId = this.state.from;
@@ -134,48 +138,56 @@ export class SearchForm extends Component {
         this.setState({ savedJourney: response.data });
       });
   };
+  reverseDestinations = () => {
+    this.setState({
+      to: this.state.from,
+      from: this.state.to,
+      toId: this.state.fromId,
+      fromId: this.state.toId
+    });
+  };
 
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="From">From</label>
-          <Autocomplete
-            name="from"
-            id="from"
-            updateText={this.updateText}
-            results={this.state.resultFrom}
-            value={this.state.from}
-            onChange={this.handleInputChange}
-          />
-          {/* <button >switch</button> */}
-          <label htmlFor="To">To</label>
-
-          <Autocomplete
-            name="to"
-            id={this.state.toId}
-            updateText={this.updateTo}
-            results={this.state.resultTo}
-            value={this.state.to}
-            onChange={this.handleInputChange}
-          />
-
-          <label htmlFor="Date">Date </label>
-          <input
-            type="datetime-local"
-            id="date"
-            name="date"
-            value={this.state.date}
-            onChange={this.handleChange}
-          />
-
-          <select>
-            <option value="E">Adults</option>
-            <option value="K">Children</option>
-            <option value="B">Baby</option>
-          </select>
-          <button type="submit">Search</button>
-        </form>
+        {/* <form onSubmit={this.handleSubmit}> */}
+        <label htmlFor="From">From</label>
+        <Autocomplete
+          name="from"
+          id="from"
+          updateText={this.updateText}
+          results={this.state.resultFrom}
+          value={this.state.from}
+          onChange={this.handleInputChange}
+        />
+        {/* <button >switch</button> */}
+        <label htmlFor="To">To</label>
+        <button onClick={this.reverseDestinations}>-></button>
+        <Autocomplete
+          name="to"
+          id={this.state.toId}
+          updateText={this.updateTo}
+          results={this.state.resultTo}
+          value={this.state.to}
+          onChange={this.handleInputChange}
+        />
+        <label htmlFor="Date">Date </label>
+        <input
+          type="datetime-local"
+          id="date"
+          name="date"
+          value={this.state.date}
+          onChange={this.handleChange}
+        />
+        <select>
+          <option value="E">Adults</option>
+          <option value="K">Children</option>
+          <option value="B">Baby</option>
+        </select>
+        <button type="submit" onClick={this.handleSubmit}>
+          Search
+        </button>
+        {/* </form> */}
         {this.props.isLoggedIn ? (
           <button onClick={this.handleClickSave}>
             Save this Trip to your List
