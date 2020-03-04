@@ -4,9 +4,15 @@ import Autocomplete from "./Autocomplete";
 import Results from "./Results";
 import { Link } from "react-router-dom";
 
+Date.prototype.toDateInputValue = function() {
+  var local = new Date(this);
+  local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+  return local.toJSON().slice(0, 16);
+};
+console.log(new Date());
 export class SearchForm extends Component {
   state = {
-    date: "",
+    date: new Date().toDateInputValue(),
     from: "",
     to: "",
     toId: "",
@@ -23,6 +29,7 @@ export class SearchForm extends Component {
 
   handleChange = e => {
     const date = e.target.value;
+    // console.log(date);
     this.setState({
       date: date
     });
@@ -182,47 +189,71 @@ export class SearchForm extends Component {
   };
 
   render() {
-    console.log("HI", this.props.location.state);
+    //console.log("HI", this.props.location.state);
     return (
       <div>
-        <label htmlFor="From">From</label>
-        <Autocomplete
-          name="from"
-          id="from"
-          updateText={this.updateText}
-          results={this.state.resultFrom}
-          value={this.state.from}
-          onChange={this.handleInputChange}
-        />
-        <label htmlFor="To">To</label>
-        <button onClick={this.reverseDestinations}>-></button>
-        <Autocomplete
-          name="to"
-          id={this.state.toId}
-          updateText={this.updateTo}
-          results={this.state.resultTo}
-          value={this.state.to}
-          onChange={this.handleInputChange}
-        />
-        <label htmlFor="Date">Date </label>
-        <input
-          type="datetime-local"
-          id="date"
-          name="date"
-          value={this.state.date}
-          onChange={this.handleChange}
-        />
-        <button type="submit" onClick={this.handleSubmit}>
-          Search
-        </button>
-        {this.props.isLoggedIn ? (
-          <button onClick={this.handleClickSave}>
-            Save this Trip to your List
+        <div className="Searchform">
+          {/* <form onSubmit={this.handleSubmit}> */}
+          <label htmlFor="From"></label>
+          <Autocomplete
+            placeholder="From:"
+            name="from"
+            id="from"
+            updateText={this.updateText}
+            results={this.state.resultFrom}
+            value={this.state.from}
+            onChange={this.handleInputChange}
+          />
+          <label htmlFor="To"></label>
+          <br />
+          <button className="ReverseButton" onClick={this.reverseDestinations}>
+            <img height="32px" src="/swap-vertical.svg" alt="switch" />
           </button>
-        ) : (
-          <Link to="/Login">Login to save</Link>
-        )}
-
+          <br />
+          <Autocomplete
+            placeholder="To:"
+            name="to"
+            id={this.state.toId}
+            updateText={this.updateTo}
+            results={this.state.resultTo}
+            value={this.state.to}
+            onChange={this.handleInputChange}
+          />
+          <label htmlFor="Date"></label>
+          <input
+            className="inputDate"
+            type="datetime-local"
+            id="date"
+            name="date"
+            value={this.state.date}
+            // defaultValue={this.state.date}
+            onChange={this.handleChange}
+          />
+          <br />
+          {/* <select>
+            <option value="E">Adults</option>
+            <option value="K">Children</option>
+            <option value="B">Baby</option>
+          </select> */}
+          <button
+            className="SubmitButton"
+            type="submit"
+            onClick={this.handleSubmit}
+          >
+            Find Prices
+          </button>
+          <br />
+          {/* </form> */}
+          {this.props.isLoggedIn ? (
+            <button onClick={this.handleClickSave}>
+              Save this Trip to your List
+            </button>
+          ) : (
+            <Link id="favlink" to="/Login">
+              Login to save this trip
+            </Link>
+          )}
+        </div>
         {this.props.resultListRender ? (
           <Results
             isLoggedIn={this.props.isLoggedIn}
