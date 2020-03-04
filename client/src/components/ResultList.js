@@ -19,6 +19,7 @@ export class ResultList extends Component {
   // .toString() // .slice(0, 21)}
 
   render() {
+    // console.log(this.state.detail);
     const departure = new Date(this.state.detail.legs[0].departure);
     const arrival = new Date(
       this.state.detail.legs[this.state.detail.legs.length - 1].arrival
@@ -48,17 +49,17 @@ export class ResultList extends Component {
             {this.state.detail.firstClass
               ? this.state.detail.firstClass
               : "not available"}
+            0 €
           </p>
           <p>
             Second Class:
-            {this.state.detail.normalPrice}
+            {this.state.detail.normalPrice} €
           </p>
           <ul>
             {this.state.detail.legs.map((el, i) => {
               return (
                 <li key={i} style={{ border: "1px solid red" }}>
                   {el.line.product}
-                  {el.line.name}
                 </li>
               );
             })}

@@ -59,7 +59,6 @@ export class SearchForm extends Component {
       () => {
         Promise.all([getPrices, firstPrice]).then(([allRes, firstClass]) => {
           console.log(allRes.data.length);
-
           this.setState(
             {
               resultData: allRes.data,
