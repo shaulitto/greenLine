@@ -38,6 +38,7 @@ export class ResultList extends Component {
             {this.props.detail.legs[0].arrival.slice(11, 16)}
             To: {this.props.detail.destination.name}
             Platform:{this.props.detail.legs[0].arrivalPlatform}
+
           </p>
           <p>
             Duration: {duration.slice(0, 2) + "h" + duration.slice(3, 5) + "m"}
@@ -52,7 +53,8 @@ export class ResultList extends Component {
           </p>
           <p>
             Second Class:
-            {this.props.detail.normalPrice} €
+            {this.props.detail.normalPrice}0 €
+
           </p>
           <ul>
             {this.props.detail.legs.map((el, i) => {
