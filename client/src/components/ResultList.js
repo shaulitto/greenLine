@@ -26,46 +26,70 @@ export class ResultList extends Component {
     const duration = new Date(arrival - departure).toLocaleTimeString();
     return (
       <>
-        <div key={this.props.detail.id} onClick={this.handleClick}>
-          <p>
-
-
-            at:
-            {this.props.detail.legs[0].departure.slice(11, 16)}
-            From: {this.props.detail.origin.name} Platform:
-            {this.props.detail.legs[0].departurePlatform}
-          </p>
-          <p>
-            at:
-            {this.props.detail.legs[0].arrival.slice(11, 16)}
-            To: {this.props.detail.destination.name}
-            Platform:{this.props.detail.legs[0].arrivalPlatform}
-
-          </p>
-          <p>
-            Duration: {duration.slice(0, 2) + "h" + duration.slice(3, 5) + "m"}
-          </p>
-          <p>Changes: {this.props.detail.legs.length - 1}</p>
- <p>
-            2nd Class:
-            {this.props.detail.normalPrice}0 €
-          </p>
-          <p>
-            1st Class:
-            {this.props.detail.firstClass
-              ? this.props.detail.firstClass
-              : "not available"}
-            0 €
-          </p>
-          <ul>
-            {this.props.detail.legs.map((el, i) => {
-              return (
-                <li key={i} style={{ border: "1px solid red" }}>
-                  {el.line.product}
-                </li>
-              );
-            })}
-          </ul>
+        <div
+          className="ResultsContainer"
+          key={this.props.detail.id}
+          onClick={this.handleClick}
+        >
+          <div className="stationContainer">
+            <p>
+              <span className="times">
+                {this.props.detail.legs[0].departure.slice(11, 16)} &nbsp;
+              </span>
+              <span className="stationName">
+                {this.props.detail.origin.name} &nbsp;
+              </span>
+              <span className="PlatformName">
+                Platform: {this.props.detail.legs[0].departurePlatform}
+              </span>
+            </p>
+            <p>
+              <span className="times">
+                {this.props.detail.legs[0].arrival.slice(11, 16)} &nbsp;
+              </span>
+              <span className="stationName">
+                {this.props.detail.destination.name} &nbsp;
+              </span>
+              <span className="PlatformName">
+                Platform: {this.props.detail.legs[0].arrivalPlatform}
+              </span>
+            </p>
+          </div>
+          <div className="InfoContainer">
+            <p className="Duration">
+              <img height="16px" src="/time.svg" alt="duration" />
+              {duration.slice(0, 2) + "h " + duration.slice(3, 5) + "m"}
+            </p>{" "}
+            |
+            <p className="Change">
+              <img height="16px" src="/connection.svg" alt="changes" />
+              {this.props.detail.legs.length - 1} Changes
+            </p>{" "}
+            |
+            <ul className="trainproduct">
+              <img height="16px" src="/train.svg" alt="train" />
+              {this.props.detail.legs.map((el, i) => {
+                return <li key={i}>{el.line.product} &nbsp;</li>;
+              })}
+            </ul>
+          </div>
+          <div className="Pricecontainer">
+            <div className="Price2">
+              <p>
+                2nd Class <br />
+                {this.props.detail.normalPrice}0 €
+              </p>
+            </div>
+            <div className="Price1">
+              <p>
+                1st Class <br />
+                {this.props.detail.firstClass
+                  ? this.props.detail.firstClass
+                  : "not available"}
+                0 €
+              </p>
+            </div>
+          </div>
 
           {this.state.showDetail ? (
             <TripDetail selectedTrip={this.props.detail} />
