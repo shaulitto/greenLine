@@ -22,31 +22,53 @@ export class SearchForm extends Component {
     resultTo: [],
     resultFrom: [],
     id: "",
-    savedJourney: {},
+    savedJourney: [],
     resultData: [],
     firstClass: []
   };
 
   handleChange = e => {
-    // console.log(e.target);
     const date = e.target.value;
     // console.log(date);
     this.setState({
       date: date
     });
   };
+  // searchFavorites=e=>{
+  //   this.setState({
+  //     toId:e.originId,
+  //     toId:this.props.
+  //   })
+  // }
 
   handleSubmit = event => {
     this.setState({
       resultData: []
     });
     event.preventDefault();
+
     let newFromId = this.state.fromId;
     if (!newFromId) newFromId = this.state.from;
 
     let newToId = this.state.toId;
+    let date;
     if (!newToId) newToId = this.state.to;
+    // for(let i=0;i<3;i++){
+    //   switch (i) {
+    //     case 0: date=this.state.date.slice(8,10);
+    //     case value2:
+    //       //Statements executed when the
+    //       //result of expression matches value2
 
+    //     case valueN:
+    //       //Statements executed when the
+    //       //result of expression matches valueN
+
+    //     default:
+    //       //Statements executed when none of
+    //       //the values match the value of the expression
+
+    //   }
     const getPrices = axios.get(
       "/api/price?date=" +
         this.state.date.slice(0, 16) +
@@ -55,7 +77,7 @@ export class SearchForm extends Component {
         "&toId=" +
         newToId
     );
-    // console.log(getPrices);
+    console.log("date format", this.state.date.slice(0, 16));
 
     const firstPrice = axios.get("/api/firstPrice");
     this.setState(
@@ -77,11 +99,10 @@ export class SearchForm extends Component {
         });
       }
     );
+    //}
   };
 
   getStations = directions => {
-    // console.log("DIRECTIONS", directions);
-
     axios
       .post("/cities", { to: this.state.to, from: this.state.from })
       .then(response => {
@@ -131,7 +152,7 @@ export class SearchForm extends Component {
 
   handleClickSave = event => {
     axios
-      .post("/journeys", {
+      .post("/api/journeys", {
         to: this.state.to,
         toId: this.state.toId,
         from: this.state.from,
@@ -139,10 +160,14 @@ export class SearchForm extends Component {
         date: this.state.date.slice(0, 16)
       })
       .then(response => {
-        console.log(response.data);
-        this.setState({ savedJourney: response.data });
+        this.setState({
+          savedJourney: response.data
+        });
+        this.props.setFavorites(this.state.savedJourney);
+        console.log("journey detail in searchform:", this.state.savedJourney);
       });
   };
+
   reverseDestinations = () => {
     this.setState({
       to: this.state.from,

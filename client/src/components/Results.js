@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import ResultList from "./ResultList";
+import ShowDays from "./ShowDays";
 
 export default class Results extends Component {
   state = {
-    results: [],
-    firstClass: this.props.firstClass
+    results: []
   };
 
   componentDidMount() {
@@ -13,11 +13,12 @@ export default class Results extends Component {
       obj.origin = journey.origin;
       obj.destination = journey.destination;
       obj.normalPrice = journey.price.amount;
-      obj.firstClass = this.state.firstClass[i]?.price.amount;
+      obj.firstClass = this.props.firstClass[i]?.price.amount;
       obj.legs = journey.legs;
       obj.id = journey.id;
       return obj;
     });
+
     const sorted = [...mapped].sort((a, b) => {
       return a.legs[0].departure.localeCompare(b.legs[0].departure);
     });
@@ -25,6 +26,29 @@ export default class Results extends Component {
     this.setState({
       results: sorted
     });
+  }
+  componentDidUpdate(prevProps, prevState) {
+    // console.log(this.props.resultData);
+    // console.log(prevState.results);
+    if (prevProps !== this.props) {
+      const mapped = this.props.resultData.map((journey, i) => {
+        const obj = {};
+        obj.origin = journey.origin;
+        obj.destination = journey.destination;
+        obj.normalPrice = journey.price.amount;
+        obj.firstClass = this.props.firstClass[i]?.price.amount;
+        obj.legs = journey.legs;
+        obj.id = journey.id;
+        return obj;
+      });
+      const sorted = [...mapped].sort((a, b) => {
+        return a.legs[0].departure.localeCompare(b.legs[0].departure);
+      });
+
+      this.setState({
+        results: sorted
+      });
+    }
   }
 
   sortByPrice = () => {
@@ -48,10 +72,11 @@ export default class Results extends Component {
   render() {
     return (
       <div>
+        <ShowDays />
         <button onClick={this.sortByPrice}>Sort by Price</button>
         <button onClick={this.sortByTime}>Sort by Time</button>
         {this.state.results.map(el => (
-          <ResultList details={el} key={el.id} />
+          <ResultList detail={el} key={el.id} />
         ))}
       </div>
     );

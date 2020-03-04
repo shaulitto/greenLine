@@ -11,7 +11,6 @@ filtering = (request, stations) => {
 };
 
 router.post("/cities", (req, res) => {
-  console.log(req.body.from);
   Station.find().then(stations => {
     let resultFrom = filtering(req.body.from, stations);
     let resultTo = filtering(req.body.to, stations);
