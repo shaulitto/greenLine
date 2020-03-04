@@ -19,10 +19,6 @@ class App extends React.Component {
     });
   };
 
-  // setTripResults = arrayOfResults => {
-  //   this.setState({ resultList: arrayOfResults });
-  // };
-
   resetTripResults = () => {
     this.setState({
       resultListRender: false

@@ -29,14 +29,16 @@ export class ResultList extends Component {
       <>
         <div key={this.state.detail.id} onClick={this.handleClick}>
           <p>
-            From: {this.state.detail.origin.name} at:
-            {this.state.detail.legs[0].departure.slice(0, 21)}, Platform:
+            at:
+            {this.state.detail.legs[0].departure.slice(11, 16)}
+            From: {this.state.detail.origin.name} Platform:
             {this.state.detail.legs[0].departurePlatform}
           </p>
           <p>
-            To: {this.state.detail.destination.name} at:
-            {this.state.detail.legs[0].arrival.slice(0, 21)}
-            ,Platform:{this.state.detail.legs[0].arrivalPlatform}
+            at:
+            {this.state.detail.legs[0].arrival.slice(11, 16)}
+            To: {this.state.detail.destination.name}
+            Platform:{this.state.detail.legs[0].arrivalPlatform}
           </p>
           <p>
             Duration: {duration.slice(0, 2) + "h" + duration.slice(3, 5) + "m"}

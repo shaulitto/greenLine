@@ -45,6 +45,7 @@ export default class Results extends Component {
   };
 
   render() {
+
     return (
       <div>
         <button onClick={this.sortByPrice}>Sort by Price</button>

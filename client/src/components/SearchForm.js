@@ -52,15 +52,25 @@ export class SearchForm extends Component {
     // console.log(getPrices);
 
     const firstPrice = axios.get("/api/firstPrice");
-
-    Promise.all([getPrices, firstPrice]).then(([allRes, firstClass]) => {
-      this.setState({
-        resultData: allRes.data,
-        firstClass: firstClass.data
-      });
-      this.props.resultListSetTrue();
-      // console.log("resultsssssssss", this.state.resultData);
-    });
+    this.setState(
+      {
+        resultData: []
+      },
+      () => {
+        Promise.all([getPrices, firstPrice]).then(([allRes, firstClass]) => {
+          console.log(allRes.data.length);
+          this.setState(
+            {
+              resultData: allRes.data,
+              firstClass: firstClass.data
+            },
+            () => {
+              this.props.resultListSetTrue();
+            }
+          );
+        });
+      }
+    );
   };
 
   getStations = directions => {
@@ -184,7 +194,7 @@ export class SearchForm extends Component {
         ) : (
           <Link to="/Login">Login to save</Link>
         )}
-        ;
+
         {this.props.resultListRender ? (
           <Results
             isLoggedIn={this.props.isLoggedIn}
