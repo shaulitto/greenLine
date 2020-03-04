@@ -41,21 +41,20 @@ export class SearchForm extends Component {
   //   })
   // }
 
-  handleSubmit = event => {
+  searchPrice = state => {
     this.setState({
       resultData: []
     });
-    event.preventDefault();
 
-    let newFromId = this.state.fromId;
-    if (!newFromId) newFromId = this.state.from;
+    let newFromId = state.fromId;
+    if (!newFromId) newFromId = state.from;
 
-    let newToId = this.state.toId;
+    let newToId = state.toId;
     let date;
-    if (!newToId) newToId = this.state.to;
+    if (!newToId) newToId = state.to;
     // for(let i=0;i<3;i++){
     //   switch (i) {
-    //     case 0: date=this.state.date.slice(8,10);
+    //     case 0: date=state.date.slice(8,10);
     //     case value2:
     //       //Statements executed when the
     //       //result of expression matches value2
@@ -71,13 +70,13 @@ export class SearchForm extends Component {
     //   }
     const getPrices = axios.get(
       "/api/price?date=" +
-        this.state.date.slice(0, 16) +
+        state.date.slice(0, 16) +
         "&fromId=" +
         newFromId +
         "&toId=" +
         newToId
     );
-    console.log("date format", this.state.date.slice(0, 16));
+    console.log("date format", state.date.slice(0, 16));
 
     const firstPrice = axios.get("/api/firstPrice");
     this.setState(
@@ -101,6 +100,18 @@ export class SearchForm extends Component {
     );
     //}
   };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    this.searchPrice(this.state);
+  };
+
+  componentDidMount() {
+    if (this.props.location.state) {
+      this.searchPrice(this.props.location.state);
+      window.history.pushState(null, "");
+    }
+  }
 
   getStations = directions => {
     axios
@@ -178,6 +189,7 @@ export class SearchForm extends Component {
   };
 
   render() {
+    //console.log("HI", this.props.location.state);
     return (
       <div>
         <div className="Searchform">
