@@ -182,6 +182,7 @@
   padding: 1rem;
   position: relative;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .UserDropdown li ul {
@@ -193,6 +194,7 @@
   margin-top: 1rem;
   left: 0;
   display: none;
+  cursor: pointer;
 }
 
 .UserDropdown:hover > .User ul,
@@ -201,6 +203,7 @@
   opacity: 1;
   display: block;
   background-color: #effffb;
+  cursor: pointer;
 }
 
 .User ul {
@@ -238,6 +241,7 @@
   border-style: none;
   margin: 0.3em;
   padding: 0.3em;
+  cursor: pointer;
 }
 
 .inputDate {
@@ -258,6 +262,7 @@
   padding: 1em;
   width: 80%;
   border-style: none;
+  cursor: pointer;
 }
 
 #favlink {
@@ -272,6 +277,7 @@
   background-color: #effffb;
   padding: 0 2em;
   border-radius: 4px;
+  cursor: pointer;
 }
 
 .AutocompleteItem {
@@ -280,6 +286,7 @@
 
 .Favouritebutton {
   padding: 0.8em;
+  cursor: pointer;
 }
 
 .Loadingbar {
@@ -318,10 +325,16 @@
 
 .times {
   color: #50d890;
+  cursor: pointer;
 }
 
 .stationName {
   text-transform: uppercase;
+  cursor: pointer;
+}
+
+.PlatformName {
+  cursor: pointer;
 }
 
 .InfoContainer {
@@ -332,6 +345,7 @@
 
 .InfoContainer p {
   margin: 0.2em;
+  cursor: pointer;
 }
 .Duration img {
   vertical-align: middle;
@@ -367,6 +381,7 @@
   margin: 1em 2em;
   border-radius: 2px;
   width: 20%;
+  cursor: pointer;
 }
 
 .Price2 p,
@@ -414,6 +429,7 @@
   padding: 1em;
   width: 80%;
   border-style: none;
+  cursor: pointer;
 }
 
 .LoadMoreBtn {
@@ -424,6 +440,7 @@
   padding: 1em;
   width: 80%;
   border-style: none;
+  cursor: pointer;
 }
 
 .Footer {
@@ -437,6 +454,7 @@
 .Footer a {
   text-decoration: none;
   color: #4299bb;
+  cursor: pointer;
 }
 
 .Footer p {
@@ -445,4 +463,74 @@
 
 .Footer img {
   vertical-align: middle;
+}
+
+.SubmitForm {
+  padding: 8em 0;
+}
+
+.SubmitForm form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1em;
+  padding: 1em 5em;
+  border-style: none;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.SubmitForm form input {
+  box-sizing: border-box;
+  outline: 0;
+  padding: 0.5em;
+  margin-bottom: 2em;
+  box-sizing: border-box;
+}
+
+.SubmitForm form label {
+  color: #272727;
+  display: inline-block;
+  margin-bottom: 1em;
+  text-align: center;
+  width: 100%;
+}
+
+.SubmitForm form button {
+  background-color: #4299bb;
+  color: #effffb;
+  border-style: none;
+  border-radius: 4px;
+  box-sizing: border-box;
+  cursor: pointer;
+  padding: 1em 4em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: 0.3s ease;
+}
+
+.error-message {
+  background: #e94596;
+  box-sizing: border-box;
+  color: #fff;
+  margin: 4em auto;
+  padding: 4em;
+  width: 100%;
+}
+
+.savedTripContainer {
+  padding-top: 8em;
+}
+
+.savedTrips {
+  padding: 1em 0;
+  border-style: 4px solid #272727;
+}
+
+.savedTrips button {
+  background-color: #272727;
+  color: #effffb;
+  border-radius: 4px;
+  margin: 0.8em;
+  padding: 1em;
+  border-style: none;
 }

@@ -32,7 +32,7 @@ const Navbar = props => {
             <ul>
               <li>
                 <Link to="/user">
-                  <p>User</p>
+                  <p>Trips</p>
                 </Link>
               </li>
               <li>
@@ -51,7 +51,7 @@ const Navbar = props => {
       <Link className="navbar-home" to="/" onClick={props.resetTripResults}>
         <img
           className="Logo"
-          height="128px"
+          height="64px"
           src="/GreenLineLogo.png"
           alt="Logo"
         />
@@ -62,7 +62,7 @@ const Navbar = props => {
             className="UserIcon Icon"
             src="/user.svg"
             alt="User"
-            height="64px"
+            height="32px"
           />
           <ul>
             <li>
