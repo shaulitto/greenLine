@@ -73,6 +73,11 @@ export default class Results extends Component {
       <div>
         <button onClick={this.sortByPrice}>Sort by Price</button>
         <button onClick={this.sortByTime}>Sort by Time</button>
+        <div className="Filter">
+          <button onClick={this.sortByPrice}>Sort by Price</button>
+          <img height="16px" src="/filter.svg" alt="Filter" />
+          <button onClick={this.sortByTime}>Sort by Time</button>
+        </div>
         {this.state.results.map(el => (
           <ResultList detail={el} key={el.id} />
         ))}

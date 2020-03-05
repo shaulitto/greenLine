@@ -109,6 +109,14 @@ export class SearchForm extends Component {
   componentDidMount() {
     if (this.props.location.state) {
       console.log("coming from user", this.props.location.state);
+      this.setState({
+        from: this.props.location.state.from,
+        to: this.props.location.state.to,
+        fromId: this.props.location.state.fromId,
+        toId: this.props.location.state.toId,
+        date: this.props.location.state.date
+      });
+      console.log("date in component did mount", this.state.date);
       this.searchPrice(this.props.location.state);
       window.history.pushState(null, "");
     }
@@ -208,7 +216,7 @@ export class SearchForm extends Component {
           <label htmlFor="To"></label>
           <br />
           <button className="ReverseButton" onClick={this.reverseDestinations}>
-            <img height="32px" src="/swap-vertical.svg" alt="switch" />
+            <img height="16px" src="/swap-vertical.svg" alt="switch" />
           </button>
           <br />
           <Autocomplete
@@ -247,7 +255,7 @@ export class SearchForm extends Component {
           {/* </form> */}
           {this.props.isLoggedIn ? (
             <button onClick={this.handleClickSave}>
-              Save this Trip to your List
+              <img height="32px" src="/fav.svg" alt="Favourite" />
             </button>
           ) : (
             <Link id="favlink" to="/Login">
@@ -255,9 +263,11 @@ export class SearchForm extends Component {
             </Link>
           )}
         </div>
+        <div></div>
+
         {this.props.resultListRender ? (
           <div>
-            <ShowDays date={this.state.date} />
+            <ShowDays dates={this.state.date} />
             <Results
               isLoggedIn={this.props.isLoggedIn}
               resultData={this.state.resultData}

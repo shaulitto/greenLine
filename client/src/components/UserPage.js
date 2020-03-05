@@ -24,8 +24,8 @@ export default class UserPage extends Component {
                       date: details.date,
                       fromId: details.originId,
                       toId: details.destinationId,
-                      to: details.origin,
-                      from: details.destination
+                      to: details.destination,
+                      from: details.origin
                     }
                   }}
                 >
