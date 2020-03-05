@@ -4,6 +4,7 @@ import Autocomplete from "./Autocomplete";
 import Results from "./Results";
 import { Link } from "react-router-dom";
 import ShowDays from "./ShowDays";
+import debounce from "lodash.debounce";
 
 Date.prototype.toDateInputValue = function() {
   var local = new Date(this);
@@ -139,15 +140,17 @@ export class SearchForm extends Component {
       });
   };
 
+  debouncedGetStations = debounce(target => {
+    this.getStations(target);
+  }, 500);
+
   handleInputChange = direction => {
     let target = direction.target.name;
     this.setState(
       {
         [direction.target.name]: direction.target.value
       },
-      () => {
-        this.getStations(target);
-      }
+      this.debouncedGetStations(target)
     );
   };
 
