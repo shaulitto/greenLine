@@ -79,11 +79,10 @@ export default class Results extends Component {
 
   render() {
     return (
-      <div>
+      <div className="ResultsPage">
         <ShowDays />
         <div className="Filter">
           <button onClick={this.sortByPrice}>Sort by Price</button>
-          <img height="16px" src="/filter.svg" alt="Filter" />
           <button onClick={this.sortByTime}>Sort by Time</button>
         </div>
         {/* {console.log(this.state.results.length)} */}
