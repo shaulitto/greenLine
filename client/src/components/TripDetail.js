@@ -8,9 +8,25 @@ export default class TripDetail extends Component {
   onlyHour = timeString => timeString.slice(11, 16);
 
   convert = (str1, str2) => {
-    let departure = new Date(str1);
-    let arrival = new Date(str2);
-    return new Date(+arrival - +departure).toLocaleTimeString().slice(0, 5);
+    let departure = str1.slice(11, 16);
+    let arrival = str2.slice(11, 16);
+    let getMinutes =
+      parseInt(arrival.slice(3, 5)) - parseInt(departure.slice(3, 5));
+    let getHours =
+      parseInt(arrival.slice(0, 2)) - parseInt(departure.slice(0, 2));
+    if (getHours < 0) {
+      getHours += 24;
+    }
+    if (getMinutes < 0) {
+      getMinutes += 60;
+    }
+    if (getHours.toString().length === 1) {
+      getHours = "0" + getHours;
+    }
+    if (getMinutes.toString().length === 1) {
+      getMinutes = "0" + getMinutes;
+    }
+    return `${getHours}:${getMinutes}h`;
   };
 
   render() {
@@ -38,7 +54,7 @@ export default class TripDetail extends Component {
                   <div className="InfoContainer">
                     <p className="Duration">
                       <img height="16px" src="/time.svg" alt="duration" />
-                      {this.convert(leg.departure, leg.arrival)}h
+                      {this.convert(leg.departure, leg.arrival)}
                     </p>
                     |
                     <p className="trainproduct">
@@ -74,7 +90,7 @@ export default class TripDetail extends Component {
                   ${this.convert(
                     leg.arrival,
                     this.state.trip.legs[index + 1].departure
-                  )}h`}
+                  )}`}
                 </p>
               </div>
             </>
