@@ -7,6 +7,12 @@ export default class UserPage extends Component {
 
   // };
 
+  orderedDate = str => {
+    const hour = str.slice(11, 16);
+    const date = new Date(str).toDateString();
+    return `${hour} ${date}`;
+  };
+
   render() {
     return (
       <div className="savedTripContainer">
@@ -19,7 +25,7 @@ export default class UserPage extends Component {
                 &nbsp; to{" "}
                 <span className="stationName">{details.destination}</span>{" "}
                 &nbsp;at: &nbsp;
-                {details.date.slice(0, 21)}
+                {this.orderedDate(details.date)}
                 <Link
                   to={{
                     pathname: "/",
