@@ -9,13 +9,16 @@ export default class UserPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className="savedTripContainer">
+        Your saved Connections
         <form onSubmit={this.searchFavorite}>
           {this.props.favorites.map(details => {
             return (
-              <div key={this.props.favorites._id}>
-                {details.origin}
-                {details.destination}
+              <div className="savedTrips" key={this.props.favorites._id}>
+                From <span className="stationName">{details.origin}</span>{" "}
+                &nbsp; to{" "}
+                <span className="stationName">{details.destination}</span>{" "}
+                &nbsp;at: &nbsp;
                 {details.date.slice(0, 21)}
                 <Link
                   to={{

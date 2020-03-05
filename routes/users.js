@@ -13,7 +13,9 @@ router.post("/signup", (req, res) => {
     return res.status(400).json({ message: "Username can't be empty" });
   }
   if (password.length < 8) {
-    return res.status(400).json({ message: "Password is too short" });
+    return res
+      .status(400)
+      .json({ message: "Password has to be at least 8 characters" });
   }
 
   User.findOne({ username: username })
