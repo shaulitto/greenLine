@@ -242,16 +242,17 @@ export class SearchForm extends Component {
             Find Prices
           </button>
           <br />
-          {/* </form> */}
-          {this.props.isLoggedIn ? (
-            <button onClick={this.handleClickSave}>
-              <img height="32px" src="/fav.svg" alt="Favourite" />
-            </button>
-          ) : (
-            <Link id="favlink" to="/Login">
-              Login to save this trip
-            </Link>
-          )}
+          <div className="Favouritebutton">
+            {this.props.isLoggedIn ? (
+              <button onClick={this.handleClickSave}>
+                <img height="32px" src="/fav.svg" alt="Favourite" />
+              </button>
+            ) : (
+              <Link id="favlink" to="/Login">
+                Login to save this trip
+              </Link>
+            )}
+          </div>
         </div>
         <div></div>
         {this.props.resultListRender ? (

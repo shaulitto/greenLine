@@ -24,7 +24,7 @@ export default class TripDetail extends Component {
               <div>
                 <div className="legContainer">
                   <div className="legdetail">
-                    <span className="times">
+                    <span className="timesdetail">
                       {this.onlyHour(leg.departure)} &nbsp;
                     </span>
                     <span className="stationName">
@@ -38,7 +38,7 @@ export default class TripDetail extends Component {
                   <div className="InfoContainer">
                     <p className="Duration">
                       <img height="16px" src="/time.svg" alt="duration" />
-                      {this.convert(leg.departure, leg.arrival)}
+                      {this.convert(leg.departure, leg.arrival)}h
                     </p>
                     |
                     <p className="trainproduct">
@@ -47,13 +47,13 @@ export default class TripDetail extends Component {
                     </p>
                   </div>
                   <div className="legdetail">
-                    <span className="times">
+                    <span className="timesdetail">
                       {this.onlyHour(leg.arrival)} &nbsp;
                     </span>
                     <span className="stationName">
                       {leg.destination.name} &nbsp;
                     </span>{" "}
-                    <span className="PatformName">
+                    <span className="PlatformName">
                       Platfrom: {leg.arrivalPlatform}
                     </span>
                   </div>
@@ -61,7 +61,12 @@ export default class TripDetail extends Component {
               </div>
               <div className="TransferContainer">
                 {this.state.trip.legs[index + 1] && (
-                  <img height="32px" src="/transfer.svg" alt="transfer" />
+                  <img
+                    id="transferimg"
+                    height="16px"
+                    src="/transfer.svg"
+                    alt="transfer"
+                  />
                 )}
                 <p className="Transfertime">
                   {this.state.trip.legs[index + 1] &&
@@ -69,14 +74,14 @@ export default class TripDetail extends Component {
                   ${this.convert(
                     leg.arrival,
                     this.state.trip.legs[index + 1].departure
-                  )}`}
+                  )}h`}
                 </p>
               </div>
             </>
           );
         })}
         <a href="https://www.bahn.com/en/view/index.shtml">
-          <button>Book Now</button>
+          <button className="BookButton">Book Now</button>
         </a>
       </div>
     );
