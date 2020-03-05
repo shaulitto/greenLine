@@ -44,6 +44,9 @@
   .AutocompleteList {
     margin: 0 8em;
   }
+  .DayBtn {
+    display: flex;
+  }
 }
 
 /* 
@@ -62,6 +65,10 @@
   }
   .AutocompleteList {
     margin: 0 8em;
+  }
+  .DayBtn {
+    display: flex;
+    justify-content: space-between;
   }
 }
 
@@ -287,6 +294,36 @@
 .Favouritebutton {
   padding: 0.8em;
   cursor: pointer;
+}
+
+.ShowDayContainer {
+  background-color: #272727;
+  padding: 0.5em 0.5em;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.DayBtn {
+  text-align: center;
+  color: #272727;
+  background-color: #effffb;
+  border-radius: 2px;
+  cursor: pointer;
+  border-style: none;
+  padding: 1em;
+  margin: 0.1em 0.3em;
+  cursor: pointer;
+}
+
+.DayBtn:hover {
+  background-color: #4299bb;
+}
+
+.DayPrice {
+  border-radius: 2px;
+  background-color: #e15f27;
+  color: #effffb;
+  padding: 0.4em 0;
 }
 
 .Loadingbar {

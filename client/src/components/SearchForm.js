@@ -3,6 +3,7 @@ import axios from "axios";
 import Autocomplete from "./Autocomplete";
 import Results from "./Results";
 import { Link } from "react-router-dom";
+import ShowDays from "./ShowDays";
 
 Date.prototype.toDateInputValue = function() {
   var local = new Date(this);
@@ -192,7 +193,6 @@ export class SearchForm extends Component {
       fromId: this.state.toId
     });
   };
-
 
   showDays = e => {
     let newSearch = this.state;

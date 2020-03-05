@@ -11,12 +11,13 @@ export default class Results extends Component {
 
   render() {
     return (
-      <div>
-        <table>
+      <div className="ShowDayContainer">
+        <table className="table">
           <thead>
-            <tr>
+            <tr className="tablerow">
               <th>
                 <button
+                  className="DayBtn"
                   onClick={this.props.showDays}
                   value={moment(this.state.date)
                     .subtract(2, "days")
@@ -24,11 +25,12 @@ export default class Results extends Component {
                 >
                   {moment(this.state.date)
                     .subtract(2, "days")
-                    .format("LL")}
+                    .format("ddd D MMM")}
                 </button>
               </th>
               <th>
                 <button
+                  className="DayBtn"
                   onClick={this.props.showDays}
                   value={moment(this.state.date)
                     .subtract(1, "days")
@@ -36,16 +38,21 @@ export default class Results extends Component {
                 >
                   {moment(this.state.date)
                     .subtract(1, "days")
-                    .format("LL")}
-                </button>
-              </th>
-              <th>
-                <button onClick={this.props.showDays} value={this.state.date}>
-                  {this.state.date}
+                    .format("ddd D MMM")}
                 </button>
               </th>
               <th>
                 <button
+                  className="DayBtn"
+                  onClick={this.props.showDays}
+                  value={this.state.date}
+                >
+                  {moment(this.state.date).format("ddd D MMM")}
+                </button>
+              </th>
+              <th>
+                <button
+                  className="DayBtn"
                   onClick={this.props.showDays}
                   value={moment(this.state.date)
                     .add(1, "days")
@@ -53,11 +60,12 @@ export default class Results extends Component {
                 >
                   {moment(this.state.date)
                     .add(1, "days")
-                    .format("LL")}
+                    .format("ddd D MMM")}
                 </button>
               </th>
               <th>
                 <button
+                  className="DayBtn"
                   onClick={this.props.showDays}
                   value={moment(this.state.date)
                     .add(2, "days")
@@ -65,18 +73,18 @@ export default class Results extends Component {
                 >
                   {moment(this.state.date)
                     .add(2, "days")
-                    .format("LL")}
+                    .format("ddd D MMM")}
                 </button>
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Price1</td>
-              <td>Price2</td>
-              <td>Price3</td>
-              <td>Price4</td>
-              <td>Price5</td>
+            <tr className="tablerow">
+              <td></td>
+              <td></td>
+              <td className="DayPrice">Price3</td>
+              <td></td>
+              <td></td>
             </tr>
           </tbody>
         </table>
