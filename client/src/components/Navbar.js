@@ -16,7 +16,7 @@ const Navbar = props => {
         <Link to="/" onClick={props.resetTripResults}>
           <img
             className="Logo"
-            height="128px"
+            height="64px"
             src="/GreenLineLogo.png"
             alt="Logo"
           />
@@ -27,7 +27,7 @@ const Navbar = props => {
               className="UserIcon Icon"
               src="/user.svg"
               alt="User"
-              height="64px"
+              height="32px"
             />
             <ul>
               <li>

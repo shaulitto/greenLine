@@ -4,7 +4,8 @@ import ResultList from "./ResultList";
 export default class Results extends Component {
   state = {
     results: [],
-    number: 20
+    number: 20,
+    redPrice: ""
   };
 
   loadNext = () => {
@@ -28,10 +29,16 @@ export default class Results extends Component {
     const sorted = [...mapped].sort((a, b) => {
       return a.legs[0].departure.localeCompare(b.legs[0].departure);
     });
-    // console.log("sorted results here", sorted);
+    console.log("sorted results here", sorted);
+    let arr = [];
+    for (let i = 0; i < sorted.length; i++) {
+      arr.push(sorted[i].normalPrice);
+    }
+    let minPrice = Math.min.apply(null, arr);
 
     this.setState({
-      results: sorted
+      results: sorted,
+      redPrice: minPrice
     });
   }
 
@@ -85,9 +92,11 @@ export default class Results extends Component {
         </div>
         {/* {console.log(this.state.results.length)} */}
         {this.state.results.slice(0, this.state.number).map(el => (
-          <ResultList detail={el} key={el.id} />
+          <ResultList detail={el} key={el.id} redPrice={this.state.redPrice} />
         ))}
-        <button onClick={this.loadNext}>Load More</button>
+        <button className="LoadMoreBtn" onClick={this.loadNext}>
+          Load More
+        </button>
       </div>
     );
   }
