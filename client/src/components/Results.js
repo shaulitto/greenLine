@@ -6,7 +6,8 @@ export default class Results extends Component {
   state = {
     results: [],
     number: 20,
-    redPrice: ""
+    redPrice: "",
+    dayRedPrice: ""
   };
 
   loadNext = () => {
@@ -36,10 +37,11 @@ export default class Results extends Component {
       arr.push(sorted[i].normalPrice);
     }
     let minPrice = Math.min.apply(null, arr);
-
+    this.props.redPrice = minPrice;
     this.setState({
       results: sorted,
-      redPrice: minPrice
+      redPrice: minPrice,
+      dayRedPrice: minPrice
     });
   }
 

@@ -26,7 +26,8 @@ export class SearchForm extends Component {
     resultData: [],
     firstClass: [],
     loaderOn: true,
-    firstSearch: false
+    firstSearch: false,
+    redPriceSF: ""
   };
 
   handleChange = e => {
@@ -267,6 +268,7 @@ export class SearchForm extends Component {
               isLoggedIn={this.props.isLoggedIn}
               resultData={this.state.resultData}
               firstClass={this.state.firstClass}
+              passRedPrice={this.state.redPriceSF}
             />
           ) : (
             <div>

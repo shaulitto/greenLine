@@ -36,7 +36,7 @@ export default class TripDetail extends Component {
       <div>
         {this.state.trip.legs.map((leg, index) => {
           return (
-            <>
+            <React.Fragment key={index}>
               <div>
                 <div className="legContainer">
                   <div className="legdetail">
@@ -93,7 +93,7 @@ export default class TripDetail extends Component {
                   )}`}
                 </p>
               </div>
-            </>
+            </React.Fragment>
           );
         })}
         <a href="https://www.bahn.com/en/view/index.shtml">
