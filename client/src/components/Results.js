@@ -1,10 +1,17 @@
 import React, { Component } from "react";
 import ResultList from "./ResultList";
-import ShowDays from "./ShowDays";
 
 export default class Results extends Component {
   state = {
-    results: []
+    results: [],
+    number: 20,
+    redPrice: ""
+  };
+
+  loadNext = () => {
+    this.setState({
+      number: this.state.number + 20
+    });
   };
 
   componentDidMount() {
@@ -23,13 +30,20 @@ export default class Results extends Component {
       return a.legs[0].departure.localeCompare(b.legs[0].departure);
     });
     console.log("sorted results here", sorted);
+    let arr = [];
+    for (let i = 0; i < sorted.length; i++) {
+      arr.push(sorted[i].normalPrice);
+    }
+    let minPrice = Math.min.apply(null, arr);
+
     this.setState({
-      results: sorted
+      results: sorted,
+      redPrice: minPrice
     });
   }
+
   componentDidUpdate(prevProps, prevState) {
     // console.log(this.props.resultData);
-    // console.log(prevState.results);
     if (prevProps !== this.props) {
       const mapped = this.props.resultData.map((journey, i) => {
         const obj = {};
@@ -71,16 +85,18 @@ export default class Results extends Component {
 
   render() {
     return (
-      <div>
-        <ShowDays />
+      <div className="ResultsPage">
         <div className="Filter">
           <button onClick={this.sortByPrice}>Sort by Price</button>
-          <img height="16px" src="/filter.svg" alt="Filter" />
           <button onClick={this.sortByTime}>Sort by Time</button>
         </div>
-        {this.state.results.map(el => (
-          <ResultList detail={el} key={el.id} />
+        {/* {console.log(this.state.results.length)} */}
+        {this.state.results.slice(0, this.state.number).map(el => (
+          <ResultList detail={el} key={el.id} redPrice={this.state.redPrice} />
         ))}
+        <button className="LoadMoreBtn" onClick={this.loadNext}>
+          Load More
+        </button>
       </div>
     );
   }

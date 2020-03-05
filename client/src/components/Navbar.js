@@ -13,78 +13,71 @@ const Navbar = props => {
   if (props.user) {
     return (
       <nav className="navbar">
-        <img
-          className="Logo"
-          height="128px"
-          src="/GreenLineLogo.png"
-          alt="Logo"
-        />
         <Link to="/" onClick={props.resetTripResults}>
           <img
-            className="HomeIcon Icon"
-            src="/home.svg"
-            alt="Home"
-            height="32px"
+            className="Logo"
+            height="64px"
+            src="/GreenLineLogo.png"
+            alt="Logo"
           />
-          <p>Home</p>
         </Link>
-        <Link to="/user">
-          <img
-            className="HomeIcon Icon"
-            src="/user.svg"
-            alt="User"
-            height="32px"
-          />
-          <p>User</p>
-        </Link>
-        <Link onClick={logout} to="/">
-          <img
-            className="LogoutIcon Icon"
-            src="/logout.svg"
-            alt="Logout"
-            height="32px"
-          />
-          <p>Logout</p>
-        </Link>
+        <ul className="UserDropdown">
+          <li className="User">
+            <img
+              className="UserIcon Icon"
+              src="/user.svg"
+              alt="User"
+              height="32px"
+            />
+            <ul>
+              <li>
+                <Link to="/user">
+                  <p>Trips</p>
+                </Link>
+              </li>
+              <li>
+                <Link onClick={logout} to="/">
+                  <p>Logout</p>
+                </Link>
+              </li>
+            </ul>
+          </li>
+        </ul>
       </nav>
     );
   }
   return (
     <nav className="navbar">
-      <img
-        className="Logo"
-        height="128px"
-        src="/GreenLineLogo.png"
-        alt="Logo"
-      />
-
       <Link className="navbar-home" to="/" onClick={props.resetTripResults}>
         <img
-          className="HomeIcon Icon"
-          src="/home.svg"
-          alt="Home"
-          height="32px"
+          className="Logo"
+          height="64px"
+          src="/GreenLineLogo.png"
+          alt="Logo"
         />
-        <p>Home</p>
       </Link>
-      <Link className="navbar-login" to="/login">
-        <img
-          className="LoginIcon Icon"
-          src="/login.svg"
-          alt="Login"
-          height="32px"
-        />
-        <p>Login</p>
-      </Link>
-      <Link className="navbar-login" to="/signup">
-        <img
-          className="SignupIcon Icon"
-          src="/signup.svg"
-          alt="Signup"
-          height="32px"
-        />
-        <p>Signup</p>
-      </Link>
+      <ul className="UserDropdown">
+        <li className="User">
+          <img
+            className="UserIcon Icon"
+            src="/user.svg"
+            alt="User"
+            height="32px"
+          />
+          <ul>
+            <li>
+              <Link className="navbar-login" to="/login">
+                <p>Login</p>
+              </Link>
+            </li>
+            <li>
+              <Link className="navbar-login" to="/signup">
+                <p>Signup</p>
+              </Link>
+            </li>
+          </ul>
+        </li>
+      </ul>
     </nav>
   );
 };

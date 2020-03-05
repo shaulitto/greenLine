@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import { Route } from "react-router-dom";
 import SearchForm from "./components/SearchForm";
 import UserPage from "./components/UserPage";
+import Footer from "./components/Footer";
 
 class App extends React.Component {
   state = {
@@ -48,7 +49,7 @@ class App extends React.Component {
         <Navbar
           setUser={this.setUser}
           user={this.state.user}
-          //setTripResults={this.setTripResults}
+          // setTripResults={this.setTripResults}
           resetTripResults={this.resetTripResults}
         />
         <div>
@@ -80,6 +81,7 @@ class App extends React.Component {
           )}
         />
         <div className="HomeImage"></div>
+
         <Route
           exact
           path="/"
@@ -105,6 +107,7 @@ class App extends React.Component {
             />
           )}
         /> */}
+        <Footer />
       </div>
     );
   }

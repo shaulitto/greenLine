@@ -2,38 +2,39 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 export default class UserPage extends Component {
-  searchFavorite = e => {
-    e.preventDefault();
+  // searchFavorite = e => {
+  //   e.preventDefault();
 
-    console.log("SEARCHINGGG", e.target);
+  // };
 
-    // return <SearchForm favoriteSearch={this.props.favorites} />;
+  orderedDate = str => {
+    const hour = str.slice(11, 16);
+    const date = new Date(str).toDateString();
+    return `${hour} ${date}`;
   };
 
   render() {
     return (
-      <div>
+      <div className="savedTripContainer">
+        Your saved Connections
         <form onSubmit={this.searchFavorite}>
           {this.props.favorites.map(details => {
             return (
-              <div key={this.props.favorites._id}>
-                {details.origin}
-                {details.destination}
-                {details.date.slice(0, 21)}
-                {/* <Link
-                  to={`/api/price?date=${details.date.slice(0, 16)}&fromId=${
-                    details.originId
-                  }&toId=${details.destinationId}`}
-                > */}
+              <div className="savedTrips" key={this.props.favorites._id}>
+                From <span className="stationName">{details.origin}</span>{" "}
+                &nbsp; to{" "}
+                <span className="stationName">{details.destination}</span>{" "}
+                &nbsp;at: &nbsp;
+                {this.orderedDate(details.date)}
                 <Link
                   to={{
                     pathname: "/",
                     state: {
-                      date: details.date.slice(0, 16),
+                      date: details.date,
                       fromId: details.originId,
                       toId: details.destinationId,
-                      to: details.origin,
-                      from: details.destination
+                      to: details.destination,
+                      from: details.origin
                     }
                   }}
                 >

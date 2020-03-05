@@ -8,9 +8,27 @@ export default class TripDetail extends Component {
   onlyHour = timeString => timeString.slice(11, 16);
 
   convert = (str1, str2) => {
-    let departure = new Date(str1);
-    let arrival = new Date(str2);
-    return new Date(+arrival - +departure).toLocaleTimeString().slice(0, 4);
+
+    let departure = str1.slice(11, 16);
+    let arrival = str2.slice(11, 16);
+    let getMinutes =
+      parseInt(arrival.slice(3, 5)) - parseInt(departure.slice(3, 5));
+    let getHours =
+      parseInt(arrival.slice(0, 2)) - parseInt(departure.slice(0, 2));
+    if (getHours < 0) {
+      getHours += 24;
+    }
+    if (getMinutes < 0) {
+      getMinutes += 60;
+    }
+    if (getHours.toString().length === 1) {
+      getHours = "0" + getHours;
+    }
+    if (getMinutes.toString().length === 1) {
+      getMinutes = "0" + getMinutes;
+    }
+    return `${getHours}:${getMinutes}h`;
+
   };
 
   render() {
@@ -21,16 +39,56 @@ export default class TripDetail extends Component {
         {this.state.trip.legs.map((leg, index) => {
           return (
             <>
-              <p>
-                {this.onlyHour(leg.departure)} {leg.origin.name} Platfrom:
-                {leg.departurePlatform}
-                =>
-                {this.onlyHour(leg.arrival)} {leg.destination.name} Platfrom:
-                {leg.arrivalPlatform}
-                Duration: {this.convert(leg.departure, leg.arrival)} |train:
-                {leg.line.name}|
-                {this.state.trip.legs[index + 1] &&
-                  `Transfer Time:
+              <div>
+                <div className="legContainer">
+                  <div className="legdetail">
+                    <span className="timesdetail">
+                      {this.onlyHour(leg.departure)} &nbsp;
+                    </span>
+                    <span className="stationName">
+                      {leg.origin.name} &nbsp;
+                    </span>{" "}
+                    <span className="PlatformName">
+                      Platfrom: {leg.departurePlatform}
+                    </span>
+                    <br />
+                  </div>
+                  <div className="InfoContainer">
+                    <p className="Duration">
+                      <img height="16px" src="/time.svg" alt="duration" />
+                      {this.convert(leg.departure, leg.arrival)}
+                    </p>
+                    |
+                    <p className="trainproduct">
+                      <img height="16px" src="/train.svg" alt="train" />
+                      {leg.line.name}
+                    </p>
+                  </div>
+                  <div className="legdetail">
+                    <span className="timesdetail">
+                      {this.onlyHour(leg.arrival)} &nbsp;
+                    </span>
+                    <span className="stationName">
+                      {leg.destination.name} &nbsp;
+                    </span>{" "}
+                    <span className="PlatformName">
+                      Platfrom: {leg.arrivalPlatform}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="TransferContainer">
+                {this.state.trip.legs[index + 1] && (
+                  <img
+                    id="transferimg"
+                    height="16px"
+                    src="/transfer.svg"
+                    alt="transfer"
+                  />
+                )}
+                <p className="Transfertime">
+                  {this.state.trip.legs[index + 1] &&
+                    `Transfer:
                   ${this.convert(
                     leg.arrival,
                     this.state.trip.legs[index + 1].departure
@@ -40,7 +98,7 @@ export default class TripDetail extends Component {
           );
         })}
         <a href="https://www.bahn.com/en/view/index.shtml">
-          <button>Book Now</button>
+          <button className="BookButton">Book Now</button>
         </a>
       </div>
     );

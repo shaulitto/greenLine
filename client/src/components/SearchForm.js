@@ -3,6 +3,7 @@ import axios from "axios";
 import Autocomplete from "./Autocomplete";
 import Results from "./Results";
 import { Link } from "react-router-dom";
+import ShowDays from "./ShowDays";
 
 Date.prototype.toDateInputValue = function() {
   var local = new Date(this);
@@ -24,7 +25,9 @@ export class SearchForm extends Component {
     id: "",
     savedJourney: [],
     resultData: [],
-    firstClass: []
+    firstClass: [],
+    loaderOn: true,
+    firstSearch: false
   };
 
   handleChange = e => {
@@ -75,37 +78,41 @@ export class SearchForm extends Component {
         "&toId=" +
         newToId
     );
-    console.log("date format", state.date.slice(0, 16));
+    // console.log("date format", state.date.slice(0, 16));
 
     const firstPrice = axios.get("/api/firstPrice");
     this.setState(
       {
-        resultData: []
+        resultData: [],
+        loaderOn: false,
+        firstSearch: true
       },
       () => {
+        this.props.resultListSetTrue();
         Promise.all([getPrices, firstPrice]).then(([allRes, firstClass]) => {
           console.log(allRes.data.length);
           this.setState(
             {
               resultData: allRes.data,
-              firstClass: firstClass.data
+              firstClass: firstClass.data,
+              loaderOn: true
             },
-            () => {
-              this.props.resultListSetTrue();
-            }
+            () => {}
           );
         });
       }
     );
-    //}
+    // console.log("loading true?", this.state.loading);
   };
 
   handleSubmit = event => {
     event.preventDefault();
     this.searchPrice(this.state);
+    console.log("search is on");
   };
 
   componentDidMount() {
+    // console.log("mounting search form");
     if (this.props.location.state) {
       this.searchPrice(this.props.location.state);
       window.history.pushState(null, "");
@@ -187,12 +194,19 @@ export class SearchForm extends Component {
     });
   };
 
+  showDays = e => {
+    let newSearch = this.state;
+    newSearch.date = e.target.value.slice(0, 16);
+    this.searchPrice(newSearch);
+    window.history.pushState(null, "");
+    console.log("log after", this.state.date);
+  };
+
   render() {
     //console.log("HI", this.props.location.state);
     return (
       <div>
         <div className="Searchform">
-          {/* <form onSubmit={this.handleSubmit}> */}
           <label htmlFor="From"></label>
           <Autocomplete
             placeholder="From:"
@@ -229,11 +243,6 @@ export class SearchForm extends Component {
             onChange={this.handleChange}
           />
           <br />
-          {/* <select>
-            <option value="E">Adults</option>
-            <option value="K">Children</option>
-            <option value="B">Baby</option>
-          </select> */}
           <button
             className="SubmitButton"
             type="submit"
@@ -242,27 +251,38 @@ export class SearchForm extends Component {
             Find Prices
           </button>
           <br />
-          {/* </form> */}
-          {this.props.isLoggedIn ? (
-            <button onClick={this.handleClickSave}>
-              <img height="32px" src="/fav.svg" alt="Favourite" />
-            </button>
-          ) : (
-            <Link id="favlink" to="/Login">
-              Login to save this trip
-            </Link>
-          )}
+          <div className="Favouritebutton">
+            {this.props.isLoggedIn ? (
+              <button onClick={this.handleClickSave}>
+                <img height="32px" src="/fav.svg" alt="Favourite" />
+              </button>
+            ) : (
+              <Link id="favlink" to="/Login">
+                Login to save this trip
+              </Link>
+            )}
+          </div>
         </div>
         <div></div>
         {this.props.resultListRender ? (
-          <Results
-            isLoggedIn={this.props.isLoggedIn}
-            resultData={this.state.resultData}
-            firstClass={this.state.firstClass}
-          />
-        ) : (
-          <div></div>
-        )}
+          this.state.loaderOn ? (
+            <div>
+              <ShowDays showDays={this.showDays} dates={this.state.date} />
+              <Results
+                isLoggedIn={this.props.isLoggedIn}
+                resultData={this.state.resultData}
+                firstClass={this.state.firstClass}
+              />
+            </div>
+          ) : (
+            <div loading>
+              <img
+                src="https://media.giphy.com/media/Pkck2unt0XQfc4gs3R/giphy.gif"
+                alt="loader"
+              />
+            </div>
+          )
+        ) : null}
       </div>
     );
   }

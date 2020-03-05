@@ -2,7 +2,10 @@
         green: #50D890
         greenish: #41A588
         green-blue: #4299BB
-        blackish: 272727 */
+        blackish: 272727 
+        lightgrey: 	#F0F0F0
+        red: #E94596
+        orange: #E15F27
 /* 
 
 
@@ -16,10 +19,33 @@
   font-family: "Raleway", sans-serif;
 }
 
+.HomeImage {
+  background-image: url(/background.jpeg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 100%;
+  height: 80vh;
+}
+
+.Favouritebutton button {
+  background-color: transparent;
+  border-style: none;
+}
+
 @media (min-width: 1281px) {
   /* //CSS here */
   body {
     font-size: 18px;
+  }
+
+  .HomeImage {
+    background-size: cover;
+  }
+  .AutocompleteList {
+    margin: 0 8em;
+  }
+  .DayBtn {
+    display: flex;
   }
 }
 
@@ -33,6 +59,17 @@
   body {
     font-size: 18px;
   }
+
+  .HomeImage {
+    background-size: cover;
+  }
+  .AutocompleteList {
+    margin: 0 8em;
+  }
+  .DayBtn {
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 /* 
@@ -42,6 +79,11 @@
 
 @media (min-width: 768px) and (max-width: 1024px) {
   /* //CSS here */
+  .HomeImage {
+    width: 100%;
+    height: 25vh;
+    background-size: cover;
+  }
 }
 
 /* 
@@ -54,6 +96,11 @@
   body {
     font-size: 16px;
   }
+  .HomeImage {
+    width: 100%;
+    height: 25vh;
+    background-size: cover;
+  }
 }
 
 /* 
@@ -63,6 +110,11 @@
 
 @media (min-width: 481px) and (max-width: 767px) {
   /* //CSS here */
+  .HomeImage {
+    width: 100%;
+    height: 25vh;
+    background-size: cover;
+  }
 }
 
 /* 
@@ -73,10 +125,18 @@
 @media (min-width: 320px) and (max-width: 480px) {
   /* //CSS here */
   .Logo {
-    height: 64px;
+    height: 32px;
+  }
+  .UserIcon {
+    height: 16px;
   }
   body {
     font-size: 12px;
+  }
+  .HomeImage {
+    width: 100%;
+    height: 25vh;
+    background-size: cover;
   }
 }
 
@@ -106,11 +166,14 @@
 }
 
 .navbar {
+  position: fixed;
+  width: 100%;
+  max-height: 15%;
   display: flex;
   background-color: #41a588;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  padding: 0.2em;
+  padding: 0 0.8em;
 }
 
 .navbar a {
@@ -118,12 +181,51 @@
   color: #effffb;
 }
 
-.HomeImage {
-  background-image: url(/background.jpeg);
-  background-repeat: no-repeat;
-  background-size: cover;
+.UserDropdown {
+  margin-right: 2.5em;
+  list-style: none;
+  display: block;
+  float: left;
+  padding: 1rem;
+  position: relative;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.UserDropdown li ul {
+  visibility: hidden;
+  opacity: 0;
+  min-width: 5rem;
+  position: absolute;
+  transition: all 0.5s ease;
+  margin-top: 1rem;
+  left: 0;
+  display: none;
+  cursor: pointer;
+}
+
+.UserDropdown:hover > .User ul,
+.User ul:hover {
+  visibility: visible;
+  opacity: 1;
+  display: block;
+  background-color: #effffb;
+  cursor: pointer;
+}
+
+.User ul {
+  padding: 0.5em;
+}
+
+.User ul li {
+  list-style: none;
+  color: #272727;
+  clear: both;
   width: 100%;
-  height: 25vh;
+}
+
+.User ul li p {
+  color: #272727;
 }
 
 .Searchform {
@@ -146,6 +248,7 @@
   border-style: none;
   margin: 0.3em;
   padding: 0.3em;
+  cursor: pointer;
 }
 
 .inputDate {
@@ -162,10 +265,11 @@
   background-color: #272727;
   color: #effffb;
   border-radius: 4px;
-  margin: 0.3em;
+  margin: 0.8em;
   padding: 1em;
   width: 80%;
   border-style: none;
+  cursor: pointer;
 }
 
 #favlink {
@@ -176,67 +280,295 @@
 .AutocompleteList {
   list-style-type: none;
   text-align: center;
-  margin: 0 6em;
+  margin: 0 8em;
   background-color: #effffb;
   padding: 0 2em;
   border-radius: 4px;
+  cursor: pointer;
 }
 
 .AutocompleteItem {
   float: center;
 }
 
-.Filter {
-  background-color: #272727;
+.Favouritebutton {
+  padding: 0.8em;
+  cursor: pointer;
 }
 
-.Filter img {
-  padding: 0.2em;
+.ShowDayContainer {
+  background-color: #272727;
+  padding: 0.5em 0.5em;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.DayBtn {
+  text-align: center;
+  color: #272727;
+  background-color: #effffb;
+  border-radius: 2px;
+  cursor: pointer;
+  border-style: none;
+  padding: 1em;
+  margin: 0.1em 0.3em;
+  cursor: pointer;
+}
+
+.DayBtn:hover {
+  background-color: #4299bb;
+}
+
+.DayPrice {
+  border-radius: 2px;
+  background-color: #e15f27;
+  color: #effffb;
+  padding: 0.4em 0;
+}
+
+.Loadingbar {
+  display: flex;
+  justify-content: space-around;
+}
+
+.Filter {
+  background-color: #272727;
+  padding: 0.6em;
 }
 
 .Filter button {
   background-color: #effffb;
   border-radius: 4px;
   border-style: none;
-  padding: 0.3em;
-  margin: 0.2em;
+  padding: 0.4em 0.8em;
+  margin: 0.4em;
 }
 
-/* 
-.navbar-home {
-  background-color: rgb(13, 100, 13);
-  border-radius: 5px;
-  color: #fff;
-  float: left;
-  height: 8px;
-  margin: 15px 20px;
-  padding: 7px 20px 33px 15px;
-  text-transform: uppercase;
-  font-size: 16px;
+.ResultsPage {
+  background-color: #f0f0f0;
 }
-.navbar-login {
-  background-color: rgb(13, 100, 13);
-  border-radius: 5px;
-  color: #fff;
-  float: left;
-  height: 8px;
-  margin-left: 400px;
-  margin-top: 15px;
+
+.ResultsContainer {
+  background-color: #effffb;
+  margin: 1.5em;
+  padding: 0.1em 0;
+}
+
+.Duration,
+.Change,
+.trainproduct {
+  display: inline-block;
+}
+
+.times {
+  color: #50d890;
+  cursor: pointer;
+}
+
+.stationName {
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.PlatformName {
+  cursor: pointer;
+}
+
+.InfoContainer {
   display: flex;
   justify-content: center;
-  padding: 7px 20px 33px 15px;
-  text-transform: uppercase;
-  font-size: 14px;
+  align-items: center;
 }
-.navbar-signup {
-  background-color: rgb(13, 100, 13);
-  border-radius: 5px;
-  color: #fff;
-  float: left;
-  height: 8px;
-  margin-left: 600px;
-  margin-top: 15px;
-  padding: 7px 20px 33px 15px;
+
+.InfoContainer p {
+  margin: 0.2em;
+  cursor: pointer;
+}
+.Duration img {
+  vertical-align: middle;
+}
+
+.Change img {
+  vertical-align: middle;
+}
+
+.trainproduct img {
+  vertical-align: middle;
+}
+
+.trainproduct {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.trainproduct li {
+  display: inline;
+}
+
+.Pricecontainer {
+  padding: 0.3em;
+}
+
+.Price2,
+.Price1 {
+  display: inline-block;
+  background-color: #4299bb;
+  color: #effffb;
+  padding: 0.2em;
+  margin: 1em 2em;
+  border-radius: 2px;
+  width: 20%;
+  cursor: pointer;
+}
+
+.Price2 p,
+.Price1 p {
+  margin: 0.4em;
+}
+
+.legContainer {
+  background-color: #41a588;
+  margin: 0 2em;
+  border-radius: 6px;
+  color: #effffb;
+  padding: 0.4em 0;
+}
+
+.legdetail {
+  margin: 0.6em 0;
+}
+
+.timesdetail {
+  color: #ffffff;
+}
+
+.TransferContainer {
+  display: flex;
+  justify-content: center;
+  background-color: #ffffff;
+  margin: 0 3em;
+}
+
+.TransferContainer img {
+  vertical-align: middle;
+
+}
+
+#transferimg {
+  vertical-align: middle;
+  margin-top: 0.8em;
+}
+
+.BookButton {
+  background-color: #e94596;
+  color: #effffb;
+  border-radius: 4px;
+  margin: 0.8em;
+  padding: 1em;
+  width: 80%;
+  border-style: none;
+  cursor: pointer;
+}
+
+.LoadMoreBtn {
+  background-color: #272727;
+  color: #effffb;
+  border-radius: 4px;
+  margin: 0.8em;
+  padding: 1em;
+  width: 80%;
+  border-style: none;
+  cursor: pointer;
+}
+
+.Footer {
+  background-color: #272727;
+  color: #effffb;
+  width: 100%;
+  height: 2em;
+  padding: 0.8em 0 6em 0;
+}
+
+.Footer a {
+  text-decoration: none;
+  color: #4299bb;
+  cursor: pointer;
+}
+
+.Footer p {
+  padding-top: 0.3em;
+}
+
+.Footer img {
+  vertical-align: middle;
+}
+
+.SubmitForm {
+  padding: 8em 0;
+}
+
+.SubmitForm form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1em;
+  padding: 1em 5em;
+  border-style: none;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.SubmitForm form input {
+  box-sizing: border-box;
+  outline: 0;
+  padding: 0.5em;
+  margin-bottom: 2em;
+  box-sizing: border-box;
+}
+
+.SubmitForm form label {
+  color: #272727;
+  display: inline-block;
+  margin-bottom: 1em;
+  text-align: center;
+  width: 100%;
+}
+
+.SubmitForm form button {
+  background-color: #4299bb;
+  color: #effffb;
+  border-style: none;
+  border-radius: 4px;
+  box-sizing: border-box;
+  cursor: pointer;
+  padding: 1em 4em;
+  text-decoration: none;
   text-transform: uppercase;
-  font-size: 14px;
-} */
+  transition: 0.3s ease;
+}
+
+.error-message {
+  background: #e94596;
+  box-sizing: border-box;
+  color: #fff;
+  margin: 4em auto;
+  padding: 4em;
+  width: 100%;
+}
+
+.savedTripContainer {
+  padding-top: 8em;
+}
+
+.savedTrips {
+  padding: 1em 0;
+  border-style: 4px solid #272727;
+}
+
+.savedTrips button {
+  background-color: #272727;
+  color: #effffb;
+  border-radius: 4px;
+  margin: 0.8em;
+  padding: 1em;
+  border-style: none;
+}
