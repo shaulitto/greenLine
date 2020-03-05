@@ -38,7 +38,7 @@ export default class UserPage extends Component {
                     }
                   }}
                 >
-                  <button>Search</button>
+                  <button>Search again</button>
                 </Link>
               </div>
             );
