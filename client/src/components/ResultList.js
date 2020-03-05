@@ -15,7 +15,6 @@ export class ResultList extends Component {
           showDetail: true
         });
   };
-  // .toString() // .slice(0, 21)}
 
   render() {
     // console.log(this.state.detail);
@@ -46,12 +45,8 @@ export class ResultList extends Component {
 
     return (
       <>
-        <div
-          className="ResultsContainer"
-          key={this.props.detail.id}
-          onClick={this.handleClick}
-        >
-          <div className="stationContainer">
+        <div className="ResultsContainer" key={this.props.detail.id}>
+          <div className="stationContainer" onClick={this.handleClick}>
             <p>
               <span className="times">
                 {this.props.detail.legs[0].departure.slice(11, 16)} &nbsp;
@@ -82,7 +77,7 @@ export class ResultList extends Component {
               </span>
             </p>
           </div>
-          <div className="InfoContainer">
+          <div className="InfoContainer" onClick={this.handleClick}>
             <p className="Duration">
               <img height="16px" src="/time.svg" alt="duration" />
               {convert(str1, str2)}
@@ -100,14 +95,14 @@ export class ResultList extends Component {
               })}
             </ul>
           </div>
-          <div className="Pricecontainer">
+          <div className="Pricecontainer" onClick={this.handleClick}>
             <div className="Price2">
               <p>
                 2nd Class <br />
                 {this.props.detail.normalPrice}0 €
               </p>
             </div>
-            <div className="Price1">
+            <div className="Price1" onClick={this.handleClick}>
               <p>
                 1st Class <br />
                 {this.props.detail.firstClass
@@ -117,7 +112,6 @@ export class ResultList extends Component {
               </p>
             </div>
           </div>
-
           {this.state.showDetail ? (
             <TripDetail selectedTrip={this.props.detail} />
           ) : (
