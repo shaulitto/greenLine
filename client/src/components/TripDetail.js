@@ -8,7 +8,6 @@ export default class TripDetail extends Component {
   onlyHour = timeString => timeString.slice(11, 16);
 
   convert = (str1, str2) => {
-
     let departure = str1.slice(11, 16);
     let arrival = str2.slice(11, 16);
     let getMinutes =
@@ -28,7 +27,6 @@ export default class TripDetail extends Component {
       getMinutes = "0" + getMinutes;
     }
     return `${getHours}:${getMinutes}h`;
-
   };
 
   render() {
@@ -38,7 +36,7 @@ export default class TripDetail extends Component {
       <div>
         {this.state.trip.legs.map((leg, index) => {
           return (
-            <>
+            <React.Fragment key={index}>
               <div>
                 <div className="legContainer">
                   <div className="legdetail">
@@ -93,8 +91,9 @@ export default class TripDetail extends Component {
                     leg.arrival,
                     this.state.trip.legs[index + 1].departure
                   )}`}
-              </p>
-            </>
+                </p>
+              </div>
+            </React.Fragment>
           );
         })}
         <a href="https://www.bahn.com/en/view/index.shtml">
@@ -103,11 +102,4 @@ export default class TripDetail extends Component {
       </div>
     );
   }
-  /* <div>
-{/* this.props.setTripResults.map(details => {
-  return <ResultList details={details} key={details.id} />;
-})}
-</div>
-Shows journey legs ( time, station names between two single connections in a given journey).
-Duration, platform number, train number, transfer time, next connection for each leg */
 }
