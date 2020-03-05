@@ -116,9 +116,8 @@ export class ResultList extends Component {
               <p>
                 1st Class <br />
                 {this.props.detail.firstClass
-                  ? this.props.detail.firstClass
-                  : "not available"}
-                0 €
+                  ? this.props.detail.firstClass + "0 €"
+                  : "n. a."}
               </p>
             </div>
           </div>

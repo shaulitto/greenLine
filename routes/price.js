@@ -31,7 +31,7 @@ let to;
 
 router.get("/price", (req, res) => {
   date = req.query.date;
-  console.log("date format", date);
+  // console.log("date format", date);
   from = req.query.fromId;
   to = req.query.toId;
   if (!parseInt(from) > 0 && !parseInt(to) > 0) {
@@ -88,8 +88,8 @@ router.get("/price", (req, res) => {
         });
       });
   } else if (!parseInt(from) > 0 || !parseInt(to) > 0) {
-    console.log("cities", parseInt(from), to);
-    console.log("types", typeof from, typeof to);
+    // console.log("cities", parseInt(from), to);
+    // console.log("types", typeof from, typeof to);
     var fromArray = [];
     var toArray = [];
     if (isNaN(from) === false) {
@@ -126,7 +126,6 @@ router.get("/price", (req, res) => {
         var outputTo = toArray.map(el => {
           return el.id;
         });
-        console.log("arraz of ids here", fromArray, toArray);
         return [outputFrom, outputTo];
       })
       .then(res => {

@@ -269,8 +269,11 @@ export class SearchForm extends Component {
               firstClass={this.state.firstClass}
             />
           ) : (
-            <div>
-              <img src="https://i.gifer.com/64j3.gif" alt="loader" />
+            <div className="Loadingbar">
+              <img
+                src="https://media.giphy.com/media/Pkck2unt0XQfc4gs3R/giphy.gif"
+                alt="loader"
+              />
             </div>
           )
         ) : null}
