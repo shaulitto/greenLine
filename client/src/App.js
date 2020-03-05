@@ -48,7 +48,7 @@ class App extends React.Component {
         <Navbar
           setUser={this.setUser}
           user={this.state.user}
-          //setTripResults={this.setTripResults}
+          // setTripResults={this.setTripResults}
           resetTripResults={this.resetTripResults}
         />
         <div>
@@ -80,6 +80,7 @@ class App extends React.Component {
           )}
         />
         <div className="HomeImage"></div>
+
         <Route
           exact
           path="/"

@@ -2,7 +2,9 @@
         green: #50D890
         greenish: #41A588
         green-blue: #4299BB
-        blackish: 272727 */
+        blackish: 272727 
+        lightgrey: 	#F0F0F0
+        red: #E94596
 /* 
 
 
@@ -16,10 +18,30 @@
   font-family: "Raleway", sans-serif;
 }
 
+.HomeImage {
+  background-image: url(/background.jpeg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 100%;
+  height: 80vh;
+}
+
+.Favouritebutton button {
+  background-color: transparent;
+  border-style: none;
+}
+
 @media (min-width: 1281px) {
   /* //CSS here */
   body {
     font-size: 18px;
+  }
+
+  .HomeImage {
+    background-size: cover;
+  }
+  .AutocompleteList {
+    margin: 0 8em;
   }
 }
 
@@ -33,6 +55,13 @@
   body {
     font-size: 18px;
   }
+
+  .HomeImage {
+    background-size: cover;
+  }
+  .AutocompleteList {
+    margin: 0 8em;
+  }
 }
 
 /* 
@@ -42,6 +71,11 @@
 
 @media (min-width: 768px) and (max-width: 1024px) {
   /* //CSS here */
+  .HomeImage {
+    width: 100%;
+    height: 25vh;
+    background-size: cover;
+  }
 }
 
 /* 
@@ -54,6 +88,11 @@
   body {
     font-size: 16px;
   }
+  .HomeImage {
+    width: 100%;
+    height: 25vh;
+    background-size: cover;
+  }
 }
 
 /* 
@@ -63,6 +102,11 @@
 
 @media (min-width: 481px) and (max-width: 767px) {
   /* //CSS here */
+  .HomeImage {
+    width: 100%;
+    height: 25vh;
+    background-size: cover;
+  }
 }
 
 /* 
@@ -75,8 +119,16 @@
   .Logo {
     height: 64px;
   }
+  .UserIcon {
+    height: 32px;
+  }
   body {
     font-size: 12px;
+  }
+  .HomeImage {
+    width: 100%;
+    height: 25vh;
+    background-size: cover;
   }
 }
 
@@ -108,9 +160,9 @@
 .navbar {
   display: flex;
   background-color: #41a588;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  padding: 0.2em;
+  padding: 0.2em 0.8em;
 }
 
 .navbar a {
@@ -118,12 +170,47 @@
   color: #effffb;
 }
 
-.HomeImage {
-  background-image: url(/background.jpeg);
-  background-repeat: no-repeat;
-  background-size: cover;
+.UserDropdown {
+  list-style: none;
+  display: block;
+  float: left;
+  padding: 1rem;
+  position: relative;
+  text-decoration: none;
+}
+
+.UserDropdown li ul {
+  visibility: hidden;
+  opacity: 0;
+  min-width: 5rem;
+  position: absolute;
+  transition: all 0.5s ease;
+  margin-top: 1rem;
+  left: 0;
+  display: none;
+}
+
+.UserDropdown:hover > .User ul,
+.User ul:hover {
+  visibility: visible;
+  opacity: 1;
+  display: block;
+  background-color: #effffb;
+}
+
+.User ul {
+  padding: 0.5em;
+}
+
+.User ul li {
+  list-style: none;
+  color: #272727;
+  clear: both;
   width: 100%;
-  height: 25vh;
+}
+
+.User ul li p {
+  color: #272727;
 }
 
 .Searchform {
@@ -162,7 +249,7 @@
   background-color: #272727;
   color: #effffb;
   border-radius: 4px;
-  margin: 0.3em;
+  margin: 0.8em;
   padding: 1em;
   width: 80%;
   border-style: none;
@@ -176,7 +263,7 @@
 .AutocompleteList {
   list-style-type: none;
   text-align: center;
-  margin: 0 6em;
+  margin: 0 8em;
   background-color: #effffb;
   padding: 0 2em;
   border-radius: 4px;
@@ -186,26 +273,30 @@
   float: center;
 }
 
-.Filter {
-  background-color: #272727;
+.Favouritebutton {
+  padding: 0.8em;
 }
 
-.Filter img {
-  padding: 0.2em;
+.Filter {
+  background-color: #272727;
+  padding: 0.6em;
 }
 
 .Filter button {
   background-color: #effffb;
   border-radius: 4px;
   border-style: none;
-  padding: 0.3em;
-  margin: 0.2em;
+  padding: 0.4em 0.8em;
+  margin: 0.4em;
+}
+
+.ResultsPage {
+  background-color: #f0f0f0;
 }
 
 .ResultsContainer {
   background-color: #effffb;
-  border-radius: 2px;
-  margin: 2em;
+  margin: 1.5em;
   padding: 0.1em 0;
 }
 
@@ -263,7 +354,7 @@
   background-color: #4299bb;
   color: #effffb;
   padding: 0.2em;
-  margin: 0.1em 2em;
+  margin: 1em 2em;
   border-radius: 2px;
   width: 20%;
 }
@@ -276,13 +367,18 @@
 .legContainer {
   background-color: #41a588;
   opacity: 0.99;
-  margin: 0.2em 2em;
+  margin: 0 2em;
   border-radius: 6px;
   color: #effffb;
   padding: 0.4em 0;
 }
 
 .legdetail {
+  margin: 0.6em 0;
+}
+
+.timesdetail {
+  color: #ffffff;
 }
 
 .TransferContainer {
@@ -290,6 +386,25 @@
   justify-content: center;
   background-color: #ffffff;
   margin: 0 3em;
+}
+
+.TransferContainer img {
+  vertical-align: middle;
+}
+
+#transferimg {
+  vertical-align: middle;
+  margin-top: 0.8em;
+}
+
+.BookButton {
+  background-color: #e94596;
+  color: #effffb;
+  border-radius: 4px;
+  margin: 0.8em;
+  padding: 1em;
+  width: 80%;
+  border-style: none;
 }
 
 /* 

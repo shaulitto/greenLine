@@ -25,12 +25,13 @@ export class SearchForm extends Component {
     id: "",
     savedJourney: [],
     resultData: [],
-    firstClass: []
+    firstClass: [],
+    loaderOn: true,
+    firstSearch: false
   };
 
   handleChange = e => {
     const date = e.target.value;
-    // console.log(date);
     this.setState({
       date: date
     });
@@ -47,27 +48,6 @@ export class SearchForm extends Component {
     let newToId = state.toId;
     //let date;
     if (!newToId) newToId = state.to;
-    // date = new Date("2020-03-14T17:07:06");
-    // const copy = new Date(Number(date));
-    // copy.setDate(date.getDate() - 10);
-    // console.log(copy);
-    // for (let i = 0; i < 4; i++) {
-    //   switch (i) {
-    //     case 0:
-    //       date = state.date.slice(8, 10);
-    //     case 1:
-    //     //Statements executed when the
-    //     //result of expression matches value2
-
-    //     case 2:
-    //     //Statements executed when the
-    //     //result of expression matches valueN
-
-    //     default:
-    //     //Statements executed when none of
-    //     //the values match the value of the expression
-    //   }
-    // }
     const getPrices = axios.get(
       "/api/price?date=" +
         state.date.slice(0, 16) +
@@ -76,29 +56,28 @@ export class SearchForm extends Component {
         "&toId=" +
         newToId
     );
-    console.log("date format", state.date.slice(0, 16));
-
     const firstPrice = axios.get("/api/firstPrice");
     this.setState(
       {
-        resultData: []
+        resultData: [],
+        loaderOn: false,
+        firstSearch: true
       },
       () => {
+        this.props.resultListSetTrue();
         Promise.all([getPrices, firstPrice]).then(([allRes, firstClass]) => {
-          console.log(allRes.data.length);
+          console.log("RESULTSSSSS", allRes.data);
           this.setState(
             {
               resultData: allRes.data,
-              firstClass: firstClass.data
+              firstClass: firstClass.data,
+              loaderOn: true
             },
-            () => {
-              this.props.resultListSetTrue();
-            }
+            () => {}
           );
         });
       }
     );
-    //}
   };
 
   handleSubmit = event => {
@@ -108,7 +87,6 @@ export class SearchForm extends Component {
 
   componentDidMount() {
     if (this.props.location.state) {
-      console.log("coming from user", this.props.location.state);
       this.setState({
         from: this.props.location.state.from,
         to: this.props.location.state.to,
@@ -116,7 +94,6 @@ export class SearchForm extends Component {
         toId: this.props.location.state.toId,
         date: this.props.location.state.date
       });
-      console.log("date in component did mount", this.state.date);
       this.searchPrice(this.props.location.state);
       window.history.pushState(null, "");
     }
@@ -184,7 +161,6 @@ export class SearchForm extends Component {
           savedJourney: response.data
         });
         this.props.setFavorites(this.state.savedJourney);
-        console.log("journey detail in searchform:", this.state.savedJourney);
       });
   };
 
@@ -197,8 +173,18 @@ export class SearchForm extends Component {
     });
   };
 
+  showDays = e => {
+    /* this.setState({
+      date: e.target.value.slice(0, 16)
+    }); */
+    let newSearch = this.state;
+    newSearch.date = e.target.value.slice(0, 16);
+    this.searchPrice(newSearch);
+    window.history.pushState(null, "");
+    console.log("log after", this.state.date);
+  };
+
   render() {
-    //console.log("HI", this.props.location.state);
     return (
       <div>
         <div className="Searchform">
@@ -252,22 +238,23 @@ export class SearchForm extends Component {
             Find Prices
           </button>
           <br />
-          {/* </form> */}
-          {this.props.isLoggedIn ? (
-            <button onClick={this.handleClickSave}>
-              <img height="32px" src="/fav.svg" alt="Favourite" />
-            </button>
-          ) : (
-            <Link id="favlink" to="/Login">
-              Login to save this trip
-            </Link>
-          )}
+          <div className="Favouritebutton">
+            {this.props.isLoggedIn ? (
+              <button onClick={this.handleClickSave}>
+                <img height="32px" src="/fav.svg" alt="Favourite" />
+              </button>
+            ) : (
+              <Link id="favlink" to="/Login">
+                Login to save this trip
+              </Link>
+            )}
+          </div>
         </div>
         <div></div>
 
         {this.props.resultListRender ? (
           <div>
-            <ShowDays dates={this.state.date} />
+            <ShowDays showDays={this.showDays} dates={this.state.date} />
             <Results
               isLoggedIn={this.props.isLoggedIn}
               resultData={this.state.resultData}
