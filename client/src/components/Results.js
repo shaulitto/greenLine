@@ -89,7 +89,9 @@ export default class Results extends Component {
         {this.state.results.slice(0, this.state.number).map(el => (
           <ResultList detail={el} key={el.id} />
         ))}
-        <button onClick={this.loadNext}>Load More</button>
+        <button className="LoadMoreBtn" onClick={this.loadNext}>
+          Load More
+        </button>
       </div>
     );
   }

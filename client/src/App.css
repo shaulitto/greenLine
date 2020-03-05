@@ -5,6 +5,7 @@
         blackish: 272727 
         lightgrey: 	#F0F0F0
         red: #E94596
+        orange: #E15F27
 /* 
 
 
@@ -117,10 +118,10 @@
 @media (min-width: 320px) and (max-width: 480px) {
   /* //CSS here */
   .Logo {
-    height: 64px;
+    height: 32px;
   }
   .UserIcon {
-    height: 32px;
+    height: 16px;
   }
   body {
     font-size: 12px;
@@ -158,11 +159,14 @@
 }
 
 .navbar {
+  position: fixed;
+  width: 100%;
+  max-height: 15%;
   display: flex;
   background-color: #41a588;
   justify-content: space-between;
   align-items: center;
-  padding: 0.2em 0.8em;
+  padding: 0 0.8em;
 }
 
 .navbar a {
@@ -171,6 +175,7 @@
 }
 
 .UserDropdown {
+  margin-right: 2.5em;
   list-style: none;
   display: block;
   float: left;
@@ -277,6 +282,11 @@
   padding: 0.8em;
 }
 
+.Loadingbar {
+  display: flex;
+  justify-content: space-around;
+}
+
 .Filter {
   background-color: #272727;
   padding: 0.6em;
@@ -366,7 +376,6 @@
 
 .legContainer {
   background-color: #41a588;
-  opacity: 0.99;
   margin: 0 2em;
   border-radius: 6px;
   color: #effffb;
@@ -407,41 +416,33 @@
   border-style: none;
 }
 
-/* 
-.navbar-home {
-  background-color: rgb(13, 100, 13);
-  border-radius: 5px;
-  color: #fff;
-  float: left;
-  height: 8px;
-  margin: 15px 20px;
-  padding: 7px 20px 33px 15px;
-  text-transform: uppercase;
-  font-size: 16px;
+.LoadMoreBtn {
+  background-color: #272727;
+  color: #effffb;
+  border-radius: 4px;
+  margin: 0.8em;
+  padding: 1em;
+  width: 80%;
+  border-style: none;
 }
-.navbar-login {
-  background-color: rgb(13, 100, 13);
-  border-radius: 5px;
-  color: #fff;
-  float: left;
-  height: 8px;
-  margin-left: 400px;
-  margin-top: 15px;
-  display: flex;
-  justify-content: center;
-  padding: 7px 20px 33px 15px;
-  text-transform: uppercase;
-  font-size: 14px;
+
+.Footer {
+  background-color: #272727;
+  color: #effffb;
+  width: 100%;
+  height: 2em;
+  padding: 0.8em 0 6em 0;
 }
-.navbar-signup {
-  background-color: rgb(13, 100, 13);
-  border-radius: 5px;
-  color: #fff;
-  float: left;
-  height: 8px;
-  margin-left: 600px;
-  margin-top: 15px;
-  padding: 7px 20px 33px 15px;
-  text-transform: uppercase;
-  font-size: 14px;
-} */
+
+.Footer a {
+  text-decoration: none;
+  color: #4299bb;
+}
+
+.Footer p {
+  padding-top: 0.3em;
+}
+
+.Footer img {
+  vertical-align: middle;
+}
