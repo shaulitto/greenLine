@@ -10,7 +10,6 @@ export default class Results extends Component {
   };
 
   render() {
-    //console.log(this.state.date);
     return (
       <div>
         <table>

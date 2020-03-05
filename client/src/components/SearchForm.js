@@ -193,12 +193,20 @@ export class SearchForm extends Component {
     });
   };
 
+
+  showDays = e => {
+    let newSearch = this.state;
+    newSearch.date = e.target.value.slice(0, 16);
+    this.searchPrice(newSearch);
+    window.history.pushState(null, "");
+    console.log("log after", this.state.date);
+  };
+
   render() {
     //console.log("HI", this.props.location.state);
     return (
       <div>
         <div className="Searchform">
-          {/* <form onSubmit={this.handleSubmit}> */}
           <label htmlFor="From"></label>
           <Autocomplete
             placeholder="From:"
@@ -235,11 +243,6 @@ export class SearchForm extends Component {
             onChange={this.handleChange}
           />
           <br />
-          {/* <select>
-            <option value="E">Adults</option>
-            <option value="K">Children</option>
-            <option value="B">Baby</option>
-          </select> */}
           <button
             className="SubmitButton"
             type="submit"
@@ -263,11 +266,14 @@ export class SearchForm extends Component {
         <div></div>
         {this.props.resultListRender ? (
           this.state.loaderOn ? (
-            <Results
-              isLoggedIn={this.props.isLoggedIn}
-              resultData={this.state.resultData}
-              firstClass={this.state.firstClass}
-            />
+            <div>
+              <ShowDays showDays={this.showDays} dates={this.state.date} />
+              <Results
+                isLoggedIn={this.props.isLoggedIn}
+                resultData={this.state.resultData}
+                firstClass={this.state.firstClass}
+              />
+            </div>
           ) : (
             <div loading>
               <img
