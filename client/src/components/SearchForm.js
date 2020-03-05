@@ -24,7 +24,9 @@ export class SearchForm extends Component {
     id: "",
     savedJourney: [],
     resultData: [],
-    firstClass: []
+    firstClass: [],
+    loaderOn: true,
+    firstSearch: false
   };
 
   handleChange = e => {
@@ -75,37 +77,41 @@ export class SearchForm extends Component {
         "&toId=" +
         newToId
     );
-    console.log("date format", state.date.slice(0, 16));
+    // console.log("date format", state.date.slice(0, 16));
 
     const firstPrice = axios.get("/api/firstPrice");
     this.setState(
       {
-        resultData: []
+        resultData: [],
+        loaderOn: false,
+        firstSearch: true
       },
       () => {
+        this.props.resultListSetTrue();
         Promise.all([getPrices, firstPrice]).then(([allRes, firstClass]) => {
           console.log(allRes.data.length);
           this.setState(
             {
               resultData: allRes.data,
-              firstClass: firstClass.data
+              firstClass: firstClass.data,
+              loaderOn: true
             },
-            () => {
-              this.props.resultListSetTrue();
-            }
+            () => {}
           );
         });
       }
     );
-    //}
+    // console.log("loading true?", this.state.loading);
   };
 
   handleSubmit = event => {
     event.preventDefault();
     this.searchPrice(this.state);
+    console.log("search is on");
   };
 
   componentDidMount() {
+    // console.log("mounting search form");
     if (this.props.location.state) {
       this.searchPrice(this.props.location.state);
       window.history.pushState(null, "");
@@ -255,14 +261,18 @@ export class SearchForm extends Component {
         </div>
         <div></div>
         {this.props.resultListRender ? (
-          <Results
-            isLoggedIn={this.props.isLoggedIn}
-            resultData={this.state.resultData}
-            firstClass={this.state.firstClass}
-          />
-        ) : (
-          <div></div>
-        )}
+          this.state.loaderOn ? (
+            <Results
+              isLoggedIn={this.props.isLoggedIn}
+              resultData={this.state.resultData}
+              firstClass={this.state.firstClass}
+            />
+          ) : (
+            <div>
+              <img src="https://i.gifer.com/64j3.gif" alt="loader" />
+            </div>
+          )
+        ) : null}
       </div>
     );
   }
