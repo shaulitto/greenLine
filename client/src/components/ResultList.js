@@ -121,6 +121,7 @@ export class ResultList extends Component {
               </p>
             </div>
           </div>
+
           {this.state.showDetail ? (
             <TripDetail selectedTrip={this.props.detail} />
           ) : (

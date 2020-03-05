@@ -8,6 +8,7 @@ export default class TripDetail extends Component {
   onlyHour = timeString => timeString.slice(11, 16);
 
   convert = (str1, str2) => {
+
     let departure = str1.slice(11, 16);
     let arrival = str2.slice(11, 16);
     let getMinutes =
@@ -27,6 +28,7 @@ export default class TripDetail extends Component {
       getMinutes = "0" + getMinutes;
     }
     return `${getHours}:${getMinutes}h`;
+
   };
 
   render() {
@@ -91,8 +93,7 @@ export default class TripDetail extends Component {
                     leg.arrival,
                     this.state.trip.legs[index + 1].departure
                   )}`}
-                </p>
-              </div>
+              </p>
             </>
           );
         })}
