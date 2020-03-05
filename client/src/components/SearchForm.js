@@ -24,7 +24,8 @@ export class SearchForm extends Component {
     id: "",
     savedJourney: [],
     resultData: [],
-    firstClass: []
+    firstClass: [],
+    loading: false
   };
 
   handleChange = e => {
@@ -75,7 +76,7 @@ export class SearchForm extends Component {
         "&toId=" +
         newToId
     );
-    console.log("date format", state.date.slice(0, 16));
+    // console.log("date format", state.date.slice(0, 16));
 
     const firstPrice = axios.get("/api/firstPrice");
     this.setState(
@@ -88,7 +89,8 @@ export class SearchForm extends Component {
           this.setState(
             {
               resultData: allRes.data,
-              firstClass: firstClass.data
+              firstClass: firstClass.data,
+              loading: true
             },
             () => {
               this.props.resultListSetTrue();
@@ -97,7 +99,7 @@ export class SearchForm extends Component {
         });
       }
     );
-    //}
+    console.log("loading true?", this.state.loading);
   };
 
   handleSubmit = event => {
@@ -106,6 +108,7 @@ export class SearchForm extends Component {
   };
 
   componentDidMount() {
+    // console.log("mounting search form");
     if (this.props.location.state) {
       this.searchPrice(this.props.location.state);
       window.history.pushState(null, "");

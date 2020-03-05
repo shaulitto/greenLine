@@ -8,6 +8,7 @@ export default class Results extends Component {
   };
 
   componentDidMount() {
+    // console.log("should be false now", this.state.loader);
     const mapped = this.props.resultData.map((journey, i) => {
       const obj = {};
       obj.origin = journey.origin;
@@ -27,9 +28,9 @@ export default class Results extends Component {
       results: sorted
     });
   }
+
   componentDidUpdate(prevProps, prevState) {
     // console.log(this.props.resultData);
-    // console.log(prevState.results);
     if (prevProps !== this.props) {
       const mapped = this.props.resultData.map((journey, i) => {
         const obj = {};
