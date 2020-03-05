@@ -25,7 +25,8 @@ export class SearchForm extends Component {
     savedJourney: [],
     resultData: [],
     firstClass: [],
-    loading: false
+    loaderOn: true,
+    firstSearch: false
   };
 
   handleChange = e => {
@@ -81,30 +82,32 @@ export class SearchForm extends Component {
     const firstPrice = axios.get("/api/firstPrice");
     this.setState(
       {
-        resultData: []
+        resultData: [],
+        loaderOn: false,
+        firstSearch: true
       },
       () => {
+        this.props.resultListSetTrue();
         Promise.all([getPrices, firstPrice]).then(([allRes, firstClass]) => {
           console.log(allRes.data.length);
           this.setState(
             {
               resultData: allRes.data,
               firstClass: firstClass.data,
-              loading: true
+              loaderOn: true
             },
-            () => {
-              this.props.resultListSetTrue();
-            }
+            () => {}
           );
         });
       }
     );
-    console.log("loading true?", this.state.loading);
+    // console.log("loading true?", this.state.loading);
   };
 
   handleSubmit = event => {
     event.preventDefault();
     this.searchPrice(this.state);
+    console.log("search is on");
   };
 
   componentDidMount() {
@@ -258,14 +261,18 @@ export class SearchForm extends Component {
         </div>
         <div></div>
         {this.props.resultListRender ? (
-          <Results
-            isLoggedIn={this.props.isLoggedIn}
-            resultData={this.state.resultData}
-            firstClass={this.state.firstClass}
-          />
-        ) : (
-          <div></div>
-        )}
+          this.state.loaderOn ? (
+            <Results
+              isLoggedIn={this.props.isLoggedIn}
+              resultData={this.state.resultData}
+              firstClass={this.state.firstClass}
+            />
+          ) : (
+            <div>
+              <img src="https://i.gifer.com/64j3.gif" alt="loader" />
+            </div>
+          )
+        ) : null}
       </div>
     );
   }

@@ -4,11 +4,17 @@ import ShowDays from "./ShowDays";
 
 export default class Results extends Component {
   state = {
-    results: []
+    results: [],
+    number: 20
+  };
+
+  loadNext = () => {
+    this.setState({
+      number: this.state.number + 20
+    });
   };
 
   componentDidMount() {
-    // console.log("should be false now", this.state.loader);
     const mapped = this.props.resultData.map((journey, i) => {
       const obj = {};
       obj.origin = journey.origin;
@@ -23,7 +29,8 @@ export default class Results extends Component {
     const sorted = [...mapped].sort((a, b) => {
       return a.legs[0].departure.localeCompare(b.legs[0].departure);
     });
-    console.log("sorted results here", sorted);
+    // console.log("sorted results here", sorted);
+
     this.setState({
       results: sorted
     });
@@ -79,9 +86,11 @@ export default class Results extends Component {
           <img height="16px" src="/filter.svg" alt="Filter" />
           <button onClick={this.sortByTime}>Sort by Time</button>
         </div>
-        {this.state.results.map(el => (
+        {/* {console.log(this.state.results.length)} */}
+        {this.state.results.slice(0, this.state.number).map(el => (
           <ResultList detail={el} key={el.id} />
         ))}
+        <button onClick={this.loadNext}>Load More</button>
       </div>
     );
   }
