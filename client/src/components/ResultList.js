@@ -96,12 +96,22 @@ export class ResultList extends Component {
             </ul>
           </div>
           <div className="Pricecontainer" onClick={this.handleClick}>
-            <div className="Price2">
-              <p>
-                2nd Class <br />
-                {this.props.detail.normalPrice}0 €
-              </p>
-            </div>
+            {this.props.redPrice === this.props.detail.normalPrice ? (
+              <div className="Price2" style={{ backgroundColor: "#E15F27" }}>
+                <p>
+                  2nd Class <br />
+                  {this.props.detail.normalPrice}0 €
+                </p>
+              </div>
+            ) : (
+              <div className="Price2">
+                <p>
+                  2nd Class <br />
+                  {this.props.detail.normalPrice}0 €
+                </p>
+              </div>
+            )}
+
             <div className="Price1" onClick={this.handleClick}>
               <p>
                 1st Class <br />
