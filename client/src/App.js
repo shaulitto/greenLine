@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import { Route } from "react-router-dom";
 import SearchForm from "./components/SearchForm";
 import UserPage from "./components/UserPage";
+import Footer from "./components/Footer";
 
 class App extends React.Component {
   state = {
@@ -106,6 +107,7 @@ class App extends React.Component {
             />
           )}
         /> */}
+        <Footer />
       </div>
     );
   }

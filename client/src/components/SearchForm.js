@@ -253,6 +253,7 @@ export class SearchForm extends Component {
         <div></div>
 
         {this.props.resultListRender ? (
+          this.state.loaderOn ? (
           <div>
             <ShowDays showDays={this.showDays} dates={this.state.date} />
             <Results
@@ -264,6 +265,16 @@ export class SearchForm extends Component {
         ) : (
           <div></div>
         )}
+
+          ) : (
+            <div className="Loadingbar">
+              <img
+                src="https://media.giphy.com/media/Pkck2unt0XQfc4gs3R/giphy.gif"
+                alt="loader"
+              />
+            </div>
+          )
+        ) : null}
       </div>
     );
   }
