@@ -78,15 +78,6 @@ export default class Results extends Component {
               </th>
             </tr>
           </thead>
-          <tbody>
-            <tr className="tablerow">
-              <td></td>
-              <td></td>
-              <td className="DayPrice">Price3</td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tbody>
         </table>
       </div>
     );
